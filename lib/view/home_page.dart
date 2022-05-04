@@ -1,8 +1,11 @@
 import 'package:almoxarifado/util/routes.dart';
 import 'package:almoxarifado/widgets/default_app_bar.dart';
-import 'package:almoxarifado/widgets/default_drawer.dart';
 import 'package:almoxarifado/widgets/default_dropdown.dart';
+import 'package:almoxarifado/widgets/default_user_drawer.dart';
+import 'package:almoxarifado/widgets/menu_itens.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/menu.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({ Key? key }) : super(key: key);
@@ -13,13 +16,6 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
 
-  List pages = [
-    {
-      'children': null,
-      'text': 'Fornecedores',
-      'pageName': Routes.fornecedores,
-    }
-  ];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -123,32 +119,7 @@ class _HomePageViewState extends State<HomePageView> {
           ),
         ),
       ),
-      endDrawer: DefaultDrawer(
-        pages: pages,
-        footer: ElevatedButton(
-          style: ButtonStyle(
-            elevation: MaterialStateProperty.all(0),
-            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-            minimumSize: MaterialStateProperty.all(const Size(double.infinity, 70)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                child: const Icon(Icons.logout, color: Colors.white),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text(
-                  'Logout', 
-                  //style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-          onPressed: () => Navigator.pushReplacementNamed(context, Routes.login),
-        ),
-      ),
+      endDrawer: const DefaultUserDrawer(),
     );
   }
 }

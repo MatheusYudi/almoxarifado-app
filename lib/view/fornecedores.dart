@@ -1,6 +1,6 @@
+import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
-import '../util/routes.dart';
 import '../widgets/data_grid.dart';
 import '../widgets/default_app_bar.dart';
 import '../widgets/menu.dart';
@@ -14,15 +14,6 @@ class Fornecedores extends StatefulWidget {
 }
 
 class _FornecedoresState extends State<Fornecedores> {
-
-  List pages = [
-    {
-      'children': null,
-      'text': 'Fornecedores',
-      'pageName': Routes.fornecedores,
-    }
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,9 +149,7 @@ class _FornecedoresState extends State<Fornecedores> {
           ),
         ),
       ),
-      endDrawer: Menu(
-        pages: MenuItensList.itens,
-      ),
+      endDrawer: const DefaultUserDrawer(),
     );
   }
 }

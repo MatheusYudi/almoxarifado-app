@@ -6,13 +6,13 @@ class MenuItensList
 {
   static List<MenuItem> itens = [
     MenuItem(
-      text: const Text('Home'),
-      icon: Icons.home,
+      text: const Text('Home', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.home, color: Colors.white),
       pageRoute: Routes.homePage,
     ),
     MenuItem(
-      text: const Text('Home'),
-      icon: Icons.home,
+      text: const Text('Fornecedores', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.group_add, color: Colors.white),
       pageRoute: Routes.fornecedores,
     ),
   ];
@@ -20,7 +20,7 @@ class MenuItensList
 
 class MenuItem{
   final Text? text;
-  final IconData? icon; //tipo IconData para ter liberdade de usar o icone outros parametros em qualquer pagina
+  final Icon? icon;
   final String pageRoute;
   final List<MenuItem> children;
 
