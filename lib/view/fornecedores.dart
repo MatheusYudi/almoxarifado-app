@@ -148,7 +148,7 @@ class _FornecedoresState extends State<Fornecedores> {
                     color: Theme.of(context).cardColor,
                   ),
                   child: DataGrid(
-                    headers: TesteData.headers,
+                    headers: const [],
                     data: const [],//TesteData.clientes,
                     width: MediaQuery.of(context).size.width - 20,
                   ),
