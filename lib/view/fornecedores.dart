@@ -1,10 +1,10 @@
-import 'package:almoxarifado/teste_data.dart';
 import 'package:flutter/material.dart';
 
 import '../util/routes.dart';
 import '../widgets/data_grid.dart';
 import '../widgets/default_app_bar.dart';
-import '../widgets/default_drawer.dart';
+import '../widgets/menu.dart';
+import '../widgets/menu_itens.dart';
 
 class Fornecedores extends StatefulWidget {
   const Fornecedores({ Key? key }) : super(key: key);
@@ -158,8 +158,8 @@ class _FornecedoresState extends State<Fornecedores> {
           ),
         ),
       ),
-      endDrawer: DefaultDrawer(
-        pages: pages,
+      endDrawer: Menu(
+        pages: MenuItensList.itens,
       ),
     );
   }
