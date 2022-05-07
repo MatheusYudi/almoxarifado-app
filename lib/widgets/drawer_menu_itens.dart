@@ -4,23 +4,23 @@ import '../util/routes.dart';
 
 class MenuItensList
 {
-  static List<MenuItem> itens = [
-    MenuItem(
+  static List<DraweMenuItem> itens = [
+    DraweMenuItem(
       text: const Text('Home', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.home, color: Colors.white),
       pageRoute: Routes.homePage,
     ),
-    MenuItem(
+    DraweMenuItem(
       text: const Text('Fornecedores', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.group_add, color: Colors.white),
       pageRoute: Routes.fornecedores,
     ),
-    MenuItem(
+    DraweMenuItem(
       text: const Text('Materiais', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.inventory_2, color: Colors.white),
       pageRoute: Routes.materiais,
     ),
-    MenuItem(
+    DraweMenuItem(
       text: const Text('Funcionarios', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.group_add, color: Colors.white),
       pageRoute: Routes.funcionarios,
@@ -28,13 +28,13 @@ class MenuItensList
   ];
 }
 
-class MenuItem{
+class DraweMenuItem{
   final Text? text;
   final Icon? icon;
   final String pageRoute;
-  final List<MenuItem> children;
+  final List<DraweMenuItem> children;
 
-  MenuItem({
+  DraweMenuItem({
     this.text,
     this.icon,
     this.pageRoute = '',

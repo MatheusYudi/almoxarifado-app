@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'menu_itens.dart';
+import 'drawer_menu_itens.dart';
 
 class Menu extends StatelessWidget {
-  Widget menuItemToTile(List<MenuItem> arrayMenu, context)
+  Widget menuItemToTile(List<DraweMenuItem> arrayMenu, context)
   {
     List drawerItens = arrayMenu.map((item) {
       if(item.children.isEmpty)
@@ -43,7 +43,7 @@ class Menu extends StatelessWidget {
     );
   }
 
-  final List<MenuItem> pages;
+  final List<DraweMenuItem> pages;
   final Widget? footer;
 
   final Map _user = {
