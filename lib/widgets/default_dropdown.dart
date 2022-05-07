@@ -12,8 +12,8 @@ class DefaultDropDown extends StatefulWidget {
   final int? maximunItensShown;
   final bool searchable;
   final bool enabled;
-  final Color entryBackgroundColor;
-  final Color itenListBackgroundColor;
+  final Color? entryBackgroundColor;
+  final Color? itenListBackgroundColor;
   final double borderRadius;
   final String? Function(String?)? validator;
 
@@ -26,8 +26,8 @@ class DefaultDropDown extends StatefulWidget {
     this.maximunItensShown,
     this.searchable = false,
     this.enabled = true,
-    this.entryBackgroundColor = Colors.transparent,
-    this.itenListBackgroundColor = Colors.white,
+    this.entryBackgroundColor,
+    this.itenListBackgroundColor,
     this.borderRadius = 10,
     this.validator,
     required this.itens,
@@ -96,7 +96,7 @@ class _DefaultDropDownState extends State<DefaultDropDown> {
                   width: width,                  
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    color: widget.itenListBackgroundColor,//Theme.of(context).canvasColor,
+                    color: widget.itenListBackgroundColor ?? Theme.of(context).cardColor,//Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(widget.borderRadius),
                       bottomRight: Radius.circular(widget.borderRadius),
@@ -158,63 +158,67 @@ class _DefaultDropDownState extends State<DefaultDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.text,
-      child: InkWell(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(widget.borderRadius),
-              topRight: Radius.circular(widget.borderRadius),
-              bottomLeft: Radius.circular(isShowingItens ? 0 : widget.borderRadius),
-              bottomRight: Radius.circular(isShowingItens ? 0 : widget.borderRadius),
+    return Container(
+      padding: const EdgeInsets.all(8),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.text,
+        child: InkWell(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(widget.borderRadius),
+                topRight: Radius.circular(widget.borderRadius),
+                bottomLeft: Radius.circular(isShowingItens ? 0 : widget.borderRadius),
+                bottomRight: Radius.circular(isShowingItens ? 0 : widget.borderRadius),
+              ),              
+              color: widget.entryBackgroundColor ?? Theme.of(context).cardColor,
             ),
-            color: widget.entryBackgroundColor,
-          ),
-          child: TextFormField(
-            readOnly: !widget.searchable,
-            enabled: widget.enabled,
-            key: actionKey,
-            keyboardType: widget.keyboardType,
-            controller: widget.controller,
-            inputFormatters: widget.inputFormatters ?? [],
-            validator: widget.validator,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(10),
-              labelText: widget.labelText,
-              suffixIcon: const Icon(Icons.keyboard_arrow_down),
-            ),
-            onTap: widget.enabled
-            ? (){
-              if(!isShowingItens)
-              {
-                filteredItens = widget.itens;
-                _findPosition();
-                overlay =_createOverlay();
-                Overlay.of(context)!.insert(overlay!);
-                setState(() => isShowingItens = !isShowingItens);
+            child: TextFormField(
+              readOnly: !widget.searchable,
+              enabled: widget.enabled,
+              key: actionKey,
+              keyboardType: widget.keyboardType,
+              controller: widget.controller,
+              inputFormatters: widget.inputFormatters ?? [],
+              validator: widget.validator,              
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(10),
+                labelText: widget.labelText,
+                suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                border: InputBorder.none,
+              ),
+              onTap: widget.enabled
+              ? (){
+                if(!isShowingItens)
+                {
+                  filteredItens = widget.itens;
+                  _findPosition();
+                  overlay =_createOverlay();
+                  Overlay.of(context)!.insert(overlay!);
+                  setState(() => isShowingItens = !isShowingItens);
+                }
               }
-            }
-            : null,
-            onChanged: (data){
-              setState(() {
-                filteredItens = widget.itens.where((element) => element.value.toString().toUpperCase().contains(widget.controller.text.toUpperCase())).toList();
-              });
-            },
+              : null,
+              onChanged: (data){
+                setState(() {
+                  filteredItens = widget.itens.where((element) => element.value.toString().toUpperCase().contains(widget.controller.text.toUpperCase())).toList();
+                });
+              },
+            ),
           ),
-        ),
-        onTap: widget.enabled
-        ? (){
-          if(!isShowingItens)
-          {
-            filteredItens = widget.itens;
-            _findPosition();
-            overlay =_createOverlay();
-            Overlay.of(context)!.insert(overlay!);
-            setState(() => isShowingItens = !isShowingItens);
+          onTap: widget.enabled
+          ? (){
+            if(!isShowingItens)
+            {
+              filteredItens = widget.itens;
+              _findPosition();
+              overlay =_createOverlay();
+              Overlay.of(context)!.insert(overlay!);
+              setState(() => isShowingItens = !isShowingItens);
+            }
           }
-        }
-        : null,
+          : null,
+        ),
       ),
     );
   }

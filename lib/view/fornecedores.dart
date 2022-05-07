@@ -80,7 +80,7 @@ class _FornecedoresState extends State<Fornecedores> {
                               ],
                             ),
                             style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(const Size(120, 50)),
+                              minimumSize: MaterialStateProperty.all(const Size(170, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
                           ),

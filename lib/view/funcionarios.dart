@@ -1,28 +1,28 @@
+import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/data_grid.dart';
 import '../widgets/default_app_bar.dart';
 import '../widgets/default_dropdown.dart';
 import '../widgets/default_text_form_field.dart';
-import '../widgets/default_user_drawer.dart';
 
-class Materiais extends StatefulWidget {
-  const Materiais({ Key? key }) : super(key: key);
+class Funcionarios extends StatefulWidget {
+  const Funcionarios({ Key? key }) : super(key: key);
 
   @override
-  State<Materiais> createState() => _MateriaisState();
+  State<Funcionarios> createState() => _FuncionariosState();
 }
 
-class _MateriaisState extends State<Materiais> {
+class _FuncionariosState extends State<Funcionarios> {
 
-  TextEditingController fornecedor = TextEditingController();
-  TextEditingController grupo = TextEditingController();
+  TextEditingController cpf = TextEditingController();
   TextEditingController nome = TextEditingController();
+  TextEditingController permissao = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Materiais'),
+      appBar: const DefaultAppBar(pageName: 'Gerenciar Funcionarios'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -39,18 +39,17 @@ class _MateriaisState extends State<Materiais> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Flexible(
-                                child: DefaultDropDown(
-                                  controller: fornecedor,
-                                  labelText: 'Fornecedor',
-                                  itens: [],
+                                child: DefaultTextFormField(
+                                  controller: cpf,
+                                  labelText: 'Cpf',
                                 ),
                               ),
                               Flexible(
                                 child: DefaultDropDown(
-                                  controller: grupo,
-                                  labelText: 'Grupo',
+                                  controller: permissao,
+                                  labelText: 'Permissão',
                                   itens: [],
-                                ),
+                                )
                               ),
                             ],
                           ),
@@ -61,16 +60,6 @@ class _MateriaisState extends State<Materiais> {
                                 child: DefaultTextFormField(
                                   controller: nome,
                                   labelText: 'Nome',
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                child: ElevatedButton(
-                                  onPressed: (){},
-                                  child: const Icon(Icons.search),
-                                  style: ButtonStyle(
-                                    minimumSize: MaterialStateProperty.all(const Size(50, 50)),
-                                  ),
                                 ),
                               ),
                             ],
@@ -89,7 +78,7 @@ class _MateriaisState extends State<Materiais> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: const [
                                 Icon(Icons.add_box_outlined, color: Color(0xFF43a047)),
-                                Text('Novo Material', style: TextStyle(color: Color(0xFF43a047)),),
+                                Text('Novo Funcionario', style: TextStyle(color: Color(0xFF43a047)),),
                               ],
                             ),
                             style: ButtonStyle(
@@ -102,19 +91,12 @@ class _MateriaisState extends State<Materiais> {
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton(
                             onPressed: (){},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
-                                Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
-                              ],
-                            ),
+                            child: const Icon(Icons.search),
                             style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(const Size(170, 50)),
-                              backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
+                              minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                             ),
                           ),
-                        ),                        
+                        ),
                       ],
                     ),
                   ],

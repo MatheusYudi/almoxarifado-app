@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Almoxarifado',
-      theme: AppTheme.defaultTheme,
+      theme: AppTheme.defaultTheme,//ThemeData(primarySwatch: Colors.blue),//ThemeData.dark(),
       home: const LoginView(),
       routes: Routes.getRoutes(),
     );

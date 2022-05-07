@@ -33,7 +33,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white70,
+          color: Theme.of(context).cardColor,
         ),
         child: TextFormField(
           controller: widget.controller,
