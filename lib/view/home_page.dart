@@ -1,11 +1,7 @@
-import 'package:almoxarifado/util/routes.dart';
 import 'package:almoxarifado/widgets/default_app_bar.dart';
 import 'package:almoxarifado/widgets/default_dropdown.dart';
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
-import 'package:almoxarifado/widgets/menu_itens.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/menu.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({ Key? key }) : super(key: key);

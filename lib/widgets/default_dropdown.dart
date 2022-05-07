@@ -25,7 +25,7 @@ class DefaultDropDown extends StatefulWidget {
     this.inputFormatters,
     this.maximunItensShown,
     this.searchable = false,
-    this.enabled = false,
+    this.enabled = true,
     this.entryBackgroundColor = Colors.transparent,
     this.itenListBackgroundColor = Colors.white,
     this.borderRadius = 10,

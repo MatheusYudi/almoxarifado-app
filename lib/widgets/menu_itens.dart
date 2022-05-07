@@ -15,6 +15,11 @@ class MenuItensList
       icon: const Icon(Icons.group_add, color: Colors.white),
       pageRoute: Routes.fornecedores,
     ),
+    MenuItem(
+      text: const Text('Materiais', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.inventory_2, color: Colors.white),
+      pageRoute: Routes.materiais,
+    ),
   ];
 }
 
