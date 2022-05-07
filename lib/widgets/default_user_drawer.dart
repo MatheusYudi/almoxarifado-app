@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../util/routes.dart';
 import 'menu.dart';
-import 'menu_itens.dart';
+import 'drawer_menu_itens.dart';
 
 class DefaultUserDrawer extends StatelessWidget {
   const DefaultUserDrawer({ Key? key }) : super(key: key);
