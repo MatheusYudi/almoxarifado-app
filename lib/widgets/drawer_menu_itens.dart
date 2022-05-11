@@ -35,6 +35,11 @@ class MenuItensList
       icon: const Icon(Icons.inventory_2, color: Colors.white),
       pageRoute: Routes.requisicoes,
     ),
+    DraweMenuItem(
+      text: const Text('Grupos', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.inventory_2, color: Colors.white),
+      pageRoute: Routes.grupos,
+    ),
   ];
 }
 

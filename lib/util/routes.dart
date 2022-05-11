@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../view/funcionarios.dart';
+import '../view/grupos.dart';
 import '../view/home_page.dart';
 import '../view/inventario_form.dart';
 import '../view/inventarios.dart';
@@ -18,6 +19,7 @@ class Routes{
   static const String inventarios = '/inventarios';
   static const String inventarioForm = '/inventarioForm';
   static const String requisicoes = '/requisicoes';
+  static const String grupos = '/grupos';
 
   static Map<String, WidgetBuilder> getRoutes(){
     return {
@@ -29,6 +31,7 @@ class Routes{
       inventarios: (context)=> const Inventarios(),
       inventarioForm: (context)=> const InventarioForm(),
       requisicoes: (context)=> const Requisicoes(),
+      grupos: (context)=> const Grupos(),
     };
   }
 
