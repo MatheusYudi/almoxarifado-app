@@ -13,6 +13,7 @@ class DefaultTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final List<TextInputFormatter> inputFormatters;
   final String? Function(String?)? validator;
+  final bool enabled;
 
   const DefaultTextFormField({
     required this.controller,
@@ -25,6 +26,7 @@ class DefaultTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.inputFormatters = const [],
     this.validator,
+    this.enabled = true,
     Key? key
   }) : super(key: key);
 
@@ -50,6 +52,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           readOnly: widget.readOnly,
           inputFormatters: widget.inputFormatters,
           validator: widget.validator,
+          enabled: widget.enabled,
           decoration: InputDecoration(
             labelText: widget.labelText,
             contentPadding: const EdgeInsets.all(10),

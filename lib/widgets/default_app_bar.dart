@@ -14,11 +14,11 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: const Icon(Icons.lightbulb_outline),
       title: Row(
         children: [
+          const Icon(Icons.lightbulb_outline),
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Container(            
               height: 40,
               width: 2,            

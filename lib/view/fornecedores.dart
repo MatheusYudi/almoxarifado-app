@@ -69,27 +69,16 @@ class _FornecedoresState extends State<Fornecedores> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: (){},
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children:  [
-                                Container(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: const Icon(
-                                    Icons.add_box_outlined,
-                                    color: Color(0xFF43a047),
-                                  ),
-                                ),
-                                const Flexible(
-                                  fit: FlexFit.tight,
-                                  child: Text(
-                                    'Cadastrar',
-                                    style: TextStyle(color: Color(0xFF43a047)),
-                                  ),
-                                ),
-                              ],
+                          child: ElevatedButton.icon(
+                            icon: const Icon(
+                              Icons.add_box_outlined,
+                              color: Color(0xFF43a047),
                             ),
+                            label: const Text(
+                              'Cadastrar',
+                              style: TextStyle(color: Color(0xFF43a047)),
+                            ),
+                            onPressed: () {},
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),

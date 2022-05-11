@@ -83,15 +83,10 @@ class _MateriaisState extends State<Materiais> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: (){},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
-                                Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
-                              ],
-                            ),
+                          child: ElevatedButton.icon(
+                            icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
+                            label: const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
+                            onPressed: () {},
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(170, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
@@ -100,34 +95,23 @@ class _MateriaisState extends State<Materiais> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: (){},
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children:  [
-                                Container(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: const Icon(
-                                    Icons.add_box_outlined,
-                                    color: Color(0xFF43a047),
-                                  ),
-                                ),
-                                const Flexible(
-                                  fit: FlexFit.tight,
-                                  child: Text(
-                                    'Cadastrar',
-                                    style: TextStyle(color: Color(0xFF43a047)),
-                                  ),
-                                ),
-                              ],
+                          child: ElevatedButton.icon(
+                            icon: const Icon(
+                              Icons.add_box_outlined,
+                              color: Color(0xFF43a047),
                             ),
+                            label: const Text(
+                              'Cadastrar',
+                              style: TextStyle(color: Color(0xFF43a047)),
+                            ),
+                            onPressed: () {},
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
                           ),
-                        ),                        
+                        ),
                       ],
                     ),
                   ],
