@@ -40,6 +40,11 @@ class MenuItensList
       icon: const Icon(Icons.inventory_2, color: Colors.white),
       pageRoute: Routes.grupos,
     ),
+    DraweMenuItem(
+      text: const Text('Movimentações', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.inventory_2, color: Colors.white),
+      pageRoute: Routes.movimentacoes,
+    ),
   ];
 }
 

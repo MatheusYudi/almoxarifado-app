@@ -85,7 +85,7 @@ class _GruposState extends State<Grupos> {
                     ),
                   ],
                 ),
-                Container(               
+                Container(
                   height: MediaQuery.of(context).size.height * 0.65,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
