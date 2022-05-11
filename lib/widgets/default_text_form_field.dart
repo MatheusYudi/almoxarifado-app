@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DefaultTextFormField extends StatefulWidget {
 
@@ -9,6 +10,9 @@ class DefaultTextFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
   final bool readOnly;
+  final Widget? suffixIcon;
+  final List<TextInputFormatter> inputFormatters;
+  final String? Function(String?)? validator;
 
   const DefaultTextFormField({
     required this.controller,
@@ -18,6 +22,9 @@ class DefaultTextFormField extends StatefulWidget {
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
     this.readOnly = false,
+    this.suffixIcon,
+    this.inputFormatters = const [],
+    this.validator,
     Key? key
   }) : super(key: key);
 
@@ -41,10 +48,13 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           keyboardType: widget.keyboardType,
           textCapitalization: widget.textCapitalization,
           readOnly: widget.readOnly,
+          inputFormatters: widget.inputFormatters,
+          validator: widget.validator,
           decoration: InputDecoration(
             labelText: widget.labelText,
             contentPadding: const EdgeInsets.all(10),
             border: InputBorder.none,
+            suffixIcon: widget.suffixIcon,
           ),
         ),
       ),

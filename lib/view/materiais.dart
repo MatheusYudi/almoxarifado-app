@@ -88,8 +88,8 @@ class _MateriaisState extends State<Materiais> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: const [
-                                Icon(Icons.add_box_outlined, color: Color(0xFF43a047)),
-                                Text('Novo Material', style: TextStyle(color: Color(0xFF43a047)),),
+                                Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
+                                Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
                               ],
                             ),
                             style: ButtonStyle(
@@ -103,14 +103,27 @@ class _MateriaisState extends State<Materiais> {
                           child: ElevatedButton(
                             onPressed: (){},
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
-                                Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
+                              mainAxisSize: MainAxisSize.min,
+                              children:  [
+                                Container(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: const Icon(
+                                    Icons.add_box_outlined,
+                                    color: Color(0xFF43a047),
+                                  ),
+                                ),
+                                const Flexible(
+                                  fit: FlexFit.tight,
+                                  child: Text(
+                                    'Cadastrar',
+                                    style: TextStyle(color: Color(0xFF43a047)),
+                                  ),
+                                ),
                               ],
                             ),
                             style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(const Size(170, 50)),
+                              maximumSize: MaterialStateProperty.all(const Size(130, 50)),
+                              minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
                           ),
