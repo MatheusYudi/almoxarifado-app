@@ -7,6 +7,7 @@ import '../view/inventarios.dart';
 import '../view/login.dart';
 import '../view/fornecedores.dart';
 import '../view/materiais.dart';
+import '../view/requisicoes.dart';
 
 class Routes{
   static const String homePage = '/home_page';
@@ -16,6 +17,7 @@ class Routes{
   static const String funcionarios = '/funcionarios';
   static const String inventarios = '/inventarios';
   static const String inventarioForm = '/inventarioForm';
+  static const String requisicoes = '/requisicoes';
 
   static Map<String, WidgetBuilder> getRoutes(){
     return {
@@ -26,6 +28,7 @@ class Routes{
       funcionarios: (context)=> const Funcionarios(),
       inventarios: (context)=> const Inventarios(),
       inventarioForm: (context)=> const InventarioForm(),
+      requisicoes: (context)=> const Requisicoes(),
     };
   }
 
