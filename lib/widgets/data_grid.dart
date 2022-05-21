@@ -23,19 +23,53 @@ class DataGridHeader{
   });
 }
 
+class DataGridRow{
+  final Color? backgroundColor;
+  final EdgeInsets contentPadding;
+  final void Function()? onDoubleTap;
+  final List<DataGridRowColumn> columns;
+
+  DataGridRow({
+    this.backgroundColor,
+    this.contentPadding = const EdgeInsets.all(8.0),
+    this.onDoubleTap,
+    required this.columns,
+  });
+}
+
+class DataGridRowColumn{
+  final String link;
+  final Widget display;
+  final String textCompareOrder;
+  final Alignment alignment;
+
+  DataGridRowColumn({
+    required this.link,
+    this.display = const Text(''),
+    this.textCompareOrder = '',
+    this.alignment = Alignment.center,
+  });
+}
+
 // ignore: must_be_immutable
 class DataGrid extends StatefulWidget {
   
   final double width;
   final List<DataGridHeader> headers;
-  late List data;
+  late List<DataGridRow> data;
+  final bool infiniteScroll;
+  final Function(int index)? addMoreData;
   
-  DataGrid({
+  DataGrid({Key? key, 
     required this.headers,
     required this.data,
     required this.width,
-    Key? key,
-  }) : super(key: key);
+    this.infiniteScroll = false,
+    this.addMoreData,
+  }) : assert(
+    (infiniteScroll && addMoreData != null)
+    || infiniteScroll == false
+  ), super(key: key);
 
   @override
   _DataGridState createState() => _DataGridState();
@@ -46,7 +80,7 @@ class _DataGridState extends State<DataGrid> {
   direcao orientation = direcao.asc;
   dynamic orderBy;
   Map textControlers = {};
-  late List itens;
+  late List<DataGridRow> itens;
 
   @override
   void initState() {
@@ -63,136 +97,167 @@ class _DataGridState extends State<DataGrid> {
       width: widget.width - 16,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(
+        child: Column(
           children: [
-            Column(
-              children: [
-                Material(
-                  elevation: 10,
-                  child: SizedBox(
-                    height: 50,
-                    width: widget.width - 16,
-                    child: ListView.builder(
-                      physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.headers.length,
-                      itemBuilder: (context, index){
-                        return GestureDetector(
-                          child: Container(
-                            color: index%2 == 0? Colors.grey[200]: Colors.grey[100],
-                            height: 50,
-                            width: (widget.width - 16) * widget.headers[index].displayPercentage/100,
-                            padding: const EdgeInsets.all(8.0),
-                            /*decoration: BoxDecoration(
-                              border: Border.all(),
-                              color: Colors.grey,
-                            ),*/
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: ((widget.width - 16) * widget.headers[index].displayPercentage/100) - 40,
-                                  alignment: widget.headers[index].alignment,
-                                  child: widget.headers[index].enableSearch
-                                  ? TextField(
-                                    controller: textControlers[widget.headers[index].link],
-                                    decoration: InputDecoration(
-                                      labelText: widget.headers[index].title,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: InputBorder.none,
-                                      suffixIcon: GestureDetector(
-                                        child: const Icon(Icons.search),
-                                        onTap: (){
-                                          setState(() {
-                                            widget.data = itens;
-                                            widget.data = widget.data.where((element) => element[widget.headers[index].link]['textCompareOrder'].toString().toUpperCase().contains(textControlers[widget.headers[index].link].text.toString().toUpperCase())).toList();
-                                          });
-                                        }
-                                      ),
-                                    ),
-                                  )
-                                  : Text(widget.headers[index].title),
-                                ),
-                                widget.headers[index].title == orderBy && widget.headers[index].sortable
-                                ? (Icon(orientation == direcao.asc 
-                                  ? Icons.keyboard_arrow_up
-                                  : Icons.keyboard_arrow_down))
-                                : const SizedBox(width:0),
-                              ],
-                            ),
-                          ),
-                          onTap: (){
-                            orderBy = widget.headers[index].title;
-                
-                            if(widget.headers[index].sortable)
-                            {
-                              if(orientation == direcao.asc)
-                              {
-                                setState(() {
-                                  widget.data = itens;
-                                  orientation = direcao.desc;
-                                  widget.data.sort((a, b) => a[widget.headers[index].link]['textCompareOrder']==null ? 1: b[widget.headers[index].link]['textCompareOrder']==null? -1 : a[widget.headers[index].link]['textCompareOrder'].compareTo(b[widget.headers[index].link]['textCompareOrder']));
-                                });
-                              }
-                              else
-                              {
-                                setState(() {
-                                  widget.data = itens;
-                                  orientation = direcao.asc;
-                                  widget.data.sort((a, b) => b[widget.headers[index].link]['textCompareOrder']==null ? 1: a[widget.headers[index].link]['textCompareOrder']==null? -1 : b[widget.headers[index].link]['textCompareOrder'].compareTo(a[widget.headers[index].link]['textCompareOrder']));
-                                });
-                              }
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Material(
-                    elevation: 5,
-                    child: SizedBox(
-                      width: widget.width - 16,
-                      child: ListView.builder(
-                        itemCount: widget.data.length,
-                        itemBuilder: (context, indexLinha){
-                          return Material(
-                            elevation: 5,
-                            child: SizedBox(
-                              height: 40,
-                              width: widget.width - 16,
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: widget.width - 16,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: widget.headers.length,
-                                      itemBuilder: (context, indexColuna){
-                                        return Container(
-                                          color: indexColuna%2 == 0? Colors.grey[200]: Colors.grey[100],
-                                          width: (widget.width - 16) * widget.headers[indexColuna].displayPercentage/100,
-                                          padding: const EdgeInsets.all(8.0),
-                                          /*decoration: BoxDecoration(
-                                            border: Border.all(),
-                                          ),*/
-                                          alignment: widget.data[indexLinha][widget.headers[indexColuna].link]['alignment'],
-                                          child: widget.data[indexLinha][widget.headers[indexColuna].link]['display'] as Widget,
-                                        );
+            Material(
+              elevation: 10,
+              child: SizedBox(
+                height: 50,
+                width: widget.width - 16,
+                child: ListView.builder(
+                  physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.headers.length,
+                  itemBuilder: (context, index){
+                    return InkWell(
+                      child: Container(
+                        color: index%2 == 0? Colors.grey[200]: Colors.grey[100],
+                        height: 50,
+                        width: (widget.width - 16) * widget.headers[index].displayPercentage/100,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: widget.headers[index].alignment,
+                                child: widget.headers[index].enableSearch
+                                ? TextField(
+                                  controller: textControlers[widget.headers[index].link],
+                                  decoration: InputDecoration(
+                                    labelText: widget.headers[index].title,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: InputBorder.none,
+                                    suffixIcon: GestureDetector(
+                                      child: const Icon(Icons.search),
+                                      onTap: (){
+                                        setState(() {
+                                          widget.data = itens.where((element) => element.columns[index].textCompareOrder.toUpperCase().contains(textControlers[widget.headers[index].link].text.toString().toUpperCase())).toList();
+                                        });
                                       }
                                     ),
                                   ),
-                                ],
+                                )
+                                : Text(widget.headers[index].title),
                               ),
                             ),
-                          );
-                        },
+                            widget.headers[index].sortable
+                            ? widget.headers[index].title == orderBy
+                              ? Icon(orientation == direcao.asc
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down)
+                              : const SizedBox(width:24)
+                            : const SizedBox.shrink(),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
+                      onTap: widget.headers[index].sortable
+                      ? (){
+                        orderBy = widget.headers[index].title;
+      
+                        if(orientation == direcao.asc)
+                        {
+                          setState(() {
+                            // widget.data = itens;
+                            orientation = direcao.desc;
+                            widget.data.sort((a, b) => a.columns[index].textCompareOrder.toUpperCase().compareTo(b.columns[index].textCompareOrder.toUpperCase()));
+                          });
+                        }
+                        else
+                        {
+                          setState(() {
+                            // widget.data = itens;
+                            orientation = direcao.asc;
+                            widget.data.sort((a, b) => b.columns[index].textCompareOrder.toUpperCase().compareTo(a.columns[index].textCompareOrder.toUpperCase()));
+                          });
+                        }
+                      }
+                      : null,
+                    );
+                  },
                 ),
-              ],
+              ),
+            ),
+            Expanded(
+              child: SizedBox(
+                width: widget.width - 16,
+                child: ListView.builder(
+                  itemCount: widget.infiniteScroll ? null : widget.data.length,
+                  itemBuilder: (context, indexLinha){
+                    if(!widget.infiniteScroll)
+                    {
+                      return InkWell(
+                        child: Material(
+                          elevation: 5,
+                          child: Container(
+                            color: widget.data[indexLinha].backgroundColor ?? Theme.of(context).cardColor,
+                            height: 40,
+                            width: widget.width - 16,
+                            padding: widget.data[indexLinha].contentPadding,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: widget.headers.length,
+                                    itemBuilder: (context, indexColuna){
+                                      return Container(
+                                        width: (widget.width - 16) * widget.headers[indexColuna].displayPercentage/100,
+                                        alignment: widget.data[indexLinha].columns[indexColuna].alignment,
+                                        child: widget.data[indexLinha].columns[indexColuna].display,
+                                      );
+                                    }
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onDoubleTap: widget.data[indexLinha].onDoubleTap,
+                      );
+                    }
+                    else
+                    {
+                      if(indexLinha < widget.data.length)
+                      {
+                        return Material(
+                          elevation: 5,
+                          child: Container(
+                            color: widget.data[indexLinha].backgroundColor ?? Theme.of(context).cardColor,
+                            height: 40,
+                            width: widget.width - 16,
+                            padding: widget.data[indexLinha].contentPadding,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: widget.headers.length,
+                                    itemBuilder: (context, indexColuna){
+                                      return Container(
+                                        width: (widget.width - 16) * widget.headers[indexColuna].displayPercentage/100,
+                                        alignment: widget.data[indexLinha].columns[indexColuna].alignment,
+                                        child: widget.data[indexLinha].columns[indexColuna].display,
+                                      );
+                                    }
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      else
+                      {
+                        widget.addMoreData!(indexLinha);
+                        return CircularProgressIndicator();
+                      }
+                    }
+                  },
+                ),
+              ),
             ),
           ],
         ),

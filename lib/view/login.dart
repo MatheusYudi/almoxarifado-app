@@ -66,91 +66,100 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [                    
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        constraints: const BoxConstraints(maxWidth: 800),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white70,
-                        ),
-                        child: TextFormField(
-                          controller: loginController,
-                          obscureText: false,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            labelText: 'Usuário',
-                            border: InputBorder.none,
-                            prefixIcon: Icon(Icons.person_rounded),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 500,
+                    maxHeight: double.infinity
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [                    
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 800),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white70,
+                          ),
+                          child: TextFormField(
+                            controller: loginController,
+                            obscureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              labelText: 'Usuário',
+                              border: InputBorder.none,
+                              prefixIcon: Icon(Icons.person_rounded),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        constraints: const BoxConstraints(maxWidth: 800),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white70,
-                        ),
-                        child: TextFormField(
-                          controller: senhaController,
-                          obscureText: !passwordVisibility,
-                          decoration: InputDecoration(
-                            labelText: 'Senha',
-                            border: InputBorder.none,
-                            prefixIcon: const Icon(Icons.lock_rounded),
-                            suffixIcon: InkWell(
-                              onTap: () => setState(
-                                () => passwordVisibility = !passwordVisibility,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 800),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white70,
+                          ),
+                          child: TextFormField(
+                            controller: senhaController,
+                            obscureText: !passwordVisibility,
+                            decoration: InputDecoration(
+                              labelText: 'Senha',
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(Icons.lock_rounded),
+                              suffixIcon: InkWell(
+                                onTap: () => setState(
+                                  () => passwordVisibility = !passwordVisibility,
+                                ),
+                                child: Icon(
+                                  passwordVisibility
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                  color: const Color(0xFF757575),
+                                ),
                               ),
-                              child: Icon(
-                                passwordVisibility
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                                color: const Color(0xFF757575),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          child: const Text('Entrar'),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.green[600])
+                          ),
+                          onPressed: () => Navigator.pushNamed(context, Routes.homePage),
+                        ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            child: const Text(
+                              'Não tenho cadastro',
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
                             ),
+                            onPressed: (){},
                           ),
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      child: const Text('Entrar'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.green[600])
-                      ),
-                      onPressed: () => Navigator.pushNamed(context, Routes.homePage),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton(
-                          child: const Text(
-                            'Não tenho cadastro',
-                            style: TextStyle(
-                              color: Colors.white,
+                          TextButton(
+                            child: const Text(
+                              'Esqueci minha senha',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
+                            onPressed: (){},
                           ),
-                          onPressed: (){},
-                        ),
-                        TextButton(
-                          child: const Text(
-                            'Esqueci minha senha',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: (){},
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../util/routes.dart';
 import '../widgets/data_grid.dart';
 import '../widgets/default_app_bar.dart';
 import '../widgets/default_dropdown.dart';
@@ -85,7 +86,16 @@ class _InventarioFormState extends State<InventarioForm> {
                                     ),
                                     child: IconButton(
                                       icon: const Icon(Icons.search, color: Colors.white),
-                                      onPressed: (){},
+                                      onPressed: () => Navigator.pushNamed(context, Routes.selecionarMaterial).then((value) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context){
+                                            return AlertDialog(
+                                              content: Text(value.toString()),
+                                            );
+                                          }
+                                        );
+                                      }),
                                     ),
                                   ),
                                 ),
