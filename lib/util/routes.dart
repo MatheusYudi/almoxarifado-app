@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../view/funcionarioForm.dart';
 import '../view/funcionarios.dart';
 import '../view/grupos.dart';
 import '../view/home_page.dart';
@@ -19,6 +20,7 @@ class Routes{
   static const String fornecedores = '/fornecedores';
   static const String materiais = '/materiais';
   static const String funcionarios = '/funcionarios';
+  static const String funcionarioForm = '/funcionarioForm';
   static const String inventarios = '/inventarios';
   static const String inventarioForm = '/inventarioForm';
   static const String requisicoes = '/requisicoes';
@@ -34,6 +36,7 @@ class Routes{
       fornecedores: (context)=> const Fornecedores(),
       materiais: (context)=> const Materiais(),
       funcionarios: (context)=> const Funcionarios(),
+      funcionarioForm: (context)=> const FuncionarioForm(),
       inventarios: (context)=> const Inventarios(),
       inventarioForm: (context)=> const InventarioForm(),
       requisicoes: (context)=> const Requisicoes(),

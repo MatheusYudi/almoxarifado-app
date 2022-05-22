@@ -1,6 +1,7 @@
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
+import '../util/routes.dart';
 import '../widgets/data_grid.dart';
 import '../widgets/default_app_bar.dart';
 import '../widgets/default_dropdown.dart';
@@ -81,7 +82,7 @@ class _FuncionariosState extends State<Funcionarios> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () {},
+                            onPressed: () => Navigator.pushNamed(context, Routes.funcionarioForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
