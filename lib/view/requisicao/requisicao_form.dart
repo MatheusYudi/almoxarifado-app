@@ -9,14 +9,14 @@ import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
 
-class RequisicoesForm extends StatefulWidget {
-  const RequisicoesForm({ Key? key }) : super(key: key);
+class RequisicaoForm extends StatefulWidget {
+  const RequisicaoForm({ Key? key }) : super(key: key);
 
   @override
-  State<RequisicoesForm> createState() => _RequisicoesFormState();
+  State<RequisicaoForm> createState() => _RequisicaoFormState();
 }
 
-class _RequisicoesFormState extends State<RequisicoesForm> {
+class _RequisicaoFormState extends State<RequisicaoForm> {
   @override
   Widget build(BuildContext context) {
 
