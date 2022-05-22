@@ -9,6 +9,7 @@ import '../view/inventarios.dart';
 import '../view/login.dart';
 import '../view/fornecedores.dart';
 import '../view/materiais.dart';
+import '../view/materialForm.dart';
 import '../view/movimentacoes.dart';
 import '../view/requisicoes.dart';
 import '../view/requisicoes_form.dart';
@@ -19,6 +20,7 @@ class Routes{
   static const String login = '/login';
   static const String fornecedores = '/fornecedores';
   static const String materiais = '/materiais';
+  static const String materialForm = '/materialForm';
   static const String funcionarios = '/funcionarios';
   static const String funcionarioForm = '/funcionarioForm';
   static const String inventarios = '/inventarios';
@@ -35,6 +37,7 @@ class Routes{
       homePage : (context) => const HomePageView(),
       fornecedores: (context)=> const Fornecedores(),
       materiais: (context)=> const Materiais(),
+      materialForm: (context)=> const MaterialForm(),
       funcionarios: (context)=> const Funcionarios(),
       funcionarioForm: (context)=> const FuncionarioForm(),
       inventarios: (context)=> const Inventarios(),
