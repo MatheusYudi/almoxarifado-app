@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 
-import '../view/funcionarioForm.dart';
-import '../view/funcionarios.dart';
-import '../view/grupos.dart';
+import '../view/funcionario/funcionarioForm.dart';
+import '../view/funcionario/funcionarios.dart';
+import '../view/grupo/grupos.dart';
 import '../view/home_page.dart';
-import '../view/inventario_form.dart';
-import '../view/inventarios.dart';
+import '../view/inventario/inventario_form.dart';
+import '../view/inventario/inventarios.dart';
 import '../view/login.dart';
-import '../view/fornecedores.dart';
-import '../view/materiais.dart';
-import '../view/materialForm.dart';
-import '../view/movimentacoes.dart';
-import '../view/requisicoes.dart';
-import '../view/requisicoes_form.dart';
-import '../view/selecionar_material.dart';
+import '../view/fornecedor/fornecedores.dart';
+import '../view/material/materiais.dart';
+import '../view/material/materialForm.dart';
+import '../view/movimentacao/movimentacoes.dart';
+import '../view/requisicao/requisicoes.dart';
+import '../view/requisicao/requisicoes_form.dart';
+import '../view/material/selecionar_material.dart';
 
 class Routes{
   static const String homePage = '/home_page';

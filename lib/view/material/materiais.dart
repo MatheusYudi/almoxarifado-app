@@ -1,29 +1,29 @@
-import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
-import '../util/routes.dart';
-import '../widgets/data_grid.dart';
-import '../widgets/default_app_bar.dart';
-import '../widgets/default_dropdown.dart';
-import '../widgets/default_text_form_field.dart';
+import '../../util/routes.dart';
+import '../../widgets/data_grid.dart';
+import '../../widgets/default_app_bar.dart';
+import '../../widgets/default_dropdown.dart';
+import '../../widgets/default_text_form_field.dart';
+import '../../widgets/default_user_drawer.dart';
 
-class Funcionarios extends StatefulWidget {
-  const Funcionarios({ Key? key }) : super(key: key);
+class Materiais extends StatefulWidget {
+  const Materiais({ Key? key }) : super(key: key);
 
   @override
-  State<Funcionarios> createState() => _FuncionariosState();
+  State<Materiais> createState() => _MateriaisState();
 }
 
-class _FuncionariosState extends State<Funcionarios> {
+class _MateriaisState extends State<Materiais> {
 
-  TextEditingController cpf = TextEditingController();
+  TextEditingController fornecedor = TextEditingController();
+  TextEditingController grupo = TextEditingController();
   TextEditingController nome = TextEditingController();
-  TextEditingController permissao = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Funcionarios'),
+      appBar: const DefaultAppBar(pageName: 'Gerenciar Materiais'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -40,17 +40,18 @@ class _FuncionariosState extends State<Funcionarios> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Flexible(
-                                child: DefaultTextFormField(
-                                  controller: cpf,
-                                  labelText: 'Cpf',
+                                child: DefaultDropDown(
+                                  controller: fornecedor,
+                                  labelText: 'Fornecedor',
+                                  itens: [],
                                 ),
                               ),
                               Flexible(
                                 child: DefaultDropDown(
-                                  controller: permissao,
-                                  labelText: 'Permissão',
+                                  controller: grupo,
+                                  labelText: 'Grupo',
                                   itens: [],
-                                )
+                                ),
                               ),
                             ],
                           ),
@@ -61,6 +62,16 @@ class _FuncionariosState extends State<Funcionarios> {
                                 child: DefaultTextFormField(
                                   controller: nome,
                                   labelText: 'Nome',
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                child: ElevatedButton(
+                                  onPressed: (){},
+                                  child: const Icon(Icons.search),
+                                  style: ButtonStyle(
+                                    minimumSize: MaterialStateProperty.all(const Size(50, 50)),
+                                  ),
                                 ),
                               ),
                             ],
@@ -74,6 +85,18 @@ class _FuncionariosState extends State<Funcionarios> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton.icon(
+                            icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
+                            label: const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(const Size(170, 50)),
+                              backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          child: ElevatedButton.icon(
                             icon: const Icon(
                               Icons.add_box_outlined,
                               color: Color(0xFF43a047),
@@ -82,21 +105,11 @@ class _FuncionariosState extends State<Funcionarios> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () => Navigator.pushNamed(context, Routes.funcionarioForm),
+                            onPressed: () => Navigator.pushNamed(context, Routes.materialForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: (){},
-                            child: const Icon(Icons.search),
-                            style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                             ),
                           ),
                         ),

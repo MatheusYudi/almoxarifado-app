@@ -1,27 +1,29 @@
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/data_grid.dart';
-import '../widgets/default_app_bar.dart';
-import '../widgets/default_text_form_field.dart';
+import '../../util/routes.dart';
+import '../../widgets/data_grid.dart';
+import '../../widgets/default_app_bar.dart';
+import '../../widgets/default_dropdown.dart';
+import '../../widgets/default_text_form_field.dart';
 
-class Fornecedores extends StatefulWidget {
-  const Fornecedores({ Key? key }) : super(key: key);
+class Funcionarios extends StatefulWidget {
+  const Funcionarios({ Key? key }) : super(key: key);
 
   @override
-  State<Fornecedores> createState() => _FornecedoresState();
+  State<Funcionarios> createState() => _FuncionariosState();
 }
 
-class _FornecedoresState extends State<Fornecedores> {
+class _FuncionariosState extends State<Funcionarios> {
 
-  TextEditingController raxaoSocial = TextEditingController();
-  TextEditingController cnpj = TextEditingController();
-  TextEditingController nomeFantasia = TextEditingController();
+  TextEditingController cpf = TextEditingController();
+  TextEditingController nome = TextEditingController();
+  TextEditingController permissao = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Fornecedores'),
+      appBar: const DefaultAppBar(pageName: 'Gerenciar Funcionarios'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -35,18 +37,20 @@ class _FornecedoresState extends State<Fornecedores> {
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Flexible(
                                 child: DefaultTextFormField(
-                                  controller: raxaoSocial,
-                                  labelText: 'Razão Social',
+                                  controller: cpf,
+                                  labelText: 'Cpf',
                                 ),
                               ),
                               Flexible(
-                                child: DefaultTextFormField(
-                                  controller: cnpj,
-                                  labelText: 'Cnpj',
-                                ),
+                                child: DefaultDropDown(
+                                  controller: permissao,
+                                  labelText: 'Permissão',
+                                  itens: [],
+                                )
                               ),
                             ],
                           ),
@@ -55,8 +59,8 @@ class _FornecedoresState extends State<Fornecedores> {
                             children: [
                               Flexible(
                                 child: DefaultTextFormField(
-                                  controller: nomeFantasia,
-                                  labelText: 'Nome Fantasia',
+                                  controller: nome,
+                                  labelText: 'Nome',
                                 ),
                               ),
                             ],
@@ -78,7 +82,7 @@ class _FornecedoresState extends State<Fornecedores> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () {},
+                            onPressed: () => Navigator.pushNamed(context, Routes.funcionarioForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),

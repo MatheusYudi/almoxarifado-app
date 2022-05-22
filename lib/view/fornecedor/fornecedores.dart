@@ -1,28 +1,27 @@
+import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/data_grid.dart';
-import '../widgets/default_app_bar.dart';
-import '../widgets/default_dropdown.dart';
-import '../widgets/default_text_form_field.dart';
-import '../widgets/default_user_drawer.dart';
+import '../../widgets/data_grid.dart';
+import '../../widgets/default_app_bar.dart';
+import '../../widgets/default_text_form_field.dart';
 
-class Grupos extends StatefulWidget {
-  const Grupos({ Key? key }) : super(key: key);
+class Fornecedores extends StatefulWidget {
+  const Fornecedores({ Key? key }) : super(key: key);
 
   @override
-  State<Grupos> createState() => _GruposState();
+  State<Fornecedores> createState() => _FornecedoresState();
 }
 
-class _GruposState extends State<Grupos> {
+class _FornecedoresState extends State<Fornecedores> {
 
-  TextEditingController fornecedor = TextEditingController();
-  TextEditingController grupo = TextEditingController();
-  TextEditingController nome = TextEditingController();
+  TextEditingController raxaoSocial = TextEditingController();
+  TextEditingController cnpj = TextEditingController();
+  TextEditingController nomeFantasia = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Grupos'),
+      appBar: const DefaultAppBar(pageName: 'Gerenciar Fornecedores'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -36,22 +35,28 @@ class _GruposState extends State<Grupos> {
                       child: Column(
                         children: [
                           Row(
+                            children: [
+                              Flexible(
+                                child: DefaultTextFormField(
+                                  controller: raxaoSocial,
+                                  labelText: 'Razão Social',
+                                ),
+                              ),
+                              Flexible(
+                                child: DefaultTextFormField(
+                                  controller: cnpj,
+                                  labelText: 'Cnpj',
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Flexible(
                                 child: DefaultTextFormField(
-                                  controller: nome,
-                                  labelText: 'Nome',
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                child: ElevatedButton(
-                                  onPressed: (){},
-                                  child: const Icon(Icons.search),
-                                  style: ButtonStyle(
-                                    minimumSize: MaterialStateProperty.all(const Size(50, 50)),
-                                  ),
+                                  controller: nomeFantasia,
+                                  labelText: 'Nome Fantasia',
                                 ),
                               ),
                             ],
@@ -81,11 +86,21 @@ class _GruposState extends State<Grupos> {
                             ),
                           ),
                         ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          child: ElevatedButton(
+                            onPressed: (){},
+                            child: const Icon(Icons.search),
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(const Size(50, 50)),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
-                Container(
+                Container(               
                   height: MediaQuery.of(context).size.height * 0.65,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(

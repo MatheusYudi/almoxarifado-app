@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../util/routes.dart';
-import '../widgets/data_grid.dart';
-import '../widgets/default_app_bar.dart';
-import '../widgets/default_dropdown.dart';
-import '../widgets/default_text_form_field.dart';
-import '../widgets/default_user_drawer.dart';
+import '../../widgets/data_grid.dart';
+import '../../widgets/default_app_bar.dart';
+import '../../widgets/default_dropdown.dart';
+import '../../widgets/default_text_form_field.dart';
+import '../../widgets/default_user_drawer.dart';
 
-class Materiais extends StatefulWidget {
-  const Materiais({ Key? key }) : super(key: key);
+class Grupos extends StatefulWidget {
+  const Grupos({ Key? key }) : super(key: key);
 
   @override
-  State<Materiais> createState() => _MateriaisState();
+  State<Grupos> createState() => _GruposState();
 }
 
-class _MateriaisState extends State<Materiais> {
+class _GruposState extends State<Grupos> {
 
   TextEditingController fornecedor = TextEditingController();
   TextEditingController grupo = TextEditingController();
@@ -23,7 +22,7 @@ class _MateriaisState extends State<Materiais> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Materiais'),
+      appBar: const DefaultAppBar(pageName: 'Gerenciar Grupos'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -36,25 +35,6 @@ class _MateriaisState extends State<Materiais> {
                       fit: FlexFit.tight,
                       child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Flexible(
-                                child: DefaultDropDown(
-                                  controller: fornecedor,
-                                  labelText: 'Fornecedor',
-                                  itens: [],
-                                ),
-                              ),
-                              Flexible(
-                                child: DefaultDropDown(
-                                  controller: grupo,
-                                  labelText: 'Grupo',
-                                  itens: [],
-                                ),
-                              ),
-                            ],
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -85,18 +65,6 @@ class _MateriaisState extends State<Materiais> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton.icon(
-                            icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
-                            label: const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(const Size(170, 50)),
-                              backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          child: ElevatedButton.icon(
                             icon: const Icon(
                               Icons.add_box_outlined,
                               color: Color(0xFF43a047),
@@ -105,7 +73,7 @@ class _MateriaisState extends State<Materiais> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () => Navigator.pushNamed(context, Routes.materialForm),
+                            onPressed: () {},
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
@@ -117,7 +85,7 @@ class _MateriaisState extends State<Materiais> {
                     ),
                   ],
                 ),
-                Container(               
+                Container(
                   height: MediaQuery.of(context).size.height * 0.65,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(

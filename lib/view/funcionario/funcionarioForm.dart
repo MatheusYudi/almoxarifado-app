@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../widgets/default_app_bar.dart';
-import '../widgets/default_dropdown.dart';
-import '../widgets/default_text_form_field.dart';
+import '../../widgets/default_app_bar.dart';
+import '../../widgets/default_dropdown.dart';
+import '../../widgets/default_text_form_field.dart';
 
-class MaterialForm extends StatefulWidget {
-  const MaterialForm({ Key? key }) : super(key: key);
+class FuncionarioForm extends StatefulWidget {
+  const FuncionarioForm({ Key? key }) : super(key: key);
 
   @override
-  State<MaterialForm> createState() => _MaterialFormState();
+  State<FuncionarioForm> createState() => _FuncionarioFormState();
 }
 
-class _MaterialFormState extends State<MaterialForm> {
+class _FuncionarioFormState extends State<FuncionarioForm> {
 
+  TextEditingController cpf = TextEditingController();
   TextEditingController nome = TextEditingController();
-  TextEditingController grupo = TextEditingController();
-  TextEditingController quantidade = TextEditingController();
-  TextEditingController unidade = TextEditingController();
-  TextEditingController valorUnitario = TextEditingController();
-  TextEditingController codigoBarras = TextEditingController();
-  TextEditingController ncm = TextEditingController();
-  TextEditingController estoqueMinimo = TextEditingController();
-  TextEditingController quantidadeEstoque = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController senha = TextEditingController();
+  TextEditingController confirmarSenha = TextEditingController();
+  TextEditingController grupoAcesso = TextEditingController();
+  bool visibilidadeConfirmarSenha = false;
+  bool visibilidadeSenha = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Mateiral'),
+      appBar: const DefaultAppBar(pageName: 'Funcionario'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
@@ -37,15 +37,33 @@ class _MaterialFormState extends State<MaterialForm> {
                   children: [
                     Flexible(
                       child: DefaultTextFormField(
-                        controller: nome,
-                        labelText: 'Nome',
+                        controller: cpf,
+                        labelText: 'Cpf',
+                        inputFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
                       ),
                     ),
                     Flexible(
+                      child: DefaultTextFormField(
+                        controller: nome,
+                        labelText: 'Nome',
+                      ),
+                    ),                    
+                  ],
+                ),
+                Row(
+                  children: [
+                    Flexible(
                       child: DefaultDropDown(
-                        controller: grupo,
-                        labelText: 'Grupo',
+                        controller: grupoAcesso,
+                        labelText: 'Grupo de Acesso',
                         itens: [],
+                      ),
+                    ),
+                    Flexible(
+                      child: DefaultTextFormField(
+                        controller: email,
+                        labelText: 'Email',
+                        keyboardType: TextInputType.number,
                       ),
                     ),                    
                   ],
@@ -54,63 +72,44 @@ class _MaterialFormState extends State<MaterialForm> {
                   children: [
                     Flexible(
                       child: DefaultTextFormField(
-                        controller: quantidade,
-                        labelText: 'Quantidade',
+                        controller: senha,
+                        labelText: 'Senha',
                         keyboardType: TextInputType.number,
-                      ),
-                    ), 
-                    Flexible(
-                      child: DefaultDropDown(
-                        controller: unidade,
-                        labelText: 'Unidade',
-                        itens: [],
-                      ),
-                    ), 
-                    Flexible(
-                      child: DefaultTextFormField(
-                        controller: valorUnitario,
-                        labelText: 'Valor Unitário',
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),                  
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: DefaultTextFormField(
-                        controller: codigoBarras,
-                        labelText: 'Codigo de Barras',
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),
-                    Flexible(
-                      child: DefaultDropDown(
-                        controller: ncm,
-                        labelText: 'Ncm',
-                        itens: [],
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: DefaultTextFormField(
-                        controller: estoqueMinimo,
-                        labelText: 'Estoque Mínimo',
-                        keyboardType: TextInputType.number,
+                        obscureText: !visibilidadeSenha,
+                        suffixIcon: InkWell(
+                          onTap: () => setState(
+                            () => visibilidadeSenha = !visibilidadeSenha,
+                          ),
+                          child: Icon(
+                            visibilidadeSenha
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                            color: const Color(0xFF757575),
+                          ),
+                        ),
                       ),
                     ),
                     Flexible(
                       child: DefaultTextFormField(
-                        controller: quantidadeEstoque,
-                        labelText: 'Quantidade de Estoque',
-                        enabled: false,
+                        controller: confirmarSenha,
+                        labelText: 'Confirmar Senha',
+                        keyboardType: TextInputType.number,
+                        obscureText: !visibilidadeConfirmarSenha,
+                        suffixIcon: InkWell(
+                          onTap: () => setState(
+                            () => visibilidadeConfirmarSenha = !visibilidadeConfirmarSenha,
+                          ),
+                          child: Icon(
+                            visibilidadeConfirmarSenha
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                            color: const Color(0xFF757575),
+                          ),
+                        ),
                       ),
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),
