@@ -135,7 +135,7 @@ class _RequisicoesState extends State<Requisicoes> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () {},
+                            onPressed: () => Navigator.pushNamed(context, Routes.requisicoesForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),

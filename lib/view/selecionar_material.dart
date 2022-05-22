@@ -112,6 +112,7 @@ class _SelecionarMaterialState extends State<SelecionarMaterial> {
                       ),
                       DataGridHeader(
                         link: 'descricao',
+                        title: 'Descrição',
                         alignment: Alignment.centerLeft,
                         displayPercentage: 90
                       ),
