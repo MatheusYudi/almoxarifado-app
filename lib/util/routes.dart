@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../view/fornecedor/fornecedor_form.dart';
+import '../view/fornecedor/selecionar_fornecedor.dart';
 import '../view/funcionario/funcionario_form.dart';
 import '../view/funcionario/funcionarios.dart';
 import '../view/grupo/grupos.dart';
@@ -12,6 +13,7 @@ import '../view/fornecedor/fornecedores.dart';
 import '../view/material/materiais.dart';
 import '../view/material/material_form.dart';
 import '../view/movimentacao/gerenciar_entrada.dart';
+import '../view/movimentacao/entrada_form.dart';
 import '../view/movimentacao/movimentacoes.dart';
 import '../view/requisicao/requisicoes.dart';
 import '../view/requisicao/requisicao_form.dart';
@@ -33,7 +35,9 @@ class Routes{
   static const String grupos = '/grupos';
   static const String movimentacoes = '/movimentacoes';
   static const String gerenciarEntrada = '/gerenciarEntrada';
+  static const String entradaForm = '/entradaForm';
   static const String selecionarMaterial = '/selecionarMaterial';
+  static const String selecionarFornecedor = '/selecionarFornecedor';
 
   static Map<String, WidgetBuilder> getRoutes(){
     return {
@@ -52,7 +56,9 @@ class Routes{
       grupos: (context)=> const Grupos(),
       movimentacoes: (context)=> const Movimentacoes(),
       gerenciarEntrada: (context)=> const GerenciarEntrada(),
+      entradaForm: (context)=> const EntradaForm(),
       selecionarMaterial: (context) => const SelecionarMaterial(),
+      selecionarFornecedor: (context) => const SelecionarFornecedor(),
     };
   }
 

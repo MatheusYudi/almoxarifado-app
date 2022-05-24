@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../util/routes.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
@@ -45,10 +46,33 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                                 ),
                               ),
                               Flexible(
-                                child: DefaultDropDown(
+                                flex: 3,
+                                child: DefaultTextFormField(
                                   controller: fornecedor,
                                   labelText: 'Fornecedor',
-                                  itens: [],
+                                  suffixIcon: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: const BorderRadius.only(
+                                        topRight:  Radius.circular(10),
+                                        bottomRight: Radius.circular(10),
+                                      )
+                                    ),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.search, color: Colors.white),
+                                      onPressed: () => Navigator.pushNamed(context, Routes.selecionarFornecedor).then((value) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context){
+                                            return AlertDialog(
+                                              content: Text(value.toString()),
+                                            );
+                                          }
+                                        );
+                                      }),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -82,7 +106,7 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () {},
+                            onPressed: () => Navigator.pushNamed(context, Routes.entradaForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
