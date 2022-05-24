@@ -45,6 +45,11 @@ class MenuItensList
       icon: const Icon(Icons.inventory_2, color: Colors.white),
       pageRoute: Routes.movimentacoes,
     ),
+    DraweMenuItem(
+      text: const Text('Gerenciar Entradas', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.inventory_2, color: Colors.white),
+      pageRoute: Routes.gerenciarEntrada,
+    ),
   ];
 }
 
