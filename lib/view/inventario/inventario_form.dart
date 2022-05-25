@@ -113,8 +113,8 @@ class _InventarioFormState extends State<InventarioForm> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 child: ElevatedButton(
-                                  onPressed: () => editando = false,
-                                  child: editando
+                                  onPressed: () => setState(() => editando = false),
+                                  child: !editando
                                     ? const Icon(Icons.add_box_outlined)
                                     : const Icon(Icons.edit),
                                   style: ButtonStyle(
@@ -175,7 +175,7 @@ class _InventarioFormState extends State<InventarioForm> {
                                 display: IconButton(
                                   padding: EdgeInsets.zero,
                                   icon: const Icon(Icons.edit, color: Colors.blue),
-                                  onPressed: () => editando = true,
+                                  onPressed: () => setState(() => editando = false),
                                 ),
                               ),
                               DataGridRowColumn(
