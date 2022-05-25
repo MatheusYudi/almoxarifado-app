@@ -119,6 +119,11 @@ class _InventarioFormState extends State<InventarioForm> {
                                     : const Icon(Icons.edit),
                                   style: ButtonStyle(
                                     minimumSize: MaterialStateProperty.all(const Size(50, 50)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      !editando
+                                      ? Theme.of(context).primaryColor
+                                      : Colors.blue
+                                    ),
                                   ),
                                 ),
                               ),
@@ -167,7 +172,6 @@ class _InventarioFormState extends State<InventarioForm> {
                         ],
                         data: [
                           DataGridRow(
-                            onDoubleTap: () => Navigator.pop(context, 'Produto 1'),
                             columns: [
                               DataGridRowColumn(
                                 link: 'edit',
@@ -175,7 +179,7 @@ class _InventarioFormState extends State<InventarioForm> {
                                 display: IconButton(
                                   padding: EdgeInsets.zero,
                                   icon: const Icon(Icons.edit, color: Colors.blue),
-                                  onPressed: () => setState(() => editando = false),
+                                  onPressed: () => setState(() { editando = true; print('aqui');}),
                                 ),
                               ),
                               DataGridRowColumn(
