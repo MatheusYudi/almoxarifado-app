@@ -23,6 +23,7 @@ class _InventarioFormState extends State<InventarioForm> {
   TextEditingController codigo = TextEditingController();
   TextEditingController descricao = TextEditingController();
   TextEditingController quantidade = TextEditingController();
+  bool editando = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,8 @@ class _InventarioFormState extends State<InventarioForm> {
       appBar: const DefaultAppBar(pageName: 'Inventário'),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
             height: MediaQuery.of(context).size.height - kToolbarHeight,
             child: Column(
               children: [
@@ -111,8 +113,10 @@ class _InventarioFormState extends State<InventarioForm> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 child: ElevatedButton(
-                                  onPressed: (){},
-                                  child: const Icon(Icons.add_box_outlined),
+                                  onPressed: () => editando = false,
+                                  child: editando
+                                    ? const Icon(Icons.add_box_outlined)
+                                    : const Icon(Icons.edit),
                                   style: ButtonStyle(
                                     minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                                   ),
@@ -126,10 +130,75 @@ class _InventarioFormState extends State<InventarioForm> {
                   ],
                 ),
                 Flexible(
-                  child: DataGrid(
-                    headers: [],
-                    data: [],
-                    width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: DataGrid(
+                        headers: [
+                          DataGridHeader(
+                            link: 'edit',
+                            alignment: Alignment.center,
+                            sortable: false,
+                            enableSearch: false,
+                            displayPercentage: 10,
+                          ),
+                          DataGridHeader(
+                            link: 'descricao',
+                            title: 'Descrição',
+                            alignment: Alignment.centerLeft,
+                            displayPercentage: 20,
+                          ),
+                          DataGridHeader(
+                            link: 'qtdSistema',
+                            title: 'Quantidade de Sistema',
+                            alignment: Alignment.centerLeft,
+                            displayPercentage: 35,
+                          ),
+                          DataGridHeader(
+                            link: 'qtdFisico',
+                            title: 'Quantidade Fisica',
+                            alignment: Alignment.centerLeft,
+                            displayPercentage: 35,
+                          ),
+                        ],
+                        data: [
+                          DataGridRow(
+                            onDoubleTap: () => Navigator.pop(context, 'Produto 1'),
+                            columns: [
+                              DataGridRowColumn(
+                                link: 'edit',
+                                alignment: Alignment.center,
+                                display: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: const Icon(Icons.edit, color: Colors.blue),
+                                  onPressed: () => editando = true,
+                                ),
+                              ),
+                              DataGridRowColumn(
+                                link: 'descricao',
+                                display: const Text('Produto 1'),
+                                alignment: Alignment.centerLeft,
+                              ),
+                              DataGridRowColumn(
+                                link: 'qtdSistema',
+                                display: const Text('5'),
+                                alignment: Alignment.centerLeft,
+                              ),
+                              DataGridRowColumn(
+                                link: 'qtdFisico',
+                                display: const Text('10'),
+                                alignment: Alignment.centerLeft,
+                              ),
+                            ],
+                          ),
+                        ],
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
                   ),
                 ),
               ],
