@@ -1,3 +1,4 @@
+import 'package:almoxarifado/view/movimentacao/saida_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -136,7 +137,12 @@ class _MovimentacoesState extends State<Movimentacoes> {
                               'Saída',
                               style: TextStyle(color: Colors.blue),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const SaidaForm(),
+                              );
+                            },
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
