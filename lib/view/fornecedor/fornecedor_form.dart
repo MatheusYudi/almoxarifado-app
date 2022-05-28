@@ -35,37 +35,43 @@ class _FornecedorFormState extends State<FornecedorForm> {
 
   void buscarCnpj() async
   {
-    setState(() => cnpjIsLoading = true);
+    if(cnpj.text != '')
+    {
+      setState(() => cnpjIsLoading = true);
 
-    Uri url = Uri.parse('https://brasilapi.com.br/api/cnpj/v1/${cnpj.text}');
-    dynamic response = await http.get(url);
-    dynamic jsonResponse = jsonDecode(response.body);
-    razaoSocial.text = jsonResponse['razao_social'] ?? '';
-    nomeFantasia.text = jsonResponse['nome_fantasia'] ?? '';
-    cep.text = jsonResponse['cep'] ?? '';
-    estado.text = jsonResponse['uf'] ?? '';
-    cidade.text = jsonResponse['municipio'] ?? '';
-    bairro.text = jsonResponse['bairro'] ?? '';
-    logradouro.text = jsonResponse['logradouro'] ?? '';
-    complemento.text = jsonResponse['complemento'] ?? '';
-    numero.text = jsonResponse['numero'] ?? '';
+      Uri url = Uri.parse('https://brasilapi.com.br/api/cnpj/v1/${cnpj.text}');
+      dynamic response = await http.get(url);
+      dynamic jsonResponse = jsonDecode(response.body);
+      razaoSocial.text = jsonResponse['razao_social'] ?? '';
+      nomeFantasia.text = jsonResponse['nome_fantasia'] ?? '';
+      cep.text = jsonResponse['cep'] ?? '';
+      estado.text = jsonResponse['uf'] ?? '';
+      cidade.text = jsonResponse['municipio'] ?? '';
+      bairro.text = jsonResponse['bairro'] ?? '';
+      logradouro.text = jsonResponse['logradouro'] ?? '';
+      complemento.text = jsonResponse['complemento'] ?? '';
+      numero.text = jsonResponse['numero'] ?? '';
 
-    setState(() => cnpjIsLoading = false);
+      setState(() => cnpjIsLoading = false);
+    }
   }
 
   void buscarCep() async
   {
-    setState(() => cepIsLoading = true);
+    if(cep.text != '')
+    {
+      setState(() => cepIsLoading = true);
 
-    Uri url = Uri.parse('https://brasilapi.com.br/api/cep/v1/${cep.text}');
-    dynamic response = await http.get(url);
-    dynamic jsonResponse = jsonDecode(response.body);
-    estado.text = jsonResponse['state'] ?? '';
-    cidade.text = jsonResponse['city'] ?? '';
-    bairro.text = jsonResponse['neighborhood'] ?? '';
-    logradouro.text = jsonResponse['street'] ?? '';
+      Uri url = Uri.parse('https://brasilapi.com.br/api/cep/v1/${cep.text}');
+      dynamic response = await http.get(url);
+      dynamic jsonResponse = jsonDecode(response.body);
+      estado.text = jsonResponse['state'] ?? '';
+      cidade.text = jsonResponse['city'] ?? '';
+      bairro.text = jsonResponse['neighborhood'] ?? '';
+      logradouro.text = jsonResponse['street'] ?? '';
 
-    setState(() => cepIsLoading = false);
+      setState(() => cepIsLoading = false);
+    }
   }
   
   @override
@@ -97,7 +103,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         : Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColor.withBlue(100),
                             borderRadius: const BorderRadius.only(
                               topRight:  Radius.circular(10),
                               bottomRight: Radius.circular(10),
@@ -174,7 +180,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         : Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColor.withBlue(100),
                             borderRadius: const BorderRadius.only(
                               topRight:  Radius.circular(10),
                               bottomRight: Radius.circular(10),
@@ -241,36 +247,39 @@ class _FornecedorFormState extends State<FornecedorForm> {
           ),
         ),
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.save),
-              label: const Text('Salvar'),
-              onPressed: () {},
-              style: ButtonStyle(
-                maximumSize: MaterialStateProperty.all(const Size(130, 50)),
-                minimumSize: MaterialStateProperty.all(const Size(0, 50)),
-                backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.save),
+                label: const Text('Salvar'),
+                onPressed: () {},
+                style: ButtonStyle(
+                  maximumSize: MaterialStateProperty.all(const Size(130, 50)),
+                  minimumSize: MaterialStateProperty.all(const Size(0, 50)),
+                  backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
+                ),
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.cancel),
-              label: const Text('Cancelar'),
-              onPressed: () => Navigator.pop(context),
-              style: ButtonStyle(
-                maximumSize: MaterialStateProperty.all(const Size(130, 50)),
-                minimumSize: MaterialStateProperty.all(const Size(0, 50)),
-                backgroundColor: MaterialStateProperty.all(Colors.red),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.cancel),
+                label: const Text('Cancelar'),
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  maximumSize: MaterialStateProperty.all(const Size(130, 50)),
+                  minimumSize: MaterialStateProperty.all(const Size(0, 50)),
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

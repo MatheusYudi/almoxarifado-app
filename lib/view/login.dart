@@ -138,15 +138,15 @@ class _LoginViewState extends State<LoginView> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TextButton(
-                            child: const Text(
-                              'Não tenho cadastro',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: (){},
-                          ),
+                          // TextButton(
+                          //   child: const Text(
+                          //     'Não tenho cadastro',
+                          //     style: TextStyle(
+                          //       color: Colors.white,
+                          //     ),
+                          //   ),
+                          //   onPressed: (){},
+                          // ),
                           TextButton(
                             child: const Text(
                               'Esqueci minha senha',

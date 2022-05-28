@@ -5,6 +5,7 @@ import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
 import '../../widgets/default_user_drawer.dart';
+import 'grupo_form.dart';
 
 class Grupos extends StatefulWidget {
   const Grupos({ Key? key }) : super(key: key);
@@ -73,7 +74,12 @@ class _GruposState extends State<Grupos> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const GrupoForm(),
+                              );
+                            },
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
