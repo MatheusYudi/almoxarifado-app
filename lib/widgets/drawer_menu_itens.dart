@@ -24,17 +24,7 @@ class MenuItensList
       text: const Text('Funcionarios', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.group_add, color: Colors.white),
       pageRoute: Routes.funcionarios,
-    ),
-    DraweMenuItem(
-      text: const Text('Inventários', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.inventory_2, color: Colors.white),
-      pageRoute: Routes.inventarios,
-    ),
-    DraweMenuItem(
-      text: const Text('Requisições', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.inventory_2, color: Colors.white),
-      pageRoute: Routes.requisicoes,
-    ),
+    ),    
     DraweMenuItem(
       text: const Text('Grupos', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.inventory_2, color: Colors.white),
@@ -42,13 +32,29 @@ class MenuItensList
     ),
     DraweMenuItem(
       text: const Text('Movimentações', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.inventory_2, color: Colors.white),
-      pageRoute: Routes.movimentacoes,
-    ),
-    DraweMenuItem(
-      text: const Text('Gerenciar Entradas', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.inventory_2, color: Colors.white),
-      pageRoute: Routes.gerenciarEntrada,
+      icon: const Icon(Icons.swap_vert, color: Colors.white),
+      children: [
+        DraweMenuItem(
+          text: const Text('Gerenciar Movimentações', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.sync, color: Colors.white),
+          pageRoute: Routes.movimentacoes,
+        ),
+        DraweMenuItem(
+          text: const Text('Entradas', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.file_download_outlined, color: Colors.white),
+          pageRoute: Routes.gerenciarEntrada,
+        ),
+        DraweMenuItem(
+          text: const Text('Requisições', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.file_upload_outlined, color: Colors.white),
+          pageRoute: Routes.requisicoes,
+        ),
+        DraweMenuItem(
+          text: const Text('Inventários', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.checklist, color: Colors.white),
+          pageRoute: Routes.inventarios,
+        ),
+      ],
     ),
   ];
 }

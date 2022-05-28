@@ -103,18 +103,20 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                 ),
                               ),
                               Flexible(
+                                flex: 2,
                                 child: DefaultTextFormField(
                                   controller: descricao,
                                   labelText: 'Descrição',
                                 ),
                               ),
                               Flexible(
+                                flex: 2,
                                 child: DefaultDropDown(
                                   controller: grupo,
                                   labelText: 'Grupo',
                                   itens: [],
                                 ),
-                              ),                              
+                              ),
                             ],
                           ),
                         ],
@@ -127,12 +129,12 @@ class _MovimentacoesState extends State<Movimentacoes> {
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton.icon(
                             icon: const Icon(
-                              Icons.add_box_outlined,
-                              color: Color(0xFF43a047),
+                              Icons.outbond_outlined,
+                              color: Colors.blue,
                             ),
                             label: const Text(
-                              'Cadastrar',
-                              style: TextStyle(color: Color(0xFF43a047)),
+                              'Saída',
+                              style: TextStyle(color: Colors.blue),
                             ),
                             onPressed: () {},
                             style: ButtonStyle(

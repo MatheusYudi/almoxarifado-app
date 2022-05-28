@@ -27,6 +27,10 @@ class Menu extends StatelessWidget {
                 child: menuItemToTile(item.children, context),
               )
             ],
+            trailing: const Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.white,
+            ),
           );
       }
     }).toList();
