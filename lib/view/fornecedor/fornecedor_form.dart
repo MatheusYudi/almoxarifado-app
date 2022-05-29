@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../enum/e_estados.dart';
 import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
@@ -80,8 +81,9 @@ class _FornecedorFormState extends State<FornecedorForm> {
       appBar: const DefaultAppBar(pageName: 'Fornecedor'),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
             height: MediaQuery.of(context).size.height - kToolbarHeight,
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 Row(
@@ -197,7 +199,14 @@ class _FornecedorFormState extends State<FornecedorForm> {
                       child: DefaultDropDown(
                         controller: estado,
                         labelText: 'Estado',
-                        itens: [],
+                        maximunItensShown: 5,
+                        searchable: true,
+                        itens: EEstados.values.map((estado) {
+                          return DropdownMenuItem(
+                            value: estado.name,
+                            child: Text(estado.name),
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],

@@ -122,7 +122,7 @@ class _FuncionariosState extends State<Funcionarios> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

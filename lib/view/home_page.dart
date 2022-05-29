@@ -115,7 +115,7 @@ class _HomePageViewState extends State<HomePageView> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

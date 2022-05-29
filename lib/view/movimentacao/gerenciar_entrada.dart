@@ -146,7 +146,7 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

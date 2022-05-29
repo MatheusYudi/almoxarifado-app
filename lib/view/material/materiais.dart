@@ -135,7 +135,7 @@ class _MateriaisState extends State<Materiais> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

@@ -182,7 +182,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

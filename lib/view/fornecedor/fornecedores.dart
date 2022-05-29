@@ -119,7 +119,7 @@ class _FornecedoresState extends State<Fornecedores> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

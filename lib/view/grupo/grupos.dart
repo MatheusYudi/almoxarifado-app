@@ -109,7 +109,7 @@ class _GruposState extends State<Grupos> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

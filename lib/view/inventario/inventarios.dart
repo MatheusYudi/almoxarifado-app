@@ -167,7 +167,7 @@ class _InventariosState extends State<Inventarios> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }

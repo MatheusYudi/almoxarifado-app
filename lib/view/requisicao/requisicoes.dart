@@ -175,7 +175,7 @@ class _RequisicoesState extends State<Requisicoes> {
           ),
         ),
       ),
-      endDrawer: const DefaultUserDrawer(),
+      drawer: const DefaultUserDrawer(),
     );
   }
 }
