@@ -55,7 +55,7 @@ class ApiClient{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    request.body = jsonEncode(filters);
+    //request.body = jsonEncode(filters);
 
     ApiResponse response = await request.makeCall();
 

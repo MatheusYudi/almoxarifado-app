@@ -24,7 +24,7 @@ class _GruposState extends State<Grupos> {
   List<GrupoMaterial> grupoMateriaisGrid = [];
   bool grupoMateriaisLoading = false;
 
-  fetchFuncionarios() async {
+  fetchGrupoMaterial() async {
     setState(() => grupoMateriaisLoading = true);
     grupoMateriais = await GruposMaterialController().getGruposMaterial(context);
     grupoMateriaisGrid = grupoMateriais;
@@ -33,7 +33,7 @@ class _GruposState extends State<Grupos> {
 
   @override
   void initState() {
-    fetchFuncionarios();
+    fetchGrupoMaterial();
     super.initState();
   }
 
@@ -129,16 +129,37 @@ class _GruposState extends State<Grupos> {
                   : DataGrid(
                     headers: [
                       DataGridHeader(
+                        link: 'delete',
+                        title: '',
+                        enableSearch: false,
+                        sortable: false,
+                        displayPercentage: 20,
+                      ),
+                      DataGridHeader(
                         link: 'nome',
                         title: 'Nome',
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
-                        displayPercentage: 100,
+                        displayPercentage: 90,
                       ),
                     ],
                     data: grupoMateriaisGrid.map((grupoMaterial) {
                       return DataGridRow(
                         columns: [
+                          DataGridRowColumn(
+                            link: 'delete',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.red,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                GruposMaterialController().deleteGrupoMaterial(context, grupoMaterial.id!).then((value){
+                                  fetchGrupoMaterial();
+                                });
+                              },
+                            ),
+                          ),
                           DataGridRowColumn(
                             link: 'nome',
                             display: Text(grupoMaterial.nome),
