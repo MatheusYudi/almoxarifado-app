@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../controller/grupo_material_controller.dart';
+import '../../model/grupo_material.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
-import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
 import '../../widgets/default_user_drawer.dart';
-import 'grupo_form.dart';
+import 'grupo_material_form.dart';
 
 class Grupos extends StatefulWidget {
   const Grupos({ Key? key }) : super(key: key);
@@ -19,6 +20,22 @@ class _GruposState extends State<Grupos> {
   TextEditingController fornecedor = TextEditingController();
   TextEditingController grupo = TextEditingController();
   TextEditingController nome = TextEditingController();
+  List<GrupoMaterial> grupoMateriais = [];
+  List<GrupoMaterial> grupoMateriaisGrid = [];
+  bool grupoMateriaisLoading = false;
+
+  fetchFuncionarios() async {
+    setState(() => grupoMateriaisLoading = true);
+    grupoMateriais = await GruposMaterialController().getGruposMaterial(context);
+    grupoMateriaisGrid = grupoMateriais;
+    setState(() => grupoMateriaisLoading = false);
+  }
+
+  @override
+  void initState() {
+    fetchFuncionarios();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +65,15 @@ class _GruposState extends State<Grupos> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 child: ElevatedButton(
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    grupoMateriaisGrid = grupoMateriais
+                                      .where((grupoMaterial) =>
+                                          grupoMaterial.nome
+                                              .toUpperCase()
+                                              .contains(nome.text.toUpperCase())
+                                      ).toList();
+                                    setState(() {});
+                                  },
                                   child: const Icon(Icons.search),
                                   style: ButtonStyle(
                                     minimumSize: MaterialStateProperty.all(const Size(50, 50)),
@@ -98,9 +123,31 @@ class _GruposState extends State<Grupos> {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).cardColor,
                   ),
-                  child: DataGrid(
-                    headers: const [],
-                    data: const [],//TesteData.clientes,
+                  child: grupoMateriaisLoading
+                  ? const Center(
+                    child: SizedBox(child: CircularProgressIndicator()))
+                  : DataGrid(
+                    headers: [
+                      DataGridHeader(
+                        link: 'nome',
+                        title: 'Nome',
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 100,
+                      ),
+                    ],
+                    data: grupoMateriaisGrid.map((grupoMaterial) {
+                      return DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'nome',
+                            display: Text(grupoMaterial.nome),
+                            textCompareOrder: grupoMaterial.nome,
+                            alignment: Alignment.centerLeft,
+                          )
+                        ]
+                      );
+                    }).toList(),
                     width: MediaQuery.of(context).size.width - 20,
                   ),
                 ),
