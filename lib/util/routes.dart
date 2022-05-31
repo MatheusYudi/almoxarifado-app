@@ -10,7 +10,7 @@ import '../view/inventario/inventario_form.dart';
 import '../view/inventario/inventarios.dart';
 import '../view/login.dart';
 import '../view/fornecedor/fornecedores_list.dart';
-import '../view/material/materiais.dart';
+import '../view/material/materiais_list.dart';
 import '../view/material/material_form.dart';
 import '../view/movimentacao/gerenciar_entrada.dart';
 import '../view/movimentacao/entrada_form.dart';
