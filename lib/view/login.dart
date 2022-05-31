@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../controller/funcionario_atual_controller.dart';
 import '../model/funcionario_atual.dart';
+import 'recuperar_senha.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({ Key? key }) : super(key: key);
@@ -180,7 +181,14 @@ class _LoginViewState extends State<LoginView> {
                                 color: Colors.white,
                               ),
                             ),
-                            onPressed: (){},
+                            onPressed: (){
+                              showDialog(
+                                context: context,
+                                builder: (context){
+                                  return const RecuperarSenhaForm();
+                                }
+                              );
+                            },
                           ),
                         ],
                       ),
