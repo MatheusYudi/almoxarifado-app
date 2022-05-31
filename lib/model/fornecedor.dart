@@ -1,60 +1,68 @@
 class Fornecedor
 {
+  int? id;
+  String status;
   String cnpj;
   String ie;
   String razoaSocial;
   String nomeFantasia;
-  String endereco;
+  String estado;
   String complemento;
   String bairro;
   String cidade;
   int numero;
-  String logradouro;
+  String rua;
   String cep;  
 
   Fornecedor({
+      this.id,
+      this.status = '',
       this.cnpj = '',
       this.ie = '',
       this.razoaSocial = '',
       this.nomeFantasia = '',
-      this.endereco = '',
+      this.estado = '',
       this.complemento = '',
       this.bairro = '',
       this.cidade = '',
       this.numero = 0,
-      this.logradouro = '',
+      this.rua = '',
       this.cep = '',
   });
 
   Map<String, dynamic> toJson(){
     return{
-      'cnpj' : cnpj,
-      'ie' : ie,
-      'razoaSocial' : razoaSocial,
-      'nomeFantasia' : nomeFantasia,
-      'endereco' : endereco,
-      'complemento' : complemento,
-      'bairro' : bairro,
-      'cidade' : cidade,
-      'numero' : numero,
-      'logradouro' : logradouro,
-      'cep' : cep,
+      'id' : id,
+      'status' : status,
+      'document' : cnpj,
+      'stateRegistration' : ie,
+      'corporateName' : razoaSocial,
+      'tradingName' : nomeFantasia,
+      'state' : estado,
+      'postalCode' : cep,
+      'address' : rua,
+      'addressNumber' : numero,
+      'city' : cidade,
+      'district' : bairro,
+      'complement' : complemento,
     };
   }
   
   factory Fornecedor.fromJson(Map<String, dynamic> json){
     return Fornecedor(
-      cnpj : json['cnpj'] ?? '',
-      ie : json['ie'] ?? '',
-      razoaSocial : json['razoaSocial'] ?? '',
-      nomeFantasia : json['nomeFantasia'] ?? '',
-      endereco : json['endereco'] ?? '',
-      complemento : json['complemento'] ?? '',
-      bairro : json['bairro'] ?? '',
-      cidade: json['cidade'] ?? '',
-      numero : json['numero'],
-      logradouro : json['logradouro'] ?? '',
-      cep : json['cep'] ?? '',
+      id : json['id'],
+      status : json['status'] ?? '',
+      cnpj : json['document'] ?? '',
+      ie : json['stateRegistration'] ?? '',
+      razoaSocial : json['corporateName'] ?? '',
+      nomeFantasia : json['tradingName'] ?? '',
+      estado : json['state'] ?? '',
+      cep : json['postalCode'] ?? '',
+      rua : json['address'] ?? '',
+      numero : json['addressNumber'],
+      cidade: json['city'] ?? '',
+      bairro : json['district'] ?? '',
+      complemento : json['complement'] ?? '',
     );
   }
 }

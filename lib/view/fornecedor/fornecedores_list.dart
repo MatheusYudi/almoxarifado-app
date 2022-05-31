@@ -1,6 +1,8 @@
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 
+import '../../controller/fornecedores_controller.dart';
+import '../../model/fornecedor.dart';
 import '../../util/routes.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
@@ -18,11 +20,28 @@ class _FornecedoresState extends State<Fornecedores> {
   TextEditingController raxaoSocial = TextEditingController();
   TextEditingController cnpj = TextEditingController();
   TextEditingController nomeFantasia = TextEditingController();
+  List<Fornecedor> fornecedores = [];
+  List<Fornecedor> fornecedoresGrid = [];
+  bool fornecedoresLoading = false;
+
+  fetchFornecedores() async {
+    setState(() => fornecedoresLoading = true);
+    fornecedores = await FornecedoresController().getFornecedores(context);
+    fornecedoresGrid = fornecedores;
+    setState(() => fornecedoresLoading = false);
+  }
+
+  @override
+  void initState() {
+    fetchFornecedores();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const DefaultAppBar(pageName: 'Gerenciar Fornecedores'),
+      drawer: const DefaultUserDrawer(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -90,7 +109,21 @@ class _FornecedoresState extends State<Fornecedores> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              fornecedoresGrid = fornecedores
+                                .where((fornecedor) =>
+                                    fornecedor.cnpj
+                                        .toUpperCase()
+                                        .contains(cnpj.text.toUpperCase()) &&
+                                    fornecedor.razoaSocial
+                                        .toUpperCase()
+                                        .contains(raxaoSocial.text.toUpperCase())&&
+                                    fornecedor.nomeFantasia
+                                        .toUpperCase()
+                                        .contains(nomeFantasia.text.toUpperCase())
+                                ).toList();
+                              setState(() {});
+                            },
                             child: const Icon(Icons.search),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(50, 50)),
@@ -108,9 +141,57 @@ class _FornecedoresState extends State<Fornecedores> {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).cardColor,
                   ),
-                  child: DataGrid(
-                    headers: const [],
-                    data: const [],//TesteData.clientes,
+                  child: fornecedoresLoading
+                  ? const Center(
+                    child: SizedBox(child: CircularProgressIndicator()))
+                  : DataGrid(
+                    headers: [
+                      DataGridHeader(
+                        link: 'cnpj',
+                        title: 'Cnpj',
+                        displayPercentage: 30,
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'razaoSocial',
+                        title: 'Razão Social',
+                        displayPercentage: 35,
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'nomeFantasia',
+                        title: 'Nome Fantasia',
+                        displayPercentage: 35,
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                      ),
+                    ],
+                    data: fornecedoresGrid.map((fornecedor){
+                      return DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'cnpj',
+                            display: Text(fornecedor.cnpj),
+                            textCompareOrder: fornecedor.cnpj,
+                            alignment: Alignment.centerLeft
+                          ),
+                          DataGridRowColumn(
+                            link: 'razaoSocial',
+                            display: Text(fornecedor.razoaSocial),
+                            textCompareOrder: fornecedor.razoaSocial,
+                            alignment: Alignment.centerLeft
+                          ),
+                          DataGridRowColumn(
+                            link: 'nomeFantasia',
+                            display: Text(fornecedor.nomeFantasia),
+                            textCompareOrder: fornecedor.nomeFantasia,
+                            alignment: Alignment.centerLeft
+                          ),
+                        ],
+                      );
+                    }).toList(),//TesteData.clientes,
                     width: MediaQuery.of(context).size.width - 20,
                   ),
                 ),
@@ -119,7 +200,6 @@ class _FornecedoresState extends State<Fornecedores> {
           ),
         ),
       ),
-      drawer: const DefaultUserDrawer(),
     );
   }
 }
