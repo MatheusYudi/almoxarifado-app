@@ -6,11 +6,12 @@ import 'api_response.dart';
 class ApiClient{
   final String baseUrl = 'https://almoxarifado-api-v1-staging.herokuapp.com/';
 
-  Future<ApiResponse> get({required String endPoint, Map? filters}) async
+  Future<ApiResponse> get({required String endPoint, String token = '', Map? filters}) async
   {
     ApiRequest request = ApiRequest(url: baseUrl + endPoint, requestType: RequestType.GET);
     request.header = {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     request.params = jsonEncode(filters);
 
@@ -19,11 +20,12 @@ class ApiClient{
     return response;
   }
 
-  Future<ApiResponse> post({required String endPoint, Map? data}) async
+  Future<ApiResponse> post({required String endPoint, String token = '', Map? data}) async
   {
     ApiRequest request = ApiRequest(url: baseUrl + endPoint, requestType: RequestType.POST);
     request.header = {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     request.body = jsonEncode(data);
 
@@ -32,11 +34,12 @@ class ApiClient{
     return response;
   }
 
-  Future<ApiResponse> put({required String endPoint, Map? data}) async
+  Future<ApiResponse> put({required String endPoint, String token = '', Map? data}) async
   {
     ApiRequest request = ApiRequest(url: baseUrl + endPoint, requestType: RequestType.PUT);
     request.header = {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     request.body = jsonEncode(data);
 
@@ -45,11 +48,12 @@ class ApiClient{
     return response;
   }
 
-  Future<ApiResponse> delete({required String endPoint, Map? filters}) async
+  Future<ApiResponse> delete({required String endPoint, String token = '', Map? filters}) async
   {
     ApiRequest request = ApiRequest(url: baseUrl + endPoint, requestType: RequestType.DELETE);
     request.header = {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     request.body = jsonEncode(filters);
 

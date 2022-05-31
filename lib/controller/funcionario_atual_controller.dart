@@ -8,7 +8,7 @@ class FuncionarioAtualController extends ChangeNotifier
   bool error = false;
   bool loading = false;
 
-  getFuncionaroAtual() => funcionarioAtual; 
+  getFuncionarioAtual() => funcionarioAtual; 
 
   setFuncionarioAtual(FuncionarioAtual funcionario){
     funcionarioAtual = funcionario;

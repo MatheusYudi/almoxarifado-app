@@ -1,24 +1,24 @@
 class GrupoAcesso
 {
-  String codigo;
+  int? id;
   String nome;
 
   GrupoAcesso({
-    this.codigo = '',
+    this.id,
     this.nome = '',
   });
 
   Map<String, dynamic> toJson(){
     return{
-      'codigo' : codigo,
-      'nome' : nome,
+      'id' : id,
+      'name' : nome,
     };
   }
 
   factory GrupoAcesso.fromJson(Map<String, dynamic> json){
     return GrupoAcesso(
-      codigo : json['codigo'] ?? '',
-      nome : json['nome'] ?? '',
+      id : json['id'],
+      nome : json['name'] ?? '',
     );
   }
 }

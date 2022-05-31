@@ -15,8 +15,8 @@ class DefaultUserDrawer extends StatelessWidget {
     return Menu(
       user: {
         'profilePicture':'https://picsum.photos/200',
-        'name': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionaroAtual().nome,
-        'email': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionaroAtual().email,
+        'name': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().nome,
+        'email': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().email,
       },
       pages: MenuItensList.itens,
       footer: ElevatedButton(

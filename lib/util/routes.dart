@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../view/fornecedor/fornecedor_form.dart';
 import '../view/fornecedor/selecionar_fornecedor.dart';
 import '../view/funcionario/funcionario_form.dart';
-import '../view/funcionario/funcionarios.dart';
+import '../view/funcionario/funcionarios_list.dart';
 import '../view/grupo/grupos.dart';
 import '../view/home_page.dart';
 import '../view/inventario/inventario_form.dart';

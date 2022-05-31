@@ -2,6 +2,9 @@ import 'package:almoxarifado/widgets/default_app_bar.dart';
 import 'package:almoxarifado/widgets/default_dropdown.dart';
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../controller/funcionario_atual_controller.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({ Key? key }) : super(key: key);
@@ -86,7 +89,9 @@ class _HomePageViewState extends State<HomePageView> {
                 child: const Text('textinho'),
               ),
               ElevatedButton(
-                onPressed: null,
+                onPressed: (){
+                  print(Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi);
+                },
                 child: const Text('textinho'),
               ),              
               Container(
