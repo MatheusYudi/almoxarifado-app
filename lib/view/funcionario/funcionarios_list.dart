@@ -204,19 +204,19 @@ class _FuncionariosState extends State<Funcionarios> {
                         data: funcionariosGrid.map((funcionario) {
                           return DataGridRow(columns: [
                             DataGridRowColumn(
-                            link: 'delete',
-                            alignment: Alignment.center,
-                            display: IconButton(
-                              padding: EdgeInsets.zero,
-                              color: Colors.red,
-                              icon: const Icon(Icons.delete),
-                              onPressed: () async {
-                                FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
-                                  fetchFuncionarios();
-                                });
-                              },
+                              link: 'delete',
+                              alignment: Alignment.center,
+                              display: IconButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.red,
+                                icon: const Icon(Icons.delete),
+                                onPressed: () async {
+                                  FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
+                                    fetchFuncionarios();
+                                  });
+                                },
+                              ),
                             ),
-                          ),
                             DataGridRowColumn(
                               link: 'cpf',
                               textCompareOrder: funcionario.cpf,

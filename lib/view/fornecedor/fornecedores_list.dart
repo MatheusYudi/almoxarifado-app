@@ -147,9 +147,16 @@ class _FornecedoresState extends State<Fornecedores> {
                   : DataGrid(
                     headers: [
                       DataGridHeader(
+                        link: 'delete',
+                        title: '',
+                        enableSearch: false,
+                        sortable: false,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
                         link: 'cnpj',
                         title: 'Cnpj',
-                        displayPercentage: 30,
+                        displayPercentage: 20,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                       ),
@@ -171,6 +178,20 @@ class _FornecedoresState extends State<Fornecedores> {
                     data: fornecedoresGrid.map((fornecedor){
                       return DataGridRow(
                         columns: [
+                          DataGridRowColumn(
+                            link: 'delete',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.red,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                FornecedoresController().deleteFornecedor(context, fornecedor.id!).then((value){
+                                  fetchFornecedores();
+                                });
+                              },
+                            ),
+                          ),
                           DataGridRowColumn(
                             link: 'cnpj',
                             display: Text(fornecedor.cnpj),
