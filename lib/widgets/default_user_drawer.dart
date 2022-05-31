@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../controller/funcionario_atual_controller.dart';
+import '../model/funcionario_atual.dart';
 import '../util/routes.dart';
 import 'menu.dart';
 import 'drawer_menu_itens.dart';
@@ -10,6 +13,11 @@ class DefaultUserDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Menu(
+      user: {
+        'profilePicture':'https://picsum.photos/200',
+        'name': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionaroAtual().nome,
+        'email': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionaroAtual().email,
+      },
       pages: MenuItensList.itens,
       footer: ElevatedButton(
         style: ButtonStyle(
@@ -32,7 +40,10 @@ class DefaultUserDrawer extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () => Navigator.pushReplacementNamed(context, Routes.login),
+        onPressed: () {
+          Provider.of<FuncionarioAtualController>(context, listen: false).setFuncionarioAtual(FuncionarioAtual());
+          Navigator.pushReplacementNamed(context, Routes.login);
+        },
       ),
     );
   }

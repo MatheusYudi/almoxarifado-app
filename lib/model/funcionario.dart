@@ -1,13 +1,13 @@
 class Funcionario
 {
-  String codigo;
+  int? id;
   String nome;
   String cpf;
   String email;
   String senha;
 
   Funcionario({
-    this.codigo = '',
+    this.id,
     this.nome = '',
     this.cpf = '',
     this.email = '',
@@ -16,8 +16,8 @@ class Funcionario
 
   Map<String, dynamic> toJson(){
     return{
-      'codigo' : codigo,
-      'nome' : nome,
+      'id': id,
+      'name' : nome,
       'cpf' : cpf,
       'email' : email,
       'senha' : senha,
@@ -26,8 +26,8 @@ class Funcionario
 
   factory Funcionario.fromJson(Map<String, dynamic> json){
     return Funcionario(
-      codigo : json['codigo'] ?? '',
-      nome : json['nome'] ?? '',
+      id : json['id'],
+      nome : json['name'] ?? '',
       cpf : json['cpf'] ?? '',
       email : json['email'] ?? '',
       senha : json['senha'] ?? '',

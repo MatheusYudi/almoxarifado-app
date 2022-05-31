@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 class DefaultTextFormField extends StatefulWidget {
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? initialValue;
   final FocusNode? focusNode;
   final String? labelText;
@@ -17,7 +17,7 @@ class DefaultTextFormField extends StatefulWidget {
   final bool obscureText;
 
   const DefaultTextFormField({
-    required this.controller,
+    this.controller,
     this.initialValue,
     this.focusNode,
     this.labelText,

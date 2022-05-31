@@ -17,7 +17,7 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Dashboard'),
+      appBar: const DefaultAppBar(pageName: 'Home'),
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -85,9 +85,9 @@ class _HomePageViewState extends State<HomePageView> {
                 onPressed: (){_formKey.currentState!.validate();},
                 child: const Text('textinho'),
               ),
-              const ElevatedButton(
+              ElevatedButton(
                 onPressed: null,
-                child: Text('textinho'),
+                child: const Text('textinho'),
               ),              
               Container(
                 decoration: BoxDecoration(
