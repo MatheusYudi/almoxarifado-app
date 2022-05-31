@@ -41,6 +41,7 @@ class _GruposState extends State<Grupos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const DefaultAppBar(pageName: 'Gerenciar Grupos'),
+      drawer: const DefaultUserDrawer(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -177,7 +178,6 @@ class _GruposState extends State<Grupos> {
           ),
         ),
       ),
-      drawer: const DefaultUserDrawer(),
     );
   }
 }

@@ -173,29 +173,50 @@ class _FuncionariosState extends State<Funcionarios> {
                     : DataGrid(
                         headers: [
                           DataGridHeader(
+                            link: 'delete',
+                            title: '',
+                            enableSearch: false,
+                            sortable: false,
+                            displayPercentage: 10,
+                          ),
+                          DataGridHeader(
                             link: 'cpf',
                             title: 'Cpf',
-                            displayPercentage: 30,
+                            displayPercentage: 20,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridHeader(
                             link: 'nome',
                             title: 'Nome',
-                            displayPercentage: 30,
+                            displayPercentage: 35,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridHeader(
                             link: 'email',
                             title: 'Email',
-                            displayPercentage: 40,
+                            displayPercentage: 35,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                           ),
                         ],
                         data: funcionariosGrid.map((funcionario) {
                           return DataGridRow(columns: [
+                            DataGridRowColumn(
+                            link: 'delete',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.red,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
+                                  fetchFuncionarios();
+                                });
+                              },
+                            ),
+                          ),
                             DataGridRowColumn(
                               link: 'cpf',
                               textCompareOrder: funcionario.cpf,
