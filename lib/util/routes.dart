@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../view/alterar_senha.dart';
 import '../view/fornecedor/fornecedor_form.dart';
 import '../view/fornecedor/selecionar_fornecedor.dart';
 import '../view/funcionario/funcionario_form.dart';
@@ -38,6 +39,7 @@ class Routes{
   static const String entradaForm = '/entradaForm';
   static const String selecionarMaterial = '/selecionarMaterial';
   static const String selecionarFornecedor = '/selecionarFornecedor';
+  static const String alterarSenha = '/alterarSenha';
 
   static Map<String, WidgetBuilder> getRoutes(){
     return {
@@ -59,6 +61,7 @@ class Routes{
       entradaForm: (context)=> const EntradaForm(),
       selecionarMaterial: (context) => const SelecionarMaterial(),
       selecionarFornecedor: (context) => const SelecionarFornecedor(),
+      alterarSenha: (context) => const AlterarSenha(),
     };
   }
 
