@@ -16,6 +16,7 @@ import '../view/material/material_form.dart';
 import '../view/movimentacao/gerenciar_entrada.dart';
 import '../view/movimentacao/entrada_form.dart';
 import '../view/movimentacao/movimentacoes.dart';
+import '../view/requisicao/avaliar_requisicao.dart';
 import '../view/requisicao/requisicoes.dart';
 import '../view/requisicao/requisicao_form.dart';
 import '../view/material/selecionar_material.dart';
@@ -40,6 +41,7 @@ class Routes{
   static const String selecionarMaterial = '/selecionarMaterial';
   static const String selecionarFornecedor = '/selecionarFornecedor';
   static const String alterarSenha = '/alterarSenha';
+  static const String avaliarRequisicao = '/avaliarRequisicao';
 
   static Map<String, WidgetBuilder> getRoutes(){
     return {
@@ -62,6 +64,7 @@ class Routes{
       selecionarMaterial: (context) => const SelecionarMaterial(),
       selecionarFornecedor: (context) => const SelecionarFornecedor(),
       alterarSenha: (context) => const AlterarSenha(),
+      avaliarRequisicao: (context) => const AvaliarRequisicao(),
     };
   }
 
