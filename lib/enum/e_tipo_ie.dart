@@ -1,20 +1,20 @@
 // ignore_for_file: constant_identifier_names
 
-enum ERegimesTributarios{
+enum ETipoIe{
   Contribuinte,
   NaoContribuinte,
   Isento,
 }
 
-extension ERegimesTributariosExtensions on ERegimesTributarios {
+extension ETipoIeExtensions on ETipoIe {
 
   String get nome {
     switch (this) {
-      case ERegimesTributarios.Contribuinte:
+      case ETipoIe.Contribuinte:
         return 'Contribuinte';
-      case ERegimesTributarios.NaoContribuinte:
+      case ETipoIe.NaoContribuinte:
         return 'Não contribuinte';
-      case ERegimesTributarios.Isento:
+      case ETipoIe.Isento:
         return 'Isento';
       default:
         return '';
