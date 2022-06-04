@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../widgets/data_grid.dart';
@@ -16,8 +17,8 @@ class AvaliarRequisicao extends StatefulWidget {
 
 class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
 
-  TextEditingController data = TextEditingController();
-  TextEditingController operador = TextEditingController();
+  TextEditingController data = TextEditingController(text: DateFormat("dd/MM/yyyy").format(DateTime.now()));
+  TextEditingController operador = TextEditingController(text: 'Administrador');
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +62,79 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                 ),
                 Flexible(
                   child: DataGrid(
-                    headers: [],
-                    data: [],
+                    headers: [
+                      DataGridHeader(
+                        link: 'codigoBarras',
+                        title: 'Código de Barras',
+                        displayPercentage: 25,
+                        sortable: false,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'descricao',
+                        title: 'Descrição',
+                        displayPercentage: 50,
+                        sortable: false,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'qtd',
+                        title: 'Quantidade',
+                        displayPercentage: 25,
+                        sortable: false,
+                        enableSearch: false,
+                      ),
+                    ],
+                    data: [
+                      DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'codigoBarras',
+                            display: Text('001'),
+                          ),
+                          DataGridRowColumn(
+                            link: 'descricao',
+                            display: Text('Material 1'),
+                          ),
+                          DataGridRowColumn(
+                            link: 'qtd',
+                            display: Text('5'),
+                          ),
+                        ],
+                      ),
+                      DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'codigoBarras',
+                            display: Text('002'),
+                          ),
+                          DataGridRowColumn(
+                            link: 'descricao',
+                            display: Text('Material 2'),
+                          ),
+                          DataGridRowColumn(
+                            link: 'qtd',
+                            display: Text('5'),
+                          ),
+                        ],
+                      ),
+                      DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'codigoBarras',
+                            display: Text('003'),
+                          ),
+                          DataGridRowColumn(
+                            link: 'descricao',
+                            display: Text('Material 3'),
+                          ),
+                          DataGridRowColumn(
+                            link: 'qtd',
+                            display: Text('5'),
+                          ),
+                        ],
+                      ),
+                    ],
                     width: MediaQuery.of(context).size.width,
                   ),
                 ),
