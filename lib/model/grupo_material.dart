@@ -6,7 +6,7 @@ class GrupoMaterial
 
   GrupoMaterial({
     this.id,
-    this.status = '',
+    this.status = 'ativo',
     this.nome = '',
   });
 

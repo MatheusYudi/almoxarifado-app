@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../controller/grupo_material_controller.dart';
+import '../../model/grupo_material.dart';
 import '../../widgets/default_text_form_field.dart';
 
 class GrupoForm extends StatefulWidget {
-  const GrupoForm({ Key? key }) : super(key: key);
+  final int? id;
+  const GrupoForm({
+    this.id,
+    Key? key
+  }) : super(key: key);
 
   @override
   State<GrupoForm> createState() => _GrupoFormState();
@@ -11,7 +17,31 @@ class GrupoForm extends StatefulWidget {
 
 class _GrupoFormState extends State<GrupoForm> {
 
-  TextEditingController grupo = TextEditingController();
+  TextEditingController nome = TextEditingController();
+  GrupoMaterial grupo = GrupoMaterial();
+
+  bool preenchido = false;
+
+
+  fetchGrupo() async
+  {
+    grupo = await GruposMaterialController().getGrupoMaterialById(context, widget.id!);
+    nome.text = grupo.nome;
+    setState((){});
+  }
+
+  @override
+  void initState() {
+    if(!preenchido)
+    {
+      if(widget.id != null)
+      {
+        fetchGrupo();
+      }
+      preenchido = true;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +89,9 @@ class _GrupoFormState extends State<GrupoForm> {
                       children: [                  
                         Flexible(
                           child: DefaultTextFormField(
-                            controller: grupo,
+                            controller: nome,
                             labelText: 'Nome',
+                            onChanged: (data) => grupo.nome = data,
                           ),
                         ),
                         Flexible(
@@ -74,12 +105,40 @@ class _GrupoFormState extends State<GrupoForm> {
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.save),
                                     label: const Text('Salvar'),
-                                    onPressed: () {},
                                     style: ButtonStyle(
                                       maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                                       minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                                       backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
                                     ),
+                                    onPressed: () async {
+                                      print(grupo.toJson());
+                                      GruposMaterialController request = GruposMaterialController();
+                                      if(grupo.id == null)
+                                      {
+                                        await request.postGrupoMaterial(context, grupo);
+                                      }
+                                      else
+                                      {
+                                        await request.updateGrupoMaterial(context, grupo);
+                                      }
+
+                                      if(request.error != '')
+                                      {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context){
+                                            return AlertDialog(
+                                              title: const Text('Algo deu errado'),
+                                              content: Text(request.error),
+                                            );
+                                          },
+                                        );
+                                      }
+                                      else
+                                      {
+                                        Navigator.pop(context);
+                                      }
+                                    },
                                   ),
                                 ),
                                 Container(
@@ -87,12 +146,12 @@ class _GrupoFormState extends State<GrupoForm> {
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.cancel),
                                     label: const Text('Cancelar'),
-                                    onPressed: () => Navigator.pop(context),
                                     style: ButtonStyle(
                                       maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                                       minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                                       backgroundColor: MaterialStateProperty.all(Colors.red),
                                     ),
+                                    onPressed: () => Navigator.pop(context),
                                   ),
                                 ),
                               ],

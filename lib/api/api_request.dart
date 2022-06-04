@@ -81,7 +81,7 @@ class ApiRequest
     }
 
       ApiResponse apiResponse = ApiResponse(
-        body: response.body == '' ? response.body : jsonDecode(response.body),
+        body: response.body == '' ? {} : jsonDecode(response.body),
         header: response.headers,
         statusCode: response.statusCode,
       );

@@ -59,7 +59,7 @@ class FornecedoresController
       data: fornecedor.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
       throw Exception(response.body['error']);
     }
@@ -74,7 +74,7 @@ class FornecedoresController
       data: fornecedor.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
       response.body['error'].forEach((requestError){
         error += requestError['msg'] + "\n";

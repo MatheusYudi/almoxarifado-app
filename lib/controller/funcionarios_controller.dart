@@ -61,7 +61,7 @@ class FuncionariosController
       data: funcionario.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
       response.body['error'].forEach((requestError){
         error += requestError['msg'] + "\n";
@@ -82,7 +82,7 @@ class FuncionariosController
       data: funcionario.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
       response.body['error'].forEach((requestError){
         error += requestError['msg'] + "\n";

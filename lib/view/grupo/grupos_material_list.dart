@@ -104,7 +104,7 @@ class _GruposState extends State<Grupos> {
                               showDialog(
                                 context: context,
                                 builder: (context) => const GrupoForm(),
-                              );
+                              ).then((value) => fetchGrupoMaterial());
                             },
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
@@ -134,7 +134,14 @@ class _GruposState extends State<Grupos> {
                         title: '',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 20,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
+                        link: 'edit',
+                        title: '',
+                        enableSearch: false,
+                        sortable: false,
+                        displayPercentage: 10,
                       ),
                       DataGridHeader(
                         link: 'nome',
@@ -161,6 +168,23 @@ class _GruposState extends State<Grupos> {
                               },
                             ),
                           ),
+                          DataGridRowColumn(
+                              link: 'edit',
+                              alignment: Alignment.center,
+                              display: IconButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.blue,
+                                icon: const Icon(Icons.edit),
+                                onPressed: () async {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => GrupoForm(id: grupoMaterial.id)).then((value){
+                                      fetchGrupoMaterial();
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
                           DataGridRowColumn(
                             link: 'nome',
                             display: Text(grupoMaterial.nome),

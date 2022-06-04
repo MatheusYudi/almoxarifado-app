@@ -8,6 +8,9 @@ import 'funcionario_atual_controller.dart';
 
 class GruposMaterialController
 {
+
+  String error = '';
+
   Future<List<GrupoMaterial>> getGruposMaterial(BuildContext context, [Map? grupoMaterial]) async
   {
     ApiResponse response = await ApiClient().get(
@@ -50,7 +53,7 @@ class GruposMaterialController
     return true;
   }
 
-  Future<GrupoMaterial> updateGrupoMaterial(BuildContext context, GrupoMaterial grupoMaterial) async
+  Future<GrupoMaterial?> updateGrupoMaterial(BuildContext context, GrupoMaterial grupoMaterial) async
   {
     ApiResponse response = await ApiClient().put(
       endPoint: 'material-group',
@@ -58,14 +61,20 @@ class GruposMaterialController
       data: grupoMaterial.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return grupoMaterial;
+    else
+    {
+      return grupoMaterial;
+    }
+    return null;
   }
 
-  Future<GrupoMaterial> postGrupoMaterial(BuildContext context, GrupoMaterial grupoMaterial) async
+  Future<GrupoMaterial?> postGrupoMaterial(BuildContext context, GrupoMaterial grupoMaterial) async
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'material-group',
@@ -73,11 +82,17 @@ class GruposMaterialController
       data: grupoMaterial.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return grupoMaterial;
+    else
+    {
+      return grupoMaterial;
+    }
+    return null;
   }
 
 }
