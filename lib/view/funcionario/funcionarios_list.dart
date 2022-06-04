@@ -1,5 +1,6 @@
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../controller/funcionarios_controller.dart';
 import '../../controller/grupos_acesso_controller.dart';
@@ -71,6 +72,7 @@ class _FuncionariosState extends State<Funcionarios> {
                                 child: DefaultTextFormField(
                                   controller: cpf,
                                   labelText: 'Cpf',
+                                  inputFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
                                 ),
                               ),
                               Flexible(
@@ -142,10 +144,10 @@ class _FuncionariosState extends State<Funcionarios> {
                                         .contains(cpf.text.toUpperCase()) &&
                                     funcionario.nome
                                         .toUpperCase()
-                                        .contains(nome.text.toUpperCase()) &&
-                                    grupoAcessoSelecionado != null &&
+                                        .contains(nome.text.toUpperCase()) ||
+                                    (grupoAcessoSelecionado != null &&
                                     funcionario.grupoAcesso != null &&
-                                    funcionario.grupoAcesso?.id == grupoAcessoSelecionado?.id
+                                    funcionario.grupoAcesso?.id == grupoAcessoSelecionado?.id)
                                 ).toList();
                               setState(() {});
                             },
@@ -180,6 +182,13 @@ class _FuncionariosState extends State<Funcionarios> {
                             displayPercentage: 10,
                           ),
                           DataGridHeader(
+                            link: 'edit',
+                            title: '',
+                            enableSearch: false,
+                            sortable: false,
+                            displayPercentage: 10,
+                          ),
+                          DataGridHeader(
                             link: 'cpf',
                             title: 'Cpf',
                             displayPercentage: 20,
@@ -189,14 +198,14 @@ class _FuncionariosState extends State<Funcionarios> {
                           DataGridHeader(
                             link: 'nome',
                             title: 'Nome',
-                            displayPercentage: 35,
+                            displayPercentage: 30,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridHeader(
                             link: 'email',
                             title: 'Email',
-                            displayPercentage: 35,
+                            displayPercentage: 30,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                           ),
@@ -212,6 +221,20 @@ class _FuncionariosState extends State<Funcionarios> {
                                 icon: const Icon(Icons.delete),
                                 onPressed: () async {
                                   FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
+                                    fetchFuncionarios();
+                                  });
+                                },
+                              ),
+                            ),
+                            DataGridRowColumn(
+                              link: 'edit',
+                              alignment: Alignment.center,
+                              display: IconButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.blue,
+                                icon: const Icon(Icons.edit),
+                                onPressed: () async {
+                                  Navigator.pushNamed(context, Routes.funcionarioForm, arguments: funcionario.id).then((value){
                                     fetchFuncionarios();
                                   });
                                 },

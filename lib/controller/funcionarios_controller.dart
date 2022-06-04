@@ -8,6 +8,9 @@ import 'funcionario_atual_controller.dart';
 
 class FuncionariosController
 {
+
+  String error = '';
+
   Future<List<Funcionario>> getFuncionarios(BuildContext context, [Map? funcionario]) async
   {
     ApiResponse response = await ApiClient().get(
@@ -50,7 +53,7 @@ class FuncionariosController
     return true;
   }
 
-  Future<Funcionario> updateFuncionario(BuildContext context, Funcionario funcionario) async
+  Future<Funcionario?> updateFuncionario(BuildContext context, Funcionario funcionario) async
   {
     ApiResponse response = await ApiClient().put(
       endPoint: 'user',
@@ -60,12 +63,18 @@ class FuncionariosController
     
     if(response.statusCode != 200)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return funcionario;
+    else
+    {
+      return funcionario;
+    }
+    return null;
   }
 
-  Future<Funcionario> postFuncionario(BuildContext context, Funcionario funcionario) async
+  Future<Funcionario?> postFuncionario(BuildContext context, Funcionario funcionario) async
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'user',
@@ -75,9 +84,16 @@ class FuncionariosController
     
     if(response.statusCode != 200)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return funcionario;
+    else
+    {
+      return funcionario;
+    }
+    return null;
   }
+
 
 }

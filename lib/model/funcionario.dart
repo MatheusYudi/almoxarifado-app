@@ -7,7 +7,7 @@ class Funcionario
   String nome;
   String cpf;
   String email;
-  String senha;
+  String? senha;
   GrupoAcesso? grupoAcesso;
 
   Funcionario({
@@ -16,7 +16,7 @@ class Funcionario
     this.nome = '',
     this.cpf = '',
     this.email = '',
-    this.senha = '',
+    this.senha,
     this.grupoAcesso,
   });
 
@@ -24,10 +24,10 @@ class Funcionario
     return{
       'id': id,
       'name' : nome,
-      'cpf' : cpf,
+      'document' : cpf,
       'email' : email,
-      'senha' : senha,
-      'accessGroup' : grupoAcesso,
+      'password' : senha,
+      'accessGroupId' : grupoAcesso == null ? '' : grupoAcesso!.id,
     };
   }
 
@@ -38,7 +38,7 @@ class Funcionario
       nome : json['name'] ?? '',
       cpf : json['document'] ?? '',
       email : json['email'] ?? '',
-      senha : json['senha'] ?? '',
+      senha : json['password'],
       grupoAcesso : json['accessGroup'] != null? GrupoAcesso.fromJson(json['accessGroup']) : null,
     );
   }
