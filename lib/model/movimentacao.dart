@@ -23,7 +23,7 @@ class Movimentacao
   Map<String, dynamic> toJson(){
     return{
       'dataHora' : dataHora,
-      'quantidadeInicial' : quantidadeInicial,
+      'quantity' : quantidadeInicial,
       'quantidadeMovimentada' : quantidadeMovimentada,
       'type' : tipo,
       'user' : tipo,

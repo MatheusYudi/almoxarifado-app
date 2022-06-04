@@ -15,6 +15,7 @@ class DefaultTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool enabled;
   final bool obscureText;
+  final Function(String)? onChanged;
 
   const DefaultTextFormField({
     this.controller,
@@ -29,6 +30,7 @@ class DefaultTextFormField extends StatefulWidget {
     this.validator,
     this.enabled = true,
     this.obscureText = false,
+    this.onChanged,
     Key? key
   }) : super(key: key);
 
@@ -56,6 +58,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           validator: widget.validator,
           enabled: widget.enabled,
           obscureText: widget.obscureText,
+          onChanged: widget.onChanged,
           decoration: InputDecoration(
             labelText: widget.labelText,
             contentPadding: const EdgeInsets.all(10),

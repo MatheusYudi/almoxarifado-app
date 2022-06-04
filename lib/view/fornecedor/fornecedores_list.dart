@@ -1,5 +1,6 @@
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../controller/fornecedores_controller.dart';
 import '../../model/fornecedor.dart';
@@ -17,8 +18,9 @@ class Fornecedores extends StatefulWidget {
 
 class _FornecedoresState extends State<Fornecedores> {
 
-  TextEditingController raxaoSocial = TextEditingController();
+  TextEditingController razaoSocial = TextEditingController();
   TextEditingController cnpj = TextEditingController();
+  MaskTextInputFormatter cnpjMask = MaskTextInputFormatter(mask: "##.###.###/####-##");
   TextEditingController nomeFantasia = TextEditingController();
   List<Fornecedor> fornecedores = [];
   List<Fornecedor> fornecedoresGrid = [];
@@ -58,7 +60,7 @@ class _FornecedoresState extends State<Fornecedores> {
                             children: [
                               Flexible(
                                 child: DefaultTextFormField(
-                                  controller: raxaoSocial,
+                                  controller: razaoSocial,
                                   labelText: 'Razão Social',
                                 ),
                               ),
@@ -66,6 +68,7 @@ class _FornecedoresState extends State<Fornecedores> {
                                 child: DefaultTextFormField(
                                   controller: cnpj,
                                   labelText: 'Cnpj',
+                                  inputFormatters: [cnpjMask],
                                 ),
                               ),
                             ],
@@ -114,10 +117,10 @@ class _FornecedoresState extends State<Fornecedores> {
                                 .where((fornecedor) =>
                                     fornecedor.cnpj
                                         .toUpperCase()
-                                        .contains(cnpj.text.toUpperCase()) &&
-                                    fornecedor.razoaSocial
+                                        .contains(cnpjMask.getUnmaskedText().toUpperCase()) &&
+                                    fornecedor.razaoSocial
                                         .toUpperCase()
-                                        .contains(raxaoSocial.text.toUpperCase())&&
+                                        .contains(razaoSocial.text.toUpperCase())&&
                                     fornecedor.nomeFantasia
                                         .toUpperCase()
                                         .contains(nomeFantasia.text.toUpperCase())
@@ -154,6 +157,13 @@ class _FornecedoresState extends State<Fornecedores> {
                         displayPercentage: 10,
                       ),
                       DataGridHeader(
+                        link: 'edit',
+                        title: '',
+                        enableSearch: false,
+                        sortable: false,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
                         link: 'cnpj',
                         title: 'Cnpj',
                         displayPercentage: 20,
@@ -163,14 +173,14 @@ class _FornecedoresState extends State<Fornecedores> {
                       DataGridHeader(
                         link: 'razaoSocial',
                         title: 'Razão Social',
-                        displayPercentage: 35,
+                        displayPercentage: 30,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                       ),
                       DataGridHeader(
                         link: 'nomeFantasia',
                         title: 'Nome Fantasia',
-                        displayPercentage: 35,
+                        displayPercentage: 30,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                       ),
@@ -193,6 +203,20 @@ class _FornecedoresState extends State<Fornecedores> {
                             ),
                           ),
                           DataGridRowColumn(
+                            link: 'edit',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.blue,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () async {
+                                Navigator.pushNamed(context, Routes.fornecedorForm, arguments: fornecedor.id!).then((value){
+                                  fetchFornecedores();
+                                });
+                              },
+                            ),
+                          ),
+                          DataGridRowColumn(
                             link: 'cnpj',
                             display: Text(fornecedor.cnpj),
                             textCompareOrder: fornecedor.cnpj,
@@ -200,8 +224,8 @@ class _FornecedoresState extends State<Fornecedores> {
                           ),
                           DataGridRowColumn(
                             link: 'razaoSocial',
-                            display: Text(fornecedor.razoaSocial),
-                            textCompareOrder: fornecedor.razoaSocial,
+                            display: Text(fornecedor.razaoSocial),
+                            textCompareOrder: fornecedor.razaoSocial,
                             alignment: Alignment.centerLeft
                           ),
                           DataGridRowColumn(

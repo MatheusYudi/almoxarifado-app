@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:almoxarifado/controller/fornecedores_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../enum/e_estados.dart';
+import '../../enum/e_regimes_tributarios.dart';
+import '../../enum/e_tipo_ie.dart';
+import '../../model/fornecedor.dart';
 import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
@@ -31,27 +35,71 @@ class _FornecedorFormState extends State<FornecedorForm> {
   TextEditingController logradouro = TextEditingController();
   TextEditingController numero = TextEditingController();
   TextEditingController complemento = TextEditingController();
+  Fornecedor fornecedor = Fornecedor();
+  MaskTextInputFormatter cnpjMask = MaskTextInputFormatter(mask: "##.###.###/####-##");
+  MaskTextInputFormatter cepMask = MaskTextInputFormatter(mask: "##.###-###");
   bool cepIsLoading = false;
   bool cnpjIsLoading = false;
+  dynamic argument;
+  bool preenchido = false;
+
+  @override
+  void didChangeDependencies() {
+    if(!preenchido)
+    {
+      argument = ModalRoute.of(context)!.settings.arguments;
+      fetchFornecedor();
+      preenchido = true;
+    }
+    super.didChangeDependencies();
+  }
+
+  fetchFornecedor() async
+  {
+    fornecedor = await FornecedoresController().getFornecedorById(context, argument);
+    cnpj.text = fornecedor.cnpj;
+    regimeApuracao.text = fornecedor.regimeTibutario;
+    razaoSocial.text = fornecedor.razaoSocial;
+    nomeFantasia.text = fornecedor.nomeFantasia;
+    tipoIe.text = fornecedor.tipoIe;
+    inscricaoEstadual.text = fornecedor.ie;
+    cep.text = fornecedor.cep;
+    estado.text = fornecedor.estado;
+    cidade.text = fornecedor.cidade;
+    bairro.text = fornecedor.bairro;
+    logradouro.text = fornecedor.rua;
+    numero.text = fornecedor.numero.toString();
+    complemento.text = fornecedor.complemento;
+    setState((){});
+  }
 
   void buscarCnpj() async
   {
-    if(cnpj.text != '')
+    if(cnpjMask.getUnmaskedText() != '')
     {
       setState(() => cnpjIsLoading = true);
 
-      Uri url = Uri.parse('https://brasilapi.com.br/api/cnpj/v1/${cnpj.text}');
+      Uri url = Uri.parse('https://brasilapi.com.br/api/cnpj/v1/${cnpjMask.getUnmaskedText()}');
       dynamic response = await http.get(url);
       dynamic jsonResponse = jsonDecode(response.body);
       razaoSocial.text = jsonResponse['razao_social'] ?? '';
+      fornecedor.razaoSocial = jsonResponse['razao_social'] ?? '';
       nomeFantasia.text = jsonResponse['nome_fantasia'] ?? '';
-      cep.text = jsonResponse['cep'] ?? '';
+      fornecedor.nomeFantasia = jsonResponse['nome_fantasia'] ?? '';
+      cep.text = jsonResponse['cep'] == null ? '' : [jsonResponse['cep'].substring(0, 5), '-', jsonResponse['cep'].substring(5)].join('');
+      fornecedor.cep = cep.text;
       estado.text = jsonResponse['uf'] ?? '';
+      fornecedor.estado = jsonResponse['uf'] ?? '';
       cidade.text = jsonResponse['municipio'] ?? '';
+      fornecedor.cidade = jsonResponse['municipio'] ?? '';
       bairro.text = jsonResponse['bairro'] ?? '';
+      fornecedor.bairro = jsonResponse['bairro'] ?? '';
       logradouro.text = jsonResponse['logradouro'] ?? '';
+      fornecedor.rua = jsonResponse['logradouro'] ?? '';
       complemento.text = jsonResponse['complemento'] ?? '';
+      fornecedor.complemento = jsonResponse['complemento'] ?? '';
       numero.text = jsonResponse['numero'] ?? '';
+      fornecedor.numero = int.parse(jsonResponse['numero'] ?? '');
 
       setState(() => cnpjIsLoading = false);
     }
@@ -92,6 +140,8 @@ class _FornecedorFormState extends State<FornecedorForm> {
                       child: DefaultTextFormField(
                         controller: cnpj,
                         labelText: 'Cnpj',
+                        inputFormatters: [cnpjMask],
+                        onChanged: (data) => fornecedor.cnpj = cnpjMask.getUnmaskedText(),
                         suffixIcon: cnpjIsLoading
                         ? Center(
                           child: SizedBox(
@@ -122,7 +172,13 @@ class _FornecedorFormState extends State<FornecedorForm> {
                       child: DefaultDropDown(
                         controller: regimeApuracao,
                         labelText: 'Regime de Apuração',
-                        itens: [],
+                        itens: ERegimesTributarios.values.map((regimeTributario){
+                          return DropdownMenuItem(
+                            child: Text(regimeTributario.nome),
+                            value: regimeTributario.nome,
+                            onTap: () => fornecedor.regimeTibutario = regimeTributario.nome,
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],
@@ -133,12 +189,14 @@ class _FornecedorFormState extends State<FornecedorForm> {
                       child: DefaultTextFormField(
                         controller: razaoSocial,
                         labelText: 'Razão Social',
+                        onChanged: (data) => fornecedor.razaoSocial = data,
                       ),
                     ), 
                     Flexible(
                       child: DefaultTextFormField(
                         controller: nomeFantasia,
                         labelText: 'Nome Fantasia',
+                        onChanged: (data) => fornecedor.nomeFantasia = data,
                       ),
                     ),
                   ],
@@ -149,7 +207,13 @@ class _FornecedorFormState extends State<FornecedorForm> {
                       child: DefaultDropDown(
                         controller: tipoIe,
                         labelText: 'Tipo Inscrição Estadual',
-                        itens: [],
+                        itens: ETipoIe.values.map((tipoIe){
+                          return DropdownMenuItem(
+                            child: Text(tipoIe.nome),
+                            value: tipoIe.nome,
+                            onTap: () => fornecedor.tipoIe = tipoIe.nome,
+                          );
+                        }).toList(),
                       ),
                     ),
                     Flexible(
@@ -157,6 +221,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: inscricaoEstadual,
                         labelText: 'Inscrição Estadual',
                         keyboardType: TextInputType.number,
+                        onChanged: (data) => fornecedor.ie = data,
                       ),
                     ),
                   ],
@@ -168,7 +233,8 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: cep,
                         labelText: 'Cep',
                         keyboardType: TextInputType.number,
-                        inputFormatters: [MaskTextInputFormatter(mask: "##.###-###")],
+                        inputFormatters: [cepMask],
+                        onChanged: (data) => fornecedor.cep = cep.text,
                         suffixIcon: cepIsLoading
                         ? Center(
                           child: SizedBox(
@@ -205,6 +271,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                           return DropdownMenuItem(
                             value: estado.name,
                             child: Text(estado.name),
+                            onTap: () => fornecedor.ie = estado.name,
                           );
                         }).toList(),
                       ),
@@ -218,12 +285,14 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: cidade,
                         labelText: 'Cidade',
                         keyboardType: TextInputType.number,
+                        onChanged: (data) => fornecedor.cidade = data,
                       ),
                     ),
                     Flexible(
                       child: DefaultTextFormField(
                         controller: bairro,
                         labelText: 'Bairro',
+                        onChanged: (data) => fornecedor.bairro = data,
                       ),
                     ),
                   ],
@@ -235,18 +304,21 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: logradouro,
                         labelText: 'Logradouro',
                         keyboardType: TextInputType.number,
+                        onChanged: (data) => fornecedor.rua = data,
                       ),
                     ),
                     Flexible(
                       child: DefaultTextFormField(
                         controller: numero,
                         labelText: 'Número',
+                        onChanged: (data) => fornecedor.numero = int.parse(data),
                       ),
                     ),
                     Flexible(
                       child: DefaultTextFormField(
                         controller: complemento,
                         labelText: 'Complemento',
+                        onChanged: (data) => fornecedor.complemento = data,
                       ),
                     ),
                   ],
@@ -266,7 +338,35 @@ class _FornecedorFormState extends State<FornecedorForm> {
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.save),
                 label: const Text('Salvar'),
-                onPressed: () {},
+                onPressed: () async {
+                  FornecedoresController request = FornecedoresController();
+                  if(fornecedor.id == null)
+                  {
+                    await request.postFornecedor(context, fornecedor);
+                  }
+                  else
+                  {
+                    await request.updateFornecedor(context, fornecedor);
+                  }
+
+                  if(request.error != '')
+                  {
+                    showDialog(
+                      context: context,
+                      builder: (context){
+                        return AlertDialog(
+                          title: const Text('Algo deu errado'),
+                          content: Text(request.error),
+                        );
+                      },
+                    );
+                  }
+                  else
+                  {
+                    Navigator.pop(context);
+                  }
+
+                },
                 style: ButtonStyle(
                   maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                   minimumSize: MaterialStateProperty.all(const Size(0, 50)),

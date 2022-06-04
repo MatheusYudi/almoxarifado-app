@@ -8,6 +8,7 @@ import 'funcionario_atual_controller.dart';
 
 class FornecedoresController
 {
+  String error = '';
   Future<List<Fornecedor>> getFornecedores(BuildContext context, [Map? fornecedor]) async
   {
     ApiResponse response = await ApiClient().get(
@@ -65,7 +66,7 @@ class FornecedoresController
     return fornecedor;
   }
 
-  Future<Fornecedor> postFornecedor(BuildContext context, Fornecedor fornecedor) async
+  Future<Fornecedor?> postFornecedor(BuildContext context, Fornecedor fornecedor) async
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'supplier',
@@ -75,9 +76,15 @@ class FornecedoresController
     
     if(response.statusCode != 200)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return fornecedor;
+    else
+    {
+      return fornecedor;
+    }
+    return null;
   }
 
 }

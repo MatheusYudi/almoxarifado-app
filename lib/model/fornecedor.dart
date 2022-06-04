@@ -4,7 +4,7 @@ class Fornecedor
   String status;
   String cnpj;
   String ie;
-  String razoaSocial;
+  String razaoSocial;
   String nomeFantasia;
   String estado;
   String complemento;
@@ -12,14 +12,16 @@ class Fornecedor
   String cidade;
   int numero;
   String rua;
-  String cep;  
+  String cep;
+  String regimeTibutario;
+  String tipoIe;
 
   Fornecedor({
       this.id,
-      this.status = '',
+      this.status = 'ativo',
       this.cnpj = '',
       this.ie = '',
-      this.razoaSocial = '',
+      this.razaoSocial = '',
       this.nomeFantasia = '',
       this.estado = '',
       this.complemento = '',
@@ -28,6 +30,8 @@ class Fornecedor
       this.numero = 0,
       this.rua = '',
       this.cep = '',
+      this.regimeTibutario = '',
+      this.tipoIe = '',
   });
 
   Map<String, dynamic> toJson(){
@@ -36,7 +40,7 @@ class Fornecedor
       'status' : status,
       'document' : cnpj,
       'stateRegistration' : ie,
-      'corporateName' : razoaSocial,
+      'corporateName' : razaoSocial,
       'tradingName' : nomeFantasia,
       'state' : estado,
       'postalCode' : cep,
@@ -45,6 +49,8 @@ class Fornecedor
       'city' : cidade,
       'district' : bairro,
       'complement' : complemento,
+      'calculationRegime' : regimeTibutario,
+      'stateRegistrationType' : tipoIe,
     };
   }
   
@@ -54,7 +60,7 @@ class Fornecedor
       status : json['status'] ?? '',
       cnpj : json['document'] ?? '',
       ie : json['stateRegistration'] ?? '',
-      razoaSocial : json['corporateName'] ?? '',
+      razaoSocial : json['corporateName'] ?? '',
       nomeFantasia : json['tradingName'] ?? '',
       estado : json['state'] ?? '',
       cep : json['postalCode'] ?? '',
@@ -63,6 +69,8 @@ class Fornecedor
       cidade: json['city'] ?? '',
       bairro : json['district'] ?? '',
       complemento : json['complement'] ?? '',
+      regimeTibutario : json['calculationRegime'] ?? '',
+      tipoIe : json['stateRegistrationType'] ?? '',
     );
   }
 }
