@@ -165,7 +165,26 @@ class _RequisicoesState extends State<Requisicoes> {
                     color: Theme.of(context).cardColor,
                   ),
                   child: DataGrid(
-                    headers: const [],
+                    headers: [
+                      DataGridHeader(
+                        link: 'delete',
+                        displayPercentage: 10,
+                        sortable: false,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'edit',
+                        displayPercentage: 10,
+                        sortable: false,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'avaliar',
+                        displayPercentage: 10,
+                        sortable: false,
+                        enableSearch: false,
+                      ),
+                    ],
                     data: const [],//TesteData.clientes,
                     width: MediaQuery.of(context).size.width - 20,
                   ),
