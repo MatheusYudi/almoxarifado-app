@@ -25,12 +25,27 @@ class _HomePageViewState extends State<HomePageView> {
           padding: const EdgeInsets.all(16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                DateFormat('hh:mm').format(DateTime.now()),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Colors.white,
-                  fontSize: 45,
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                     Text(
+                      DateFormat.yMMMd('pt_BR').format(DateTime.now()),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Colors.white,
+                        fontSize: 45,
+                      ),
+                    ),
+                    Text(
+                      DateFormat('hh:mm').format(DateTime.now()),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Colors.white,
+                        fontSize: 45,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: 20),
@@ -46,9 +61,15 @@ class _HomePageViewState extends State<HomePageView> {
                       itemBuilder: (context, index){
                         if(MenuItensList.itens[index].children.isEmpty)
                         {
-                          return ElevatedButton(
-                            onPressed: () => Navigator.pushNamed(context, MenuItensList.itens[index].pageRoute),
-                            child: MenuItensList.itens[index].text
+                          return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.pushNamed(context, MenuItensList.itens[index].pageRoute),
+                              child: MenuItensList.itens[index].text,
+                              style: ButtonStyle(
+                                minimumSize: MaterialStateProperty.all(const Size(0, 50)),
+                              ),
+                            ),
                           );
                         }
                         else

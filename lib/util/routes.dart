@@ -22,7 +22,7 @@ import '../view/requisicao/requisicao_form.dart';
 import '../view/material/selecionar_material.dart';
 
 class Routes{
-  static const String homePage = '/home_page';
+  static const String homePage = '/homePage';
   static const String login = '/login';
   static const String fornecedores = '/fornecedores';
   static const String fornecedorForm = '/fornecedorForm';
