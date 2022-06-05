@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../controller/grupo_material_controller.dart';
 import '../../controller/materiais_controller.dart';
+import '../../controller/ncm_controller.dart';
 import '../../enum/e_unidade.dart';
 import '../../model/grupo_material.dart';
 import '../../model/material_model.dart';
+import '../../model/ncm_model.dart';
 import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
@@ -35,6 +37,11 @@ class _MaterialFormState extends State<MaterialForm> {
   bool gruposMaterialLoading = false;
   GrupoMaterial? grupoAcessoSelecionado;
 
+  List<NcmModel> ncms = [];
+  bool ncmsLoading = false;
+  GrupoMaterial? ncmSelecionado;
+  NcmController ncmController = NcmController();
+
   bool preenchido = false;
   dynamic argument;
 
@@ -58,9 +65,16 @@ class _MaterialFormState extends State<MaterialForm> {
     setState((){});
   }
 
+  fetchNcm() async
+  {
+    ncms = await ncmController.getNcms(context);
+    setState(() {});
+  }
+
   @override
   void initState() {
     fetchGruposMaterial();
+    fetchNcm();
     super.initState();
   }
 
@@ -151,10 +165,31 @@ class _MaterialFormState extends State<MaterialForm> {
                       ),
                     ),
                     Flexible(
-                      child: DefaultDropDown(
+                      child: ncmController.loading
+                      ? Container(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Theme.of(context).cardColor,
+                        ),
+                        child: const Center(
+                          child: SizedBox(
+                            child: CircularProgressIndicator()
+                          ),
+                        ),
+                      )
+                      : DefaultDropDown(
                         controller: ncm,
                         labelText: 'Ncm',
-                        itens: [],
+                        maximunItensShown: 5,
+                        searchable: true,
+                        itens: ncms.map((ncm){
+                          return DropdownMenuItem(
+                            value: "${ncm.codigo} - ${ncm.descricao}",
+                            child: Text("${ncm.codigo} - ${ncm.descricao}"),
+                            onTap: () => material.ncm = ncm.codigo,
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],

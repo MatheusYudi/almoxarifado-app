@@ -1,7 +1,7 @@
 class ApiResponse
 {
   int statusCode;
-  Map<String, dynamic> body;
+  dynamic body;
   Map<String, dynamic>? header;
 
   ApiResponse({
