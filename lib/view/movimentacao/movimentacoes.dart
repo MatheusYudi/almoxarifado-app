@@ -28,7 +28,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
   TextEditingController dataInicio = TextEditingController();
   TextEditingController dataFim = TextEditingController();
   TextEditingController codigo = TextEditingController();
-  TextEditingController descricao = TextEditingController();
+  TextEditingController nome = TextEditingController();
   TextEditingController grupo = TextEditingController();
   List<Movimentacao> movimentacoes = [];
   List<Movimentacao> movimentacoesGrid = [];
@@ -140,16 +140,10 @@ class _MovimentacoesState extends State<Movimentacoes> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Flexible(
-                                child: DefaultTextFormField(
-                                  controller: codigo,
-                                  labelText: 'Código',
-                                ),
-                              ),
-                              Flexible(
                                 flex: 2,
                                 child: DefaultTextFormField(
-                                  controller: descricao,
-                                  labelText: 'Descrição',
+                                  controller: nome,
+                                  labelText: 'Nome',
                                 ),
                               ),
                               Flexible(
@@ -157,6 +151,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                 child: DefaultDropDown(
                                   controller: grupo,
                                   labelText: 'Grupo',
+                                  maximunItensShown: 5,
                                   itens: gruposMaterial.map((grupoMaterial){
                                     return DropdownMenuItem(
                                       value: grupoMaterial.nome,
@@ -202,14 +197,39 @@ class _MovimentacoesState extends State<Movimentacoes> {
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton(
                             onPressed: (){
-                              movimentacoesGrid = movimentacoes
-                                .where((movimentacao) =>
-                                    movimentacao.funcionario?.id == funcionarioSelecionado?.id &&
-                                    movimentacao.material!.nome
-                                        .toUpperCase()
-                                        .contains(descricao.text.toUpperCase())&&
-                                    movimentacao.material?.grupoMaterial?.id == grupoSelecionado?.id
-                                ).toList();
+                              movimentacoesGrid = movimentacoes.where((movimentacao){
+                                if(movimentacao.material!.nome
+                                  .toUpperCase()
+                                  .contains(nome.text.toUpperCase()))
+                                  {
+                                    return true;
+                                  }
+                                  return false;
+                              }).toList();
+                              movimentacoesGrid = movimentacoesGrid.where((movimentacao){
+                                if(movimentacao.material!.grupoMaterial == null || grupoSelecionado == null)
+                                {
+                                  return true;
+                                }
+                                if(movimentacao.material!.grupoMaterial!.id == grupoSelecionado!.id)
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              movimentacoesGrid = movimentacoesGrid.where((movimentacao){
+                                if(dataInicio.text.isEmpty || dataFim.text.isEmpty)
+                                {
+                                  return true;
+                                }
+                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]}");
+                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]}");
+                                if(movimentacao.dataHora!.isAfter(dataInicioParse) && movimentacao.dataHora!.isBefore(dataFimParse))
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
                               setState(() {});
                             },
                             child: const Icon(Icons.search),
@@ -237,25 +257,40 @@ class _MovimentacoesState extends State<Movimentacoes> {
                       DataGridHeader(
                         link: 'funcionario',
                         title: 'Funcionário',
-                        displayPercentage: 30,
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
+                        displayPercentage: 20,
                       ),
                       DataGridHeader(
                         link: 'material',
                         title: 'Material',
-                        displayPercentage: 30,
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
+                        displayPercentage: 20,
                       ),
                       DataGridHeader(
                         link: 'qtd',
                         title: 'Quantidade',
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
                         displayPercentage: 20,
                       ),
                       DataGridHeader(
                         link: 'tipo',
                         title: 'Tipo',
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
+                        displayPercentage: 20,
+                      ),
+                      DataGridHeader(
+                        link: 'data',
+                        title: 'Data',
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
                         displayPercentage: 20,
                       ),
                     ],
-                    data: movimentacoes.map((movimentacao){
+                    data: movimentacoesGrid.map((movimentacao){
                       return DataGridRow(
                         columns: [
                           DataGridRowColumn(
@@ -280,6 +315,12 @@ class _MovimentacoesState extends State<Movimentacoes> {
                             link: 'tipo',
                             display: Text(movimentacao.tipo),
                             textCompareOrder: movimentacao.tipo,
+                            alignment: Alignment.centerLeft,
+                          ),
+                          DataGridRowColumn(
+                            link: 'data',
+                            display: Text(DateFormat('dd/MM/yyyy').format(movimentacao.dataHora!)),
+                            textCompareOrder: DateFormat('dd/MM/yyyy').format(movimentacao.dataHora!),
                             alignment: Alignment.centerLeft,
                           ),
                         ]
