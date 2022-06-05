@@ -8,6 +8,7 @@ class Movimentacao
   double quantidadeInicial;
   double quantidadeMovimentada;
   String tipo;
+  String motivo;
   Funcionario? funcionario;
   MaterialModel? material;
 
@@ -16,18 +17,18 @@ class Movimentacao
     this.quantidadeInicial = 0,
     this.quantidadeMovimentada = 0,
     this.tipo = '',
+    this.motivo = '',
     this.funcionario,
     this.material,
   });
 
   Map<String, dynamic> toJson(){
     return{
-      'dataHora' : dataHora,
-      'quantity' : quantidadeInicial,
-      'quantidadeMovimentada' : quantidadeMovimentada,
+      'quantity' : quantidadeMovimentada,
       'type' : tipo,
-      'user' : tipo,
-      'material' : material,
+      'userId' : funcionario == null ? '' : funcionario!.id,
+      'materialId' : material == null ? '' : material!.id,
+      'reason': motivo,
     };
   }
 
@@ -37,6 +38,7 @@ class Movimentacao
       quantidadeInicial : json['quantidadeInicial'] ?? 0,
       quantidadeMovimentada : json['quantidadeMovimentada'] ?? 0,
       tipo : json['type'] ?? '',
+      motivo : json['reason'] ?? '',
       funcionario : json['user'] != null? Funcionario.fromJson(json['user']) : null,
       material : json['material'] != null? MaterialModel.fromJson(json['material']) : null,
     );

@@ -8,6 +8,9 @@ import 'funcionario_atual_controller.dart';
 
 class MovimentacoesController
 {
+
+  String error = '';
+
   Future<List<Movimentacao>> getMovimentacoes(BuildContext context, [Map? movimentacao]) async
   {
     ApiResponse response = await ApiClient().get(
@@ -50,7 +53,7 @@ class MovimentacoesController
     return true;
   }
 
-  Future<Movimentacao> updateMovimentacao(BuildContext context, Movimentacao movimentacao) async
+  Future<Movimentacao?> updateMovimentacao(BuildContext context, Movimentacao movimentacao) async
   {
     ApiResponse response = await ApiClient().put(
       endPoint: 'movement',
@@ -58,14 +61,20 @@ class MovimentacoesController
       data: movimentacao.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return movimentacao;
+    else
+    {
+      return movimentacao;
+    }
+    return null;
   }
 
-  Future<Movimentacao> postMovimentacao(BuildContext context, Movimentacao movimentacao) async
+  Future<Movimentacao?> postMovimentacao(BuildContext context, Movimentacao movimentacao) async
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'movement',
@@ -73,11 +82,17 @@ class MovimentacoesController
       data: movimentacao.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return movimentacao;
+    else
+    {
+      return movimentacao;
+    }
+    return null;
   }
 
 }

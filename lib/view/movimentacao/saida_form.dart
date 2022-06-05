@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '../../controller/funcionario_atual_controller.dart';
+import '../../controller/movimentacoes_controller.dart';
+import '../../model/movimentacao.dart';
 import '../../util/routes.dart';
 import '../../widgets/default_text_form_field.dart';
 
@@ -10,12 +14,24 @@ class SaidaForm extends StatefulWidget {
   @override
   State<SaidaForm> createState() => _SaidaFormState();
 }
-
+//TODO testar saida avulsa
 class _SaidaFormState extends State<SaidaForm> {
 
   TextEditingController codigo = TextEditingController();
   TextEditingController descricao = TextEditingController();
   TextEditingController quantidade = TextEditingController();
+
+  Movimentacao? movimentacao;
+
+  @override
+  void initState() {
+    movimentacao = Movimentacao(
+      tipo: 'Saída',
+      funcionario:  Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual(),
+      motivo: 'Saída avulsa',
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,12 +139,33 @@ class _SaidaFormState extends State<SaidaForm> {
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.save),
                                     label: const Text('Salvar'),
-                                    onPressed: () {},
                                     style: ButtonStyle(
                                       maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                                       minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                                       backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
                                     ),
+                                    onPressed: () async {
+                                      MovimentacoesController request = MovimentacoesController();
+                                      
+                                      await request.postMovimentacao(context, movimentacao!);
+                                      
+                                      if(request.error != '')
+                                      {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context){
+                                            return AlertDialog(
+                                              title: const Text('Algo deu errado'),
+                                              content: Text(request.error),
+                                            );
+                                          },
+                                        );
+                                      }
+                                      else
+                                      {
+                                        Navigator.pop(context);
+                                      }
+                                    },
                                   ),
                                 ),
                                 Container(
