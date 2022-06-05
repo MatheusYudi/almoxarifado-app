@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../controller/funcionario_atual_controller.dart';
 import '../widgets/default_app_bar.dart';
 import '../widgets/default_text_form_field.dart';
 
@@ -9,7 +10,7 @@ class AlterarSenha extends StatefulWidget {
   @override
   State<AlterarSenha> createState() => _AlterarSenhaState();
 }
-
+//TODO testar alteração de senha
 class _AlterarSenhaState extends State<AlterarSenha> {
 
   TextEditingController confirmarSenha = TextEditingController();
@@ -49,6 +50,17 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                             color: const Color(0xFF757575),
                           ),
                         ),
+                        validator: (value)
+                        {
+                          if (value == null || value.isEmpty) {
+                            return 'Digite algum valor';
+                          }
+                          else if(value.length < 6)
+                          {
+                            return 'A Senha deve ter no minimo 6 caracteres';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Flexible(
@@ -68,6 +80,17 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                             color: const Color(0xFF757575),
                           ),
                         ),
+                        validator: (value)
+                        {
+                          if (value == null || value.isEmpty) {
+                            return 'Digite algum valor';
+                          }
+                          else if(value.length < 6)
+                          {
+                            return 'A Senha deve ter no minimo 6 caracteres';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Container(
@@ -80,7 +103,28 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                         minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                         backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        FuncionarioAtualController request = FuncionarioAtualController();
+                                      
+                        await request.alterarSenha(context, senha.text);
+                        
+                        if(request.error != '')
+                        {
+                          showDialog(
+                            context: context,
+                            builder: (context){
+                              return AlertDialog(
+                                title: const Text('Algo deu errado'),
+                                content: Text(request.error),
+                              );
+                            },
+                          );
+                        }
+                        else
+                        {
+                          Navigator.pop(context);
+                        }
+                      },
                     ),
                   ),
                   ],

@@ -227,7 +227,6 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                 backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
               ),
               onPressed: () async {
-                print(funcionario.toJson());
                 if (_formKey.currentState!.validate())
                 {
                   FuncionariosController request = FuncionariosController();

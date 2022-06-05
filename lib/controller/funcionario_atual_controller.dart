@@ -36,4 +36,19 @@ class FuncionarioAtualController extends ChangeNotifier
     }
   }
 
+  alterarSenha(BuildContext context, String senha) async {
+    ApiResponse response = await ApiClient().post(
+      endPoint: 'auth/recover',
+      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      data: {'password' : senha}
+    );
+    
+    if(response.statusCode > 299)
+    {
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+    }
+  }
+
 }
