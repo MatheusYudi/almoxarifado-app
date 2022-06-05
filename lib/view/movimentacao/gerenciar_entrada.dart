@@ -132,7 +132,7 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
-                            onPressed: () => Navigator.pushNamed(context, Routes.entradaForm),
+                            onPressed: () => Navigator.pushNamed(context, Routes.entradaForm).then((value) => fetchEntradas()),
                           ),
                         ),
                         Container(
