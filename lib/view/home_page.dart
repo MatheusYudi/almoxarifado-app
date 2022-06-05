@@ -58,8 +58,8 @@ class _HomePageViewState extends State<HomePageView> {
                     ListView.builder(
                       itemCount: MenuItensList.itens.length,
                       shrinkWrap: true,
-                      itemBuilder: (context, index){
-                        if(MenuItensList.itens[index].children.isEmpty)
+                      itemBuilder: (context, index) {
+                        if(index > 0 && MenuItensList.itens[index].children.isEmpty)
                         {
                           return Padding(
                             padding: const EdgeInsets.all(8),
