@@ -39,7 +39,7 @@ class _HomePageViewState extends State<HomePageView> {
                       ),
                     ),
                     Text(
-                      DateFormat('hh:mm').format(DateTime.now()),
+                      DateFormat('HH:mm').format(DateTime.now()),
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Colors.white,
                         fontSize: 45,
