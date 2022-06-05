@@ -5,6 +5,7 @@ class MaterialModel
   int? id;
   String nome;
   String ncm;
+  String unidade;
   String codigoBarras;
   double valorUnitario;
   double qtdeEstoque;
@@ -15,6 +16,7 @@ class MaterialModel
     this.id,
     this.nome = '',
     this.ncm = '',
+    this.unidade = '',
     this.codigoBarras = '',
     this.valorUnitario = 0,
     this.qtdeEstoque = 0,
@@ -27,11 +29,12 @@ class MaterialModel
       'id' : id,
       'name' : nome,
       'ncm' : ncm,
+      'unit' : unidade,
       'barcode' : codigoBarras,
       'unitPrice' : valorUnitario,
       'stockQuantity' : qtdeEstoque,
       'minimumStock' : estoqueMinimo,
-      'materialGroup': grupoMaterial,
+      'materialGroupId' : grupoMaterial == null ? '' : grupoMaterial!.id,
     };
   }
 
@@ -40,6 +43,7 @@ class MaterialModel
       id : json['id'],
       nome : json['name'] ?? '',
       ncm : json['ncm'] ?? '',
+      unidade : json['unit'] ?? '',
       codigoBarras : json['barcode'] ?? '',
       valorUnitario : json['unitPrice'] ?? 0,
       qtdeEstoque : double.parse("${json['stockQuantity']}"),

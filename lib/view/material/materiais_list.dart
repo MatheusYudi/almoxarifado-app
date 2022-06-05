@@ -71,15 +71,9 @@ class _MateriaisState extends State<Materiais> {
                             children: [
                               Flexible(
                                 child: DefaultDropDown(
-                                  controller: fornecedor,
-                                  labelText: 'Fornecedor',
-                                  itens: [],
-                                ),
-                              ),
-                              Flexible(
-                                child: DefaultDropDown(
                                   controller: grupo,
                                   labelText: 'Grupo',
+                                  maximunItensShown: 5,
                                   itens: gruposMaterial.map((grupoMaterial){
                                     return DropdownMenuItem(
                                       value: grupoMaterial.nome,
@@ -108,10 +102,10 @@ class _MateriaisState extends State<Materiais> {
                                       .where((material) =>
                                           material.nome
                                               .toUpperCase()
-                                              .contains(nome.text.toUpperCase()) &&
-                                          grupoMaterialSelecionado != null &&
+                                              .contains(nome.text.toUpperCase()) ||
+                                          (grupoMaterialSelecionado != null &&
                                           material.grupoMaterial != null &&
-                                          material.grupoMaterial?.id == grupoMaterialSelecionado?.id
+                                          material.grupoMaterial?.id == grupoMaterialSelecionado?.id)
                                       ).toList();
                                     setState(() {});
                                   },
@@ -184,11 +178,18 @@ class _MateriaisState extends State<Materiais> {
                         displayPercentage: 10,
                       ),
                       DataGridHeader(
+                        link: 'edit',
+                        title: '',
+                        enableSearch: false,
+                        sortable: false,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
                         link: 'nome',
                         title: 'Nome',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 40,
+                        displayPercentage: 35,
                       ),
                       DataGridHeader(
                         link: 'preco',
@@ -202,7 +203,7 @@ class _MateriaisState extends State<Materiais> {
                         title: 'Código de Barras',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 20,
+                        displayPercentage: 15,
                       ),
                       DataGridHeader(
                         link: 'qtdEstoque',
@@ -224,6 +225,20 @@ class _MateriaisState extends State<Materiais> {
                               icon: const Icon(Icons.delete),
                               onPressed: () async {
                                 MateriaisController().deleteMaterial(context, material.id!).then((value){
+                                  fetchMateriais();
+                                });
+                              },
+                            ),
+                          ),
+                          DataGridRowColumn(
+                            link: 'edit',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.blue,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () async {
+                                Navigator.pushNamed(context, Routes.materialForm, arguments: material.id).then((value){
                                   fetchMateriais();
                                 });
                               },

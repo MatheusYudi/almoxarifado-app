@@ -169,22 +169,22 @@ class _GruposState extends State<Grupos> {
                             ),
                           ),
                           DataGridRowColumn(
-                              link: 'edit',
-                              alignment: Alignment.center,
-                              display: IconButton(
-                                padding: EdgeInsets.zero,
-                                color: Colors.blue,
-                                icon: const Icon(Icons.edit),
-                                onPressed: () async {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => GrupoForm(id: grupoMaterial.id)).then((value){
-                                      fetchGrupoMaterial();
-                                    },
-                                  );
-                                },
-                              ),
+                            link: 'edit',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.blue,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => GrupoForm(id: grupoMaterial.id)).then((value){
+                                    fetchGrupoMaterial();
+                                  },
+                                );
+                              },
                             ),
+                          ),
                           DataGridRowColumn(
                             link: 'nome',
                             display: Text(grupoMaterial.nome),

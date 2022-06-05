@@ -9,6 +9,9 @@ import 'funcionario_atual_controller.dart';
 
 class MateriaisController
 {
+
+  String error = '';
+
   Future<List<MaterialModel>> getMateriais(BuildContext context, [Map? material]) async
   {
     ApiResponse response = await ApiClient().get(
@@ -51,7 +54,7 @@ class MateriaisController
     return true;
   }
 
-  Future<MaterialModel> updateMaterial(BuildContext context, MaterialModel material) async
+  Future<MaterialModel?> updateMaterial(BuildContext context, MaterialModel material) async
   {
     ApiResponse response = await ApiClient().put(
       endPoint: 'material',
@@ -59,14 +62,20 @@ class MateriaisController
       data: material.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return material;
+    else
+    {
+      return material;
+    }
+    return null;
   }
 
-  Future<MaterialModel> postMaterial(BuildContext context, MaterialModel material) async
+  Future<MaterialModel?> postMaterial(BuildContext context, MaterialModel material) async
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'material',
@@ -74,11 +83,17 @@ class MateriaisController
       data: material.toJson(),
     );
     
-    if(response.statusCode != 200)
+    if(response.statusCode > 299)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
     }
-    return material;
+    else
+    {
+      return material;
+    }
+    return null;
   }
 
 }
