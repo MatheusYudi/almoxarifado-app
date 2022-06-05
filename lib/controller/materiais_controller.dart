@@ -96,4 +96,26 @@ class MateriaisController
     return null;
   }
 
+//TODO confirmar qual email vai ser enviada a solicitação
+  Future<bool> solicitarCompra(BuildContext context) async
+  {
+    ApiResponse response = await ApiClient().post(
+      endPoint: 'material/purchase-request',
+      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      data: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().email,
+    );
+    
+    if(response.statusCode > 299)
+    {
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+    }
+    else
+    {
+      return true;
+    }
+    return false;
+  }
+
 }

@@ -128,11 +128,13 @@ class _MateriaisState extends State<Materiais> {
                           child: ElevatedButton.icon(
                             icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
                             label: const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
-                            onPressed: () {},
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(170, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
+                            onPressed: () {
+                              MateriaisController().solicitarCompra(context);
+                            },
                           ),
                         ),
                         Container(
