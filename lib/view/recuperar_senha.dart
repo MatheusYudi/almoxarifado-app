@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../controller/funcionario_atual_controller.dart';
 import '../widgets/default_text_form_field.dart';
 
 class RecuperarSenhaForm extends StatefulWidget {
@@ -8,7 +9,7 @@ class RecuperarSenhaForm extends StatefulWidget {
   @override
   State<RecuperarSenhaForm> createState() => _RecuperarSenhaFormState();
 }
-
+//TODO testar rotina de recuperar senha
 class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
   
   TextEditingController email = TextEditingController();
@@ -80,12 +81,33 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.outgoing_mail),
                                     label: const Text('Enviar Email'),
-                                    onPressed: () {},
                                     style: ButtonStyle(
                                       maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                                       minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                                       backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
                                     ),
+                                    onPressed: () async {
+                                      FuncionarioAtualController request = FuncionarioAtualController();
+                                      
+                                      await request.recuperarSenha(context, email.text);
+                                      
+                                      if(request.error != '')
+                                      {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context){
+                                            return AlertDialog(
+                                              title: const Text('Algo deu errado'),
+                                              content: Text(request.error),
+                                            );
+                                          },
+                                        );
+                                      }
+                                      else
+                                      {
+                                        Navigator.pop(context);
+                                      }
+                                    },
                                   ),
                                 ),
                                 Container(
@@ -93,12 +115,12 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.cancel),
                                     label: const Text('Cancelar'),
-                                    onPressed: () => Navigator.pop(context),
                                     style: ButtonStyle(
                                       maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                                       minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                                       backgroundColor: MaterialStateProperty.all(Colors.red),
                                     ),
+                                    onPressed: () => Navigator.pop(context),
                                   ),
                                 ),
                               ],
