@@ -13,13 +13,13 @@ class MaterialEntrada
   Map<String, dynamic> toJson(){
     return{
       'materialId' : material == null ? '' : material!.id,
-      'qtd' : qtd,
+      'quantity' : qtd,
     };
   }
 
   factory MaterialEntrada.fromJson(Map<String, dynamic> json){
     return MaterialEntrada(
-      qtd : json['qtd'] ?? 0,
+      qtd : json['quantity'] ?? 0,
       material : json['material'] != null? MaterialModel.fromJson(json['material']) : null,
     );
   }
