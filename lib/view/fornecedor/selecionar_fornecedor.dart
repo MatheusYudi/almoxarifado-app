@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../controller/fornecedores_controller.dart';
+import '../../model/fornecedor.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_text_form_field.dart';
@@ -16,6 +19,23 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
   TextEditingController razaoSocial = TextEditingController();
   TextEditingController nomeFantasia = TextEditingController();
   TextEditingController cnpj = TextEditingController();
+
+  bool fornecedoresLoading = false;
+  List<Fornecedor> fornecedores = [];
+  List<Fornecedor> fornecedoresGrid = [];
+
+  fetchFornecedores() async {
+    setState(() => fornecedoresLoading = true);
+    fornecedores = await FornecedoresController().getFornecedores(context);
+    fornecedoresGrid = fornecedores;
+    setState(() => fornecedoresLoading = false);
+  }
+
+  @override
+  void initState() {
+    fetchFornecedores();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +59,6 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                             children: [
                               Flexible(
                                 child: DefaultTextFormField(
-                                  controller: cnpj,
-                                  labelText: 'Cnpj',
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Flexible(
-                                child: DefaultTextFormField(
                                   controller: razaoSocial,
                                   labelText: 'Razão Social',
                                 ),
@@ -62,23 +71,43 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Flexible(
+                                child: DefaultTextFormField(
+                                  controller: cnpj,
+                                  labelText: 'Cnpj',
+                                  inputFormatters: [MaskTextInputFormatter(mask: "##.###.###/####-##")],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                child: ElevatedButton(
+                                  child: const Icon(Icons.search),
+                                  style: ButtonStyle(
+                                    minimumSize: MaterialStateProperty.all(const Size(50, 50)),
+                                  ),
+                                  onPressed: (){
+                                    fornecedoresGrid = fornecedores
+                                      .where((fornecedor) => fornecedor.razaoSocial
+                                            .toUpperCase()
+                                            .contains(razaoSocial.text.toUpperCase()) &&
+                                        fornecedor.nomeFantasia
+                                            .toUpperCase()
+                                            .contains(nomeFantasia.text.toUpperCase()) &&
+                                        fornecedor.cnpj
+                                            .toUpperCase()
+                                            .contains(cnpj.text.toUpperCase())
+                                      ).toList();
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: (){},
-                            child: const Icon(Icons.search),
-                            style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(const Size(50, 50)),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -89,7 +118,10 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).cardColor,
                   ),
-                  child: DataGrid(
+                  child: fornecedoresLoading
+                  ? const Center(
+                    child: SizedBox(child: CircularProgressIndicator()))
+                  : DataGrid(
                     headers: [
                       DataGridHeader(
                         link: 'select',
@@ -101,25 +133,28 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                       DataGridHeader(
                         link: 'cnpj',
                         title: 'Cnpj',
+                        enableSearch: false,
                         alignment: Alignment.centerLeft,
                         displayPercentage: 20,
                       ),
                       DataGridHeader(
                         link: 'razaoSocial',
                         title: 'Razão Social',
+                        enableSearch: false,
                         alignment: Alignment.centerLeft,
                         displayPercentage: 35,
                       ),
                       DataGridHeader(
                         link: 'nomeFantasia',
                         title: 'Nome Fantasia',
+                        enableSearch: false,
                         alignment: Alignment.centerLeft,
                         displayPercentage: 35,
                       ),
                     ],
-                    data: [
-                      DataGridRow(
-                        onDoubleTap: () => Navigator.pop(context, 'Produto 1'),
+                    data: fornecedoresGrid.map((fornecedor){
+                      return DataGridRow(
+                        onDoubleTap: () => Navigator.pop(context, fornecedor),
                         columns: [
                           DataGridRowColumn(
                             link: 'select',
@@ -127,27 +162,30 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                             display: IconButton(
                               padding: EdgeInsets.zero,
                               icon: const Icon(Icons.ads_click),
-                              onPressed: () => Navigator.pop(context, 'Produto 1'),
+                              onPressed: () => Navigator.pop(context, fornecedor),
                             ),
                           ),
                           DataGridRowColumn(
                             link: 'cnpj',
-                            display: const Text('Cnpj'),
+                            display: Text(fornecedor.cnpj),
+                            textCompareOrder: fornecedor.cnpj,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
                             link: 'razaoSocial',
-                            display: const Text('Razão Social'),
+                            display: Text(fornecedor.razaoSocial),
+                            textCompareOrder: fornecedor.razaoSocial,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
                             link: 'nomeFantasia',
-                            display: const Text('Nome Fantasia'),
+                            display: Text(fornecedor.nomeFantasia),
+                            textCompareOrder: fornecedor.nomeFantasia,
                             alignment: Alignment.centerLeft,
                           ),
                         ],
-                      ),
-                    ],//TesteData.clientes,
+                      );
+                    }).toList(),
                     width: MediaQuery.of(context).size.width - 20,
                   ),
                 ),
