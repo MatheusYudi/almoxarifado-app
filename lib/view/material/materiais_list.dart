@@ -132,8 +132,27 @@ class _MateriaisState extends State<Materiais> {
                               minimumSize: MaterialStateProperty.all(const Size(170, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
-                            onPressed: () {
-                              MateriaisController().solicitarCompra(context);
+                            onPressed: () async {
+                              MateriaisController request = MateriaisController();
+                              
+                              await request.solicitarCompra(context);
+
+                              if(request.error != '')
+                              {
+                                showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return AlertDialog(
+                                      title: const Text('Algo deu errado'),
+                                      content: Text(request.error),
+                                    );
+                                  },
+                                );
+                              }
+                              else
+                              {
+                                Navigator.pop(context);
+                              }
                             },
                           ),
                         ),
