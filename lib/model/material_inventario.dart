@@ -1,24 +1,26 @@
+import 'material_model.dart';
+
 class MaterialInventario
 {
   double qtdeFisica;
-  double qtdeSistema;
+  MaterialModel? material;
 
   MaterialInventario({
     this.qtdeFisica = 0,
-    this.qtdeSistema = 0,
+    this.material,
   });
 
   Map<String, dynamic> toJson(){
     return{
-      'qtdeFisica' : qtdeFisica,
-      'qtdeSistema' : qtdeSistema,
+      'physicQuantity' : qtdeFisica,
+      'materialId' : material == null ? '' : material!.id,
     };
   }
 
   factory MaterialInventario.fromJson(Map<String, dynamic> json){
     return MaterialInventario(
-      qtdeFisica : json['qtdeFisica'] ?? 0,
-      qtdeSistema : json['qtdeSistema'] ?? 0,
+      qtdeFisica : json['physicQuantity'] ?? 0,
+      material : json['material'] != null? MaterialModel.fromJson(json['material']) : null,
     );
   }
 }

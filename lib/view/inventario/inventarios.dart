@@ -1,8 +1,12 @@
+import 'package:almoxarifado/controller/funcionarios_controller.dart';
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:intl/intl.dart';
 
+import '../../controller/inventarios_controller.dart';
+import '../../model/funcionario.dart';
+import '../../model/inventario.dart';
 import '../../util/routes.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
@@ -21,6 +25,36 @@ class _InventariosState extends State<Inventarios> {
   TextEditingController dataInicio = TextEditingController();
   TextEditingController dataFim = TextEditingController();
   TextEditingController operador = TextEditingController();
+
+  bool inventariosLoading = false;
+  List<Inventario> inventarios = [];
+  List<Inventario> inventariosGrid = [];
+
+  bool funcionariosLoading = false;
+  List<Funcionario> funcionarios = [];
+  Funcionario? funcionarioSelecionado;
+
+  fetchInventarios() async
+  {
+    setState(() => inventariosLoading = true);
+    inventarios = await InventariosController().getInventarios(context);
+    inventariosGrid = inventarios;
+    setState(() => inventariosLoading = false);
+  }
+
+  fetchFuncionarios() async
+  {
+    setState(() => funcionariosLoading = true);
+    funcionarios = await FuncionariosController().getFuncionarios(context);
+    setState(() => funcionariosLoading = false);
+  }
+
+  @override
+  void initState() {
+    fetchInventarios();
+    fetchFuncionarios();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +139,13 @@ class _InventariosState extends State<Inventarios> {
                                 child: DefaultDropDown(
                                   controller: operador,
                                   labelText: 'Operador',
-                                  itens: [],
+                                  itens: funcionarios.map((funcionario){
+                                    return DropdownMenuItem(
+                                      value: funcionario.nome,
+                                      child: Text(funcionario.nome),
+                                      onTap: () => funcionarioSelecionado = funcionario,
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                             ],
@@ -138,11 +178,37 @@ class _InventariosState extends State<Inventarios> {
                         Container(
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton(
-                            onPressed: (){},
                             child: const Icon(Icons.search),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                             ),
+                            onPressed: (){
+                              inventariosGrid = inventarios.where((inventario){
+                                if(inventario.operador == null || funcionarioSelecionado == null)
+                                {
+                                  return true;
+                                }
+                                if(inventario.operador!.id == funcionarioSelecionado!.id)
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              inventariosGrid = inventariosGrid.where((inventario){
+                                if(dataInicio.text.isEmpty || dataFim.text.isEmpty)
+                                {
+                                  return true;
+                                }
+                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]}");
+                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]}");
+                                if(inventario.dataHora!.isAfter(dataInicioParse) && inventario.dataHora!.isBefore(dataFimParse))
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              setState(() {});
+                            },
                           ),
                         ),
                       ],
@@ -157,8 +223,80 @@ class _InventariosState extends State<Inventarios> {
                     color: Theme.of(context).cardColor,
                   ),
                   child: DataGrid(
-                    headers: const [],
-                    data: const [],//TesteData.clientes,
+                    headers: [
+                      DataGridHeader(
+                        link: 'delete',
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
+                        link: 'edit',
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
+                        link: 'operador',
+                        title: 'Operador',
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 60,
+                      ),
+                      DataGridHeader(
+                        link: 'data',
+                        title: 'Data',
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 20,
+                      ),
+                    ],
+                    data: inventariosGrid.map((inventario){
+                      return DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'delete',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.red,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                InventariosController().deleteInventario(context, inventario.id!).then((value){
+                                  fetchInventarios();
+                                });
+                              },
+                            ),
+                          ),
+                          DataGridRowColumn(
+                            link: 'edit',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.blue,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () async {
+                                Navigator.pushNamed(context, Routes.inventarioForm, arguments: inventario.id!).then((value){
+                                  fetchInventarios();
+                                });
+                              },
+                            ),
+                          ),
+                          DataGridRowColumn(
+                            link: 'operador',
+                            display: Text(inventario.operador!.nome),
+                            alignment: Alignment.centerLeft,
+                            textCompareOrder: inventario.operador!.nome,
+                          ),
+                          DataGridRowColumn(
+                            link: 'data',
+                            display: Text(DateFormat('dd/MM/yyyy').format(inventario.dataHora!)),
+                            textCompareOrder: DateFormat('dd/MM/yyyy').format(inventario.dataHora!),
+                            alignment: Alignment.centerLeft
+                          ),
+                        ]
+                      );
+                    }).toList(),
                     width: MediaQuery.of(context).size.width - 20,
                   ),
                 ),
