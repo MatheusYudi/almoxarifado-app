@@ -217,7 +217,7 @@ class _InventarioFormState extends State<InventarioForm> {
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
-                            displayPercentage: 20,
+                            displayPercentage: 50,
                           ),
                           DataGridHeader(
                             link: 'qtdSistema',
@@ -225,7 +225,7 @@ class _InventarioFormState extends State<InventarioForm> {
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
-                            displayPercentage: 35,
+                            displayPercentage: 20,
                           ),
                           DataGridHeader(
                             link: 'qtdFisico',
@@ -233,7 +233,7 @@ class _InventarioFormState extends State<InventarioForm> {
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
-                            displayPercentage: 35,
+                            displayPercentage: 20,
                           ),
                         ],
                         data: inventario.itens!.map((item){
@@ -247,7 +247,7 @@ class _InventarioFormState extends State<InventarioForm> {
                                   color: Colors.red,
                                   icon: const Icon(Icons.delete),
                                   onPressed: () {
-                                    inventario.itens!.removeWhere((itemEntrada) => itemEntrada.material!.id == item.material!.id);
+                                    inventario.itens!.removeWhere((itemInventario) => itemInventario.material!.id == item.material!.id);
                                     setState(() {});
                                   },
                                 ),

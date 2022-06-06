@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:intl/intl.dart';
 
+import '../../controller/funcionarios_controller.dart';
+import '../../controller/requisicoes_controller.dart';
+import '../../model/funcionario.dart';
+import '../../model/requisicao.dart';
 import '../../util/routes.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
@@ -22,6 +26,36 @@ class _RequisicoesState extends State<Requisicoes> {
   TextEditingController dataFim = TextEditingController();
   TextEditingController requisitante = TextEditingController();
   TextEditingController status = TextEditingController();
+
+  bool requisicoesLoading = false;
+  List<Requisicao> requisicoes = [];
+  List<Requisicao> requisicoesGrid = [];
+
+  bool funcionariosLoading = false;
+  List<Funcionario> funcionarios = [];
+  Funcionario? funcionarioSelecionado;
+
+  fetchRequisicoes() async
+  {
+    setState(() => requisicoesLoading = true);
+    requisicoes = await RequisicoesController().getRequisicoes(context);
+    requisicoesGrid = requisicoes;
+    setState(() => requisicoesLoading = false);
+  }
+
+  fetchFuncionarios() async
+  {
+    setState(() => funcionariosLoading = true);
+    funcionarios = await FuncionariosController().getFuncionarios(context);
+    setState(() => funcionariosLoading = false);
+  }
+
+  @override
+  void initState() {
+    fetchRequisicoes();
+    fetchFuncionarios();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +140,13 @@ class _RequisicoesState extends State<Requisicoes> {
                                 child: DefaultDropDown(
                                   controller: requisitante,
                                   labelText: 'Requisitante',
-                                  itens: [],
+                                  itens: funcionarios.map((funcionario){
+                                    return DropdownMenuItem(
+                                      value: funcionario.nome,
+                                      child: Text(funcionario.nome),
+                                      onTap: () => funcionarioSelecionado = funcionario,
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                               Flexible(
@@ -145,12 +185,38 @@ class _RequisicoesState extends State<Requisicoes> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: (){},
+                          child: ElevatedButton(                            
                             child: const Icon(Icons.search),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                             ),
+                            onPressed: (){
+                              requisicoesGrid = requisicoes.where((inventario){
+                                if(inventario.requisitante == null || funcionarioSelecionado == null)
+                                {
+                                  return true;
+                                }
+                                if(inventario.requisitante!.id == funcionarioSelecionado!.id)
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              requisicoesGrid = requisicoesGrid.where((inventario){
+                                if(dataInicio.text.isEmpty || dataFim.text.isEmpty)
+                                {
+                                  return true;
+                                }
+                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]}");
+                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]}");
+                                if(inventario.dataHora!.isAfter(dataInicioParse) && inventario.dataHora!.isBefore(dataFimParse))
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              setState(() {});
+                            },
                           ),
                         ),
                       ],
@@ -184,8 +250,70 @@ class _RequisicoesState extends State<Requisicoes> {
                         sortable: false,
                         enableSearch: false,
                       ),
+                      DataGridHeader(
+                        link: 'requisitante',
+                        title: 'Requisitante',
+                        displayPercentage: 50,
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                      ),
+                      DataGridHeader(
+                        link: 'data',
+                        title: 'Data',
+                        alignment: Alignment.centerLeft,
+                        displayPercentage: 20,
+                        enableSearch: false,
+                      ),
                     ],
-                    data: const [],//TesteData.clientes,
+                    data: requisicoes.map((requisicao){
+                      return DataGridRow(
+                        columns: [
+                          DataGridRowColumn(
+                            link: 'delete',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.red,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                RequisicoesController().deleteRequisicao(context, requisicao.id!).then((value){
+                                  fetchRequisicoes();
+                                });
+                              },
+                            ),
+                          ),
+                          DataGridRowColumn(
+                            link: 'edit',
+                            alignment: Alignment.center,
+                            display: IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Colors.blue,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () async {
+                                Navigator.pushNamed(context, Routes.requisicaoForm, arguments: requisicao.id!).then((value){
+                                  fetchRequisicoes();
+                                });
+                              },
+                            ),
+                          ),
+                          DataGridRowColumn(
+                            link: 'avaliar',
+                          ),
+                          DataGridRowColumn(
+                            link: 'requisitante',
+                            display: Text(requisicao.requisitante!.nome),
+                            textCompareOrder: requisicao.requisitante!.nome,
+                            alignment: Alignment.centerLeft,
+                          ),
+                          DataGridRowColumn(
+                            link: 'data',
+                            display: Text(DateFormat('dd/MM/yyyy').format(requisicao.dataHora!)),
+                            textCompareOrder: DateFormat('dd/MM/yyyy').format(requisicao.dataHora!),
+                            alignment: Alignment.centerLeft,
+                          ),
+                        ]
+                      );
+                    }).toList(),
                     width: MediaQuery.of(context).size.width - 20,
                   ),
                 ),
