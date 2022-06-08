@@ -138,18 +138,35 @@ class _FuncionariosState extends State<Funcionarios> {
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton(
                             onPressed: () {
-                              funcionariosGrid = funcionarios
-                                .where((funcionario) =>
-                                    funcionario.cpf
-                                        .toUpperCase()
-                                        .contains(cpf.text.toUpperCase()) &&
-                                    funcionario.nome
-                                        .toUpperCase()
-                                        .contains(nome.text.toUpperCase()) ||
-                                    (grupoAcessoSelecionado != null &&
-                                    funcionario.grupoAcesso != null &&
-                                    funcionario.grupoAcesso?.id == grupoAcessoSelecionado?.id)
-                                ).toList();
+                              funcionariosGrid = funcionarios.where((funcionario){
+                                if(funcionario.grupoAcesso == null || grupoAcessoSelecionado == null)
+                                {
+                                  return true;
+                                }
+                                if(funcionario.grupoAcesso!.id == grupoAcessoSelecionado!.id)
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              funcionariosGrid = funcionariosGrid.where((funcionario){
+                                if(funcionario.cpf
+                                  .toUpperCase()
+                                  .contains(cpf.text.toUpperCase()))
+                                  {
+                                    return true;
+                                  }
+                                  return false;
+                              }).toList();
+                              funcionariosGrid = funcionariosGrid.where((funcionario){
+                                if(funcionario.nome
+                                  .toUpperCase()
+                                  .contains(nome.text.toUpperCase()))
+                                  {
+                                    return true;
+                                  }
+                                  return false;
+                              }).toList();
                               setState(() {});
                             },
                             child: const Icon(Icons.search),
