@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import '../../controller/entradas_controller.dart';
@@ -66,6 +67,8 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                                 child: DefaultTextFormField(
                                   controller: numeroNota,
                                   labelText: 'Número da Nota',
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                  keyboardType: TextInputType.number,
                                 ),
                               ),
                               Flexible(
@@ -106,6 +109,8 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                                 child: DefaultTextFormField(
                                   controller: chave,
                                   labelText: 'Chave',
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                  keyboardType: TextInputType.number,
                                 ),
                               ),
                             ],
