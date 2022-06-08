@@ -173,12 +173,26 @@ class _InventarioFormState extends State<InventarioForm> {
                                   onPressed: (){
                                     if(materialSelecionado != null && quantidade.text.isNotEmpty)
                                     {
-                                      inventario.itens!.add(
-                                        MaterialInventario(
-                                          qtdeFisica: double.parse(quantidade.text),
-                                          material: materialSelecionado
-                                        )
-                                      );
+                                      bool existe = inventario.itens!.where((item) => item.material!.id == materialSelecionado!.id).isNotEmpty;
+                                      if(!existe)
+                                      {
+                                        inventario.itens!.add(
+                                          MaterialInventario(
+                                            qtdeFisica: double.parse(quantidade.text),
+                                            material: materialSelecionado
+                                          )
+                                        );
+                                      }
+                                      else
+                                      {
+                                        inventario.itens = inventario.itens!.map((item){
+                                          if(item.material!.id == materialSelecionado!.id)
+                                          {
+                                            item.qtdeFisica += double.parse(quantidade.text);
+                                          }
+                                          return item;
+                                        }).toList();
+                                      }
                                       materialSelecionado = null;
                                       nome.text = '';
                                       quantidade.text = '';
