@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../controller/funcionario_atual_controller.dart';
 import '../../controller/movimentacoes_controller.dart';
+import '../../model/material_model.dart';
 import '../../model/movimentacao.dart';
 import '../../util/routes.dart';
 import '../../widgets/default_text_form_field.dart';
@@ -21,7 +22,9 @@ class _SaidaFormState extends State<SaidaForm> {
   TextEditingController descricao = TextEditingController();
   TextEditingController quantidade = TextEditingController();
 
-  Movimentacao? movimentacao;
+  late Movimentacao movimentacao;
+
+  MaterialModel? materialSelecionado;
 
   @override
   void initState() {
@@ -83,7 +86,7 @@ class _SaidaFormState extends State<SaidaForm> {
                               flex: 3,
                               child: DefaultTextFormField(
                                 controller: descricao,
-                                labelText: 'Descrição',
+                                labelText: 'Material',
                                 suffixIcon: Container(
                                   height: 50,
                                   decoration: BoxDecoration(
@@ -96,14 +99,13 @@ class _SaidaFormState extends State<SaidaForm> {
                                   child: IconButton(
                                     icon: const Icon(Icons.search, color: Colors.white),
                                     onPressed: () => Navigator.pushNamed(context, Routes.selecionarMaterial).then((value) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context){
-                                          return AlertDialog(
-                                            content: Text(value.toString()),
-                                          );
-                                        }
-                                      );
+                                      materialSelecionado = value as MaterialModel;
+                                      movimentacao.material = materialSelecionado;
+                                      if(materialSelecionado != null)
+                                      {
+                                        descricao.text = materialSelecionado!.nome;
+                                      }
+                                      setState(() {});
                                     }),
                                   ),
                                 ),
@@ -115,6 +117,7 @@ class _SaidaFormState extends State<SaidaForm> {
                                 labelText: 'Quantidade',
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                onChanged: (data) => movimentacao.quantidadeMovimentada = double.parse(data),
                               ),
                             ),
                           ],
@@ -138,7 +141,7 @@ class _SaidaFormState extends State<SaidaForm> {
                                     onPressed: () async {
                                       MovimentacoesController request = MovimentacoesController();
                                       
-                                      await request.postMovimentacao(context, movimentacao!);
+                                      await request.postMovimentacao(context, movimentacao);
                                       
                                       if(request.error != '')
                                       {
