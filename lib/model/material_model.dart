@@ -42,10 +42,10 @@ class MaterialModel
     return MaterialModel(
       id : json['id'],
       nome : json['name'] ?? '',
-      ncm : json['ncm'] ?? '',
+      ncm : json['ncm']['code'] ?? '',
       unidade : json['unit'] ?? '',
       codigoBarras : json['barcode'] ?? '',
-      valorUnitario : json['unitPrice'] ?? 0,
+      valorUnitario : double.parse("${json['unitPrice']}"),
       qtdeEstoque : double.parse("${json['stockQuantity']}"),
       estoqueMinimo :double.parse("${json['minimumStock']}"),
       grupoMaterial : json['materialGroup'] != null? GrupoMaterial.fromJson(json['materialGroup']) : null,
