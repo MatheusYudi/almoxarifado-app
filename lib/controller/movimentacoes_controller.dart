@@ -16,6 +16,7 @@ class MovimentacoesController
     ApiResponse response = await ApiClient().get(
       endPoint: 'movement',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      filters: {'status': 'Ativo'},
     );
 
     if(response.statusCode != 200)

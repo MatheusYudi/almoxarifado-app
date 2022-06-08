@@ -17,6 +17,7 @@ class MateriaisController
     ApiResponse response = await ApiClient().get(
       endPoint: 'material',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      filters: {'status': 'Ativo'},
     );
 
     if(response.statusCode != 200)
