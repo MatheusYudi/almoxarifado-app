@@ -21,7 +21,7 @@ class MenuItensList
       pageRoute: Routes.materiais,
     ),
     DraweMenuItem(
-      text: const Text('Funcionarios', style: TextStyle(color: Colors.white)),
+      text: const Text('Funcionários', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.group_add, color: Colors.white),
       pageRoute: Routes.funcionarios,
     ),    
@@ -35,7 +35,7 @@ class MenuItensList
       icon: const Icon(Icons.swap_vert, color: Colors.white),
       children: [
         DraweMenuItem(
-          text: const Text('Gerenciar Movimentações', style: TextStyle(color: Colors.white)),
+          text: const Text('Consultar Movimentações', style: TextStyle(color: Colors.white)),
           icon: const Icon(Icons.sync, color: Colors.white),
           pageRoute: Routes.movimentacoes,
         ),

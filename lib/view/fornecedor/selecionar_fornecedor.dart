@@ -77,7 +77,7 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                               Flexible(
                                 child: DefaultTextFormField(
                                   controller: cnpj,
-                                  labelText: 'Cnpj',
+                                  labelText: 'CNPJ',
                                   inputFormatters: [MaskTextInputFormatter(mask: "##.###.###/####-##")],
                                 ),
                               ),
@@ -132,7 +132,7 @@ class _SelecionarFornecedorState extends State<SelecionarFornecedor> {
                       ),
                       DataGridHeader(
                         link: 'cnpj',
-                        title: 'Cnpj',
+                        title: 'CNPJ',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
                         displayPercentage: 20,

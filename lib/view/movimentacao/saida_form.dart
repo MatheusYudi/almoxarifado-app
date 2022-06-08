@@ -80,15 +80,6 @@ class _SaidaFormState extends State<SaidaForm> {
                         Row(
                           children: [
                             Flexible(
-                              child: DefaultTextFormField(
-                                controller: codigo,
-                                labelText: 'Código',
-                                enabled: false,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
-                              ),
-                            ),
-                            Flexible(
                               flex: 3,
                               child: DefaultTextFormField(
                                 controller: descricao,

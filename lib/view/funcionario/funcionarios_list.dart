@@ -51,7 +51,7 @@ class _FuncionariosState extends State<Funcionarios> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Funcionarios'),
+      appBar: const DefaultAppBar(pageName: 'Gerenciar Funcionários'),
       drawer: const DefaultUserDrawer(),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -71,7 +71,7 @@ class _FuncionariosState extends State<Funcionarios> {
                               Flexible(
                                 child: DefaultTextFormField(
                                   controller: cpf,
-                                  labelText: 'Cpf',
+                                  labelText: 'CPF',
                                   inputFormatters: [MaskTextInputFormatter(mask: "###.###.###-##")],
                                 ),
                               ),
@@ -121,8 +121,9 @@ class _FuncionariosState extends State<Funcionarios> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () => Navigator.pushNamed(
-                                context, Routes.funcionarioForm),
+                            onPressed: () {
+                              Navigator.pushNamed(context, Routes.funcionarioForm).then((value) => fetchFuncionarios());
+                            },
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(
                                   const Size(130, 50)),
@@ -190,7 +191,7 @@ class _FuncionariosState extends State<Funcionarios> {
                           ),
                           DataGridHeader(
                             link: 'cpf',
-                            title: 'Cpf',
+                            title: 'CPF',
                             displayPercentage: 20,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,

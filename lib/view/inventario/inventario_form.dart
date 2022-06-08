@@ -130,7 +130,7 @@ class _InventarioFormState extends State<InventarioForm> {
                                 flex: 3,
                                 child: DefaultTextFormField(
                                   controller: nome,
-                                  labelText: 'Nome',
+                                  labelText: 'Material',
                                   readOnly: true,
                                   suffixIcon: Container(
                                     height: 50,

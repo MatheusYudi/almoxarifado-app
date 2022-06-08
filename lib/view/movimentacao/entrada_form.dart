@@ -52,6 +52,7 @@ class _EntradaFormState extends State<EntradaForm> {
                                   controller: numeroNota,
                                   labelText: 'Número da Nota',
                                   keyboardType: TextInputType.number,
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                                   onChanged: (data) => entrada.numero = int.parse(data),
                                  ),
                               ),
@@ -60,6 +61,7 @@ class _EntradaFormState extends State<EntradaForm> {
                                   controller: chave,
                                   labelText: 'Chave da Nota',
                                   keyboardType: TextInputType.number,
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                                   onChanged: (data) => entrada.chave = data,
                                 ),
                               ),
@@ -108,7 +110,7 @@ class _EntradaFormState extends State<EntradaForm> {
                       flex: 3,
                       child: DefaultTextFormField(
                         controller: nome,
-                        labelText: 'Nome',
+                        labelText: 'Material',
                         readOnly: true,
                         suffixIcon: Container(
                           height: 50,

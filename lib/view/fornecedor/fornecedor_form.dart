@@ -100,6 +100,10 @@ class _FornecedorFormState extends State<FornecedorForm> {
       fornecedor.complemento = jsonResponse['complemento'] ?? '';
       numero.text = jsonResponse['numero'] ?? '';
       fornecedor.numero = int.parse(jsonResponse['numero'] ?? '');
+      fornecedor.regimeTibutario = '';
+      fornecedor.tipoIe = '';
+      fornecedor.ie = '';
+      fornecedor.complemento = '';
 
       setState(() => cnpjIsLoading = false);
     }
@@ -139,7 +143,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                     Flexible(
                       child: DefaultTextFormField(
                         controller: cnpj,
-                        labelText: 'Cnpj',
+                        labelText: 'CNPJ',
                         inputFormatters: [cnpjMask],
                         onChanged: (data) => fornecedor.cnpj = cnpjMask.getUnmaskedText(),
                         suffixIcon: cnpjIsLoading
@@ -282,25 +286,6 @@ class _FornecedorFormState extends State<FornecedorForm> {
                   children: [
                     Flexible(
                       child: DefaultTextFormField(
-                        controller: cidade,
-                        labelText: 'Cidade',
-                        keyboardType: TextInputType.number,
-                        onChanged: (data) => fornecedor.cidade = data,
-                      ),
-                    ),
-                    Flexible(
-                      child: DefaultTextFormField(
-                        controller: bairro,
-                        labelText: 'Bairro',
-                        onChanged: (data) => fornecedor.bairro = data,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: DefaultTextFormField(
                         controller: logradouro,
                         labelText: 'Logradouro',
                         keyboardType: TextInputType.number,
@@ -319,6 +304,25 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: complemento,
                         labelText: 'Complemento',
                         onChanged: (data) => fornecedor.complemento = data,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: DefaultTextFormField(
+                        controller: cidade,
+                        labelText: 'Cidade',
+                        keyboardType: TextInputType.number,
+                        onChanged: (data) => fornecedor.cidade = data,
+                      ),
+                    ),
+                    Flexible(
+                      child: DefaultTextFormField(
+                        controller: bairro,
+                        labelText: 'Bairro',
+                        onChanged: (data) => fornecedor.bairro = data,
                       ),
                     ),
                   ],

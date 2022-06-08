@@ -128,7 +128,7 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                                 flex: 3,
                                 child: DefaultTextFormField(
                                   controller: nome,
-                                  labelText: 'Nome',
+                                  labelText: 'Material',
                                   readOnly: true,
                                   suffixIcon: Container(
                                     height: 50,

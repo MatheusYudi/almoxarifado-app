@@ -96,7 +96,7 @@ class _MaterialFormState extends State<MaterialForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Mateiral'),
+      appBar: const DefaultAppBar(pageName: 'Material'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
@@ -159,7 +159,7 @@ class _MaterialFormState extends State<MaterialForm> {
                     Flexible(
                       child: DefaultTextFormField(
                         controller: codigoBarras,
-                        labelText: 'Codigo de Barras',
+                        labelText: 'Código de Barras',
                         keyboardType: TextInputType.number,
                         onChanged: (data) => material.codigoBarras = data,
                       ),

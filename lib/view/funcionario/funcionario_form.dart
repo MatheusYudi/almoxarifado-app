@@ -95,7 +95,7 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                       Flexible(
                         child: DefaultTextFormField(
                           controller: cpf,
-                          labelText: 'Cpf',
+                          labelText: 'CPF',
                           keyboardType: TextInputType.number,
                           inputFormatters: [cpfMask],
                           onChanged: (data) => funcionario.cpf = cpfMask.getUnmaskedText(),
@@ -163,7 +163,7 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                               }
                               else if(value.length < 6)
                               {
-                                return 'A Senha deve ter no minimo 6 caracteres';
+                                return 'A Senha deve ter no mínimo 6 caracteres';
                               }
                             }
                             return null;

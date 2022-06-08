@@ -167,12 +167,12 @@ class _InventariosState extends State<Inventarios> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () => Navigator.pushNamed(context, Routes.inventarioForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
+                            onPressed: () => Navigator.pushNamed(context, Routes.inventarioForm).then((value) => fetchInventarios()),
                           ),
                         ),
                         Container(

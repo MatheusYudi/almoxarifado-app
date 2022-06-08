@@ -67,7 +67,7 @@ class _FornecedoresState extends State<Fornecedores> {
                               Flexible(
                                 child: DefaultTextFormField(
                                   controller: cnpj,
-                                  labelText: 'Cnpj',
+                                  labelText: 'CNPJ',
                                   inputFormatters: [cnpjMask],
                                 ),
                               ),
@@ -101,12 +101,14 @@ class _FornecedoresState extends State<Fornecedores> {
                               'Cadastrar',
                               style: TextStyle(color: Color(0xFF43a047)),
                             ),
-                            onPressed: () => Navigator.pushNamed(context, Routes.fornecedorForm),
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                               minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
+                            onPressed: (){
+                              Navigator.pushNamed(context, Routes.fornecedorForm).then((value) => fetchFornecedores());
+                            },
                           ),
                         ),
                         Container(
@@ -165,7 +167,7 @@ class _FornecedoresState extends State<Fornecedores> {
                       ),
                       DataGridHeader(
                         link: 'cnpj',
-                        title: 'Cnpj',
+                        title: 'CNPJ',
                         displayPercentage: 20,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,

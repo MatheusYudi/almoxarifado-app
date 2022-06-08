@@ -68,7 +68,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Movimentações'),
+      appBar: const DefaultAppBar(pageName: 'Consultar Movimentações'),
       drawer: const DefaultUserDrawer(),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -143,7 +143,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                 flex: 2,
                                 child: DefaultTextFormField(
                                   controller: nome,
-                                  labelText: 'Nome',
+                                  labelText: 'Material',
                                 ),
                               ),
                               Flexible(
@@ -300,7 +300,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
-                            link: 'materia',
+                            link: 'material',
                             display: Text(movimentacao.material!.nome),
                             textCompareOrder: movimentacao.material!.nome,
                             alignment: Alignment.centerLeft,
