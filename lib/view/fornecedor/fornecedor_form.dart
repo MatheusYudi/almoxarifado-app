@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:almoxarifado/controller/fornecedores_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../enum/e_estados.dart';
@@ -229,6 +230,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: inscricaoEstadual,
                         labelText: 'Inscrição Estadual',
                         keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                         onChanged: (data) => fornecedor.ie = data,
                       ),
                     ),
