@@ -48,7 +48,10 @@ class _FornecedorFormState extends State<FornecedorForm> {
     if(!preenchido)
     {
       argument = ModalRoute.of(context)!.settings.arguments;
-      fetchFornecedor();
+      if(argument.runtimeType == int)
+      {
+        fetchFornecedor();
+      }
       preenchido = true;
     }
     super.didChangeDependencies();
@@ -101,9 +104,10 @@ class _FornecedorFormState extends State<FornecedorForm> {
       numero.text = jsonResponse['numero'] ?? '';
       fornecedor.numero = int.parse(jsonResponse['numero'] ?? '');
       fornecedor.regimeTibutario = '';
-      fornecedor.tipoIe = '';
-      fornecedor.ie = '';
-      fornecedor.complemento = '';
+      regimeApuracao.text = '';
+      tipoIe.text = '';
+      inscricaoEstadual.text = '';
+      complemento.text = '';
 
       setState(() => cnpjIsLoading = false);
     }
