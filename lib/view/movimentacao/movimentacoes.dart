@@ -184,7 +184,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                               showDialog(
                                 context: context,
                                 builder: (context) => const SaidaForm(),
-                              );
+                              ).then((value) => fetchMovimentacoes());
                             },
                             style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all(const Size(130, 50)),
