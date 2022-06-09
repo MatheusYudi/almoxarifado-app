@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:almoxarifado/util/routes.dart';
 
 class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
   
@@ -16,7 +17,10 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: Row(
         children: [
-          const Icon(Icons.lightbulb_outline),
+          IconButton(
+            onPressed: () { Navigator.pushNamed(context, Routes.homePage); },
+            icon: Icon(Icons.lightbulb_outline)
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Container(            
