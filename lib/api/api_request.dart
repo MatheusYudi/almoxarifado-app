@@ -58,11 +58,21 @@ class ApiRequest
         response = await http.get(parsedUrl, headers: header);
         break;
       case RequestType.POST:
-        response = await http.post(
-          parsedUrl,
-          headers: header,
-          body: body,
-        );
+        if(body != null)
+        {
+          response = await http.post(
+            parsedUrl,
+            headers: header,
+            body: body,
+          );
+        }
+        else
+        {
+          response = await http.post(
+            parsedUrl,
+            headers: header,
+          );
+        }
         break;
       case RequestType.DELETE:
         response = await http.delete(

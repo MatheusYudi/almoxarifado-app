@@ -27,7 +27,11 @@ class ApiClient{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    request.body = jsonEncode(data);
+
+    if(data != null)
+    {
+      request.body = jsonEncode(data);
+    }
 
     ApiResponse response = await request.makeCall();
 
@@ -41,6 +45,7 @@ class ApiClient{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
+    
     request.body = jsonEncode(data);
 
     ApiResponse response = await request.makeCall();
