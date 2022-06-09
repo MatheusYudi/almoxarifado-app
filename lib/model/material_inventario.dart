@@ -19,7 +19,7 @@ class MaterialInventario
 
   factory MaterialInventario.fromJson(Map<String, dynamic> json){
     return MaterialInventario(
-      qtdeFisica : json['physicQuantity'] ?? 0,
+      qtdeFisica : double.parse("${json['physicQuantity']}"),
       material : json['material'] != null? MaterialModel.fromJson(json['material']) : null,
     );
   }
