@@ -49,7 +49,7 @@ class Routes{
     String token = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi;
     return {
       login: (context) => const LoginView(),
-      homePage : (context) => token.isEmpty ? const LoginView() : const HomePageView(),
+      homePage : (context) => const HomePageView(),
       fornecedores: (context)=> token.isEmpty ? const LoginView() : const Fornecedores(),
       fornecedorForm: (context)=> token.isEmpty ? const LoginView() : const FornecedorForm(),
       materiais: (context)=> token.isEmpty ? const LoginView() : const Materiais(),
