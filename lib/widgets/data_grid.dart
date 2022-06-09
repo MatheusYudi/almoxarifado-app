@@ -138,7 +138,7 @@ class _DataGridState extends State<DataGrid> {
                                     ),
                                   ),
                                 )
-                                : Text(widget.headers[index].title),
+                                : Text(widget.headers[index].title, style: const TextStyle(fontWeight: FontWeight.bold)),
                               ),
                             ),
                             widget.headers[index].sortable
