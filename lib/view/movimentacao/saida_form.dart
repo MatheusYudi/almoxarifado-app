@@ -21,6 +21,7 @@ class _SaidaFormState extends State<SaidaForm> {
   TextEditingController codigo = TextEditingController();
   TextEditingController descricao = TextEditingController();
   TextEditingController quantidade = TextEditingController();
+  TextEditingController motivo = TextEditingController();
 
   late Movimentacao movimentacao;
 
@@ -121,6 +122,13 @@ class _SaidaFormState extends State<SaidaForm> {
                               ),
                             ),
                           ],
+                        ),
+                        Flexible(
+                          child: DefaultTextFormField(
+                            labelText: 'Motivo',
+                            controller: motivo,
+                            onChanged: (data) => movimentacao.motivo = motivo.text,
+                          )
                         ),
                         Flexible(
                           child: Container(
