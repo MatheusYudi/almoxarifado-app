@@ -124,9 +124,13 @@ class _FornecedorFormState extends State<FornecedorForm> {
       dynamic response = await http.get(url);
       dynamic jsonResponse = jsonDecode(response.body);
       estado.text = jsonResponse['state'] ?? '';
+      fornecedor.estado = jsonResponse['state'] ?? '';
       cidade.text = jsonResponse['city'] ?? '';
+      fornecedor.cidade = jsonResponse['city'] ?? '';
       bairro.text = jsonResponse['neighborhood'] ?? '';
+      fornecedor.bairro = jsonResponse['neighborhood'] ?? '';
       logradouro.text = jsonResponse['street'] ?? '';
+      fornecedor.rua = jsonResponse['street'] ?? '';
 
       setState(() => cepIsLoading = false);
     }
