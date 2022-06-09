@@ -12,7 +12,7 @@ class MenuItensList
     ),
     DraweMenuItem(
       text: const Text('Fornecedores', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.fire_truck, color: Colors.white),
+      icon: const Icon(Icons.person, color: Colors.white),
       pageRoute: Routes.fornecedores,
     ),
     DraweMenuItem(

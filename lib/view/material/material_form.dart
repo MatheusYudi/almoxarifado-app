@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../controller/grupo_material_controller.dart';
 import '../../controller/materiais_controller.dart';
@@ -149,6 +150,7 @@ class _MaterialFormState extends State<MaterialForm> {
                         controller: valorUnitario,
                         labelText: 'Valor Unitário',
                         keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                         onChanged: (data) => material.valorUnitario = double.parse(data),
                       ),
                     ),                  
@@ -161,35 +163,16 @@ class _MaterialFormState extends State<MaterialForm> {
                         controller: codigoBarras,
                         labelText: 'Código de Barras',
                         keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                         onChanged: (data) => material.codigoBarras = data,
                       ),
                     ),
                     Flexible(
-                      child: ncmController.loading
-                      ? Container(
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).cardColor,
-                        ),
-                        child: const Center(
-                          child: SizedBox(
-                            child: CircularProgressIndicator()
-                          ),
-                        ),
-                      )
-                      : DefaultDropDown(
+                      child: DefaultTextFormField(
                         controller: ncm,
-                        labelText: 'Ncm',
-                        maximunItensShown: 5,
-                        searchable: true,
-                        itens: ncms.map((ncm){
-                          return DropdownMenuItem(
-                            value: "${ncm.codigo} - ${ncm.descricao}",
-                            child: Text("${ncm.codigo} - ${ncm.descricao}"),
-                            onTap: () => material.ncm = ncm.codigo,
-                          );
-                        }).toList(),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                        onChanged: (data) => material.ncm = data,
                       ),
                     ),
                   ],
@@ -201,12 +184,15 @@ class _MaterialFormState extends State<MaterialForm> {
                         controller: estoqueMinimo,
                         labelText: 'Estoque Mínimo',
                         keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                         onChanged: (data) => material.estoqueMinimo = double.parse(data),
                       ),
                     ),
                     Flexible(
                       child: DefaultTextFormField(
                         controller: quantidadeEstoque,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                         labelText: 'Quantidade de Estoque',
                         enabled: false,
                       ),
