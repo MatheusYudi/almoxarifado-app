@@ -22,7 +22,7 @@ class _HomePageViewState extends State<HomePageView> {
       appBar: const DefaultAppBar(pageName: 'Home'),
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(80),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,9 +48,9 @@ class _HomePageViewState extends State<HomePageView> {
                   ],
                 ),
               ),
-              const SizedBox(width: 20),
-              Container(width: 1,color: Colors.white,),
-              const SizedBox(width: 20),
+              const SizedBox(width: 100),
+              Container(width: 1, color: Colors.white),
+              const SizedBox(width: 100),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
