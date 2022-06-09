@@ -14,7 +14,7 @@ class MovimentacoesController
   Future<List<Movimentacao>> getMovimentacoes(BuildContext context, [Map? movimentacao]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'movement',
+      endPoint: 'movement?page=1&size=1000&orderBy=ASC',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 
@@ -42,7 +42,7 @@ class MovimentacoesController
   Future<bool> deleteMovimentacao(BuildContext context, int id) async
   {
     ApiResponse response = await ApiClient().delete(
-      endPoint: 'movement/$id',
+      endPoint: 'movement/$id/',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
     

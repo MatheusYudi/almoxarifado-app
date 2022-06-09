@@ -12,7 +12,7 @@ class EntradasController{
   Future<List<EntradaModel>> getEntradas(BuildContext context, [Map? entrada]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'invoice',
+      endPoint: 'invoice?page=1&size=1000&orderBy=ASC',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 

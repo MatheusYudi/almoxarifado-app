@@ -12,7 +12,7 @@ class RequisicoesController{
   Future<List<Requisicao>> getRequisicoes(BuildContext context, [Map? requisicao]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'requisition',
+      endPoint: 'requisition?page=1&size=1000&orderBy=ASC',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 

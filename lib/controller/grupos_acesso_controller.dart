@@ -11,7 +11,7 @@ class GruposAcessoController
   Future<List<GrupoAcesso>> getGruposAcesso(BuildContext context, [Map? grupoAcesso]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'access-group',
+      endPoint: 'access-group?page=1&size=1000&orderBy=ASC',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 
