@@ -170,6 +170,7 @@ class _MaterialFormState extends State<MaterialForm> {
                     Flexible(
                       child: DefaultTextFormField(
                         controller: ncm,
+                        labelText: 'Ncm',
                         keyboardType: TextInputType.number,
                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
                         onChanged: (data) => material.ncm = data,
