@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   mask_text_input_formatter: ^2.3.0
+  shared_preferences: ^2.0.15
   flutter_localizations:
     sdk: flutter
   flutter:

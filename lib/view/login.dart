@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:almoxarifado/api/api_client.dart';
 import 'package:almoxarifado/util/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/funcionario_atual_controller.dart';
 import '../model/funcionario_atual.dart';
@@ -145,12 +148,14 @@ class _LoginViewState extends State<LoginView> {
                                 'email': loginController.text,
                                 'password': senhaController.text,
                               },
-                            ).then((response) {
+                            ).then((response) async {
                               if(response.statusCode == 200)
                               {
                                 if(response.body['status'] == true)
                                 {
                                   Navigator.pushNamed(context, Routes.homePage);
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('FuncionarioAtual', jsonEncode(FuncionarioAtual.fromJson(response.body['data']).toJson()));
                                   Provider.of<FuncionarioAtualController>(context, listen: false).setFuncionarioAtual(FuncionarioAtual.fromJson(response.body['data']));
                                 }
                               }
