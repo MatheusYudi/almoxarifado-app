@@ -6,7 +6,6 @@ class Movimentacao
 {
   int? id;
   DateTime? dataHora;
-  double quantidadeInicial;
   double quantidadeMovimentada;
   String tipo;
   String motivo;
@@ -16,7 +15,6 @@ class Movimentacao
   Movimentacao({
     this.id,
     this.dataHora,
-    this.quantidadeInicial = 0,
     this.quantidadeMovimentada = 0,
     this.tipo = '',
     this.motivo = '',
@@ -39,8 +37,7 @@ class Movimentacao
     return Movimentacao(
       id: json['id'],
       dataHora : DateTime.tryParse(json['createdAt'].split('T')[0]),
-      quantidadeInicial : json['quantidadeInicial'] ?? 0,
-      quantidadeMovimentada : json['quantidadeMovimentada'] ?? 0,
+      quantidadeMovimentada : double.parse("${json['quantity']}"),
       tipo : json['type'] ?? '',
       motivo : json['reason'] ?? '',
       funcionario : json['user'] != null? Funcionario.fromJson(json['user']) : null,
