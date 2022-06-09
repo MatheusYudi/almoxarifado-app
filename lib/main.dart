@@ -22,24 +22,18 @@ void main() {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    String token = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Almoxarifado',
       theme: AppTheme.defaultTheme,//ThemeData(primarySwatch: Colors.blue),//ThemeData.dark(),
       home: const LoginView(),
-      routes: Routes.getRoutes(context, token),
+      routes: Routes.getRoutes(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
