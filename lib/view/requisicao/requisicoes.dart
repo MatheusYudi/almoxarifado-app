@@ -191,25 +191,26 @@ class _RequisicoesState extends State<Requisicoes> {
                               minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                             ),
                             onPressed: (){
-                              requisicoesGrid = requisicoes.where((inventario){
-                                if(inventario.requisitante == null || funcionarioSelecionado == null)
+                              requisicoesGrid = requisicoes.where((requisicao){
+                                if(requisicao.requisitante == null || funcionarioSelecionado == null)
                                 {
                                   return true;
                                 }
-                                if(inventario.requisitante!.id == funcionarioSelecionado!.id)
+                                if(requisicao.requisitante!.id == funcionarioSelecionado!.id)
                                 {
                                   return true;
                                 }
                                 return false;
                               }).toList();
-                              requisicoesGrid = requisicoesGrid.where((inventario){
+                              requisicoesGrid = requisicoesGrid.where((requisicao){
                                 if(dataInicio.text.isEmpty || dataFim.text.isEmpty)
                                 {
                                   return true;
                                 }
-                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]}");
-                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]}");
-                                if(inventario.dataHora!.isAfter(dataInicioParse) && inventario.dataHora!.isBefore(dataFimParse))
+                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]} 00:00:00");
+                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]} 23:59:59");
+
+                                if(requisicao.dataHora!.isAfter(dataInicioParse) && requisicao.dataHora!.isBefore(dataFimParse))
                                 {
                                   return true;
                                 }
@@ -265,7 +266,7 @@ class _RequisicoesState extends State<Requisicoes> {
                         enableSearch: false,
                       ),
                     ],
-                    data: requisicoes.map((requisicao){
+                    data: requisicoesGrid.map((requisicao){
                       return DataGridRow(
                         columns: [
                           DataGridRowColumn(
