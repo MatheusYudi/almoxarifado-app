@@ -273,7 +273,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                         title: 'Quantidade',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 10,
                       ),
                       DataGridHeader(
                         link: 'tipo',
@@ -283,11 +283,18 @@ class _MovimentacoesState extends State<Movimentacoes> {
                         displayPercentage: 20,
                       ),
                       DataGridHeader(
+                        link: 'motivo',
+                        title: 'Motivo',
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
+                        displayPercentage: 20,
+                      ),
+                      DataGridHeader(
                         link: 'data',
                         title: 'Data',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 10,
                       ),
                     ],
                     data: movimentacoesGrid.map((movimentacao){
@@ -315,6 +322,12 @@ class _MovimentacoesState extends State<Movimentacoes> {
                             link: 'tipo',
                             display: Text(movimentacao.tipo),
                             textCompareOrder: movimentacao.tipo,
+                            alignment: Alignment.centerLeft,
+                          ),
+                          DataGridRowColumn(
+                            link: 'motivo',
+                            display: Text(movimentacao.motivo),
+                            textCompareOrder: movimentacao.motivo,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
