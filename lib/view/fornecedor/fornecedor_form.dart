@@ -281,7 +281,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                           return DropdownMenuItem(
                             value: estado.name,
                             child: Text(estado.name),
-                            onTap: () => fornecedor.ie = estado.name,
+                            onTap: () => fornecedor.estado = estado.name,
                           );
                         }).toList(),
                       ),
