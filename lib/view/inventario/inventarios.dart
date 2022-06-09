@@ -271,7 +271,8 @@ class _InventariosState extends State<Inventarios> {
                           DataGridRowColumn(
                             link: 'delete',
                             alignment: Alignment.center,
-                            display: IconButton(
+                            display: inventario.status != 'Sim'
+                            ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
@@ -280,12 +281,14 @@ class _InventariosState extends State<Inventarios> {
                                   fetchInventarios();
                                 });
                               },
-                            ),
+                            )
+                            : const SizedBox.shrink(),
                           ),
                           DataGridRowColumn(
                             link: 'edit',
                             alignment: Alignment.center,
-                            display: IconButton(
+                            display: inventario.status != 'Sim'
+                            ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
@@ -294,7 +297,8 @@ class _InventariosState extends State<Inventarios> {
                                   fetchInventarios();
                                 });
                               },
-                            ),
+                            )
+                            : const SizedBox.shrink(),
                           ),
                           DataGridRowColumn(
                             link: 'complete',
