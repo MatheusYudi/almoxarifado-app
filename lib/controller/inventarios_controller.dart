@@ -93,4 +93,24 @@ class InventariosController{
     }
     return null;
   }
+
+  Future<bool> finalizarInventario(BuildContext context, int id) async
+  {
+    ApiResponse response = await ApiClient().post(
+      endPoint: 'inventory/$id/close',
+      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+    );
+    
+    if(response.statusCode > 299)
+    {
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+    }
+    else
+    {
+      return false;
+    }
+    return true;
+  }
 }

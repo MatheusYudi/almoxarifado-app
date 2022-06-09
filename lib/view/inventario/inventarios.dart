@@ -238,16 +238,29 @@ class _InventariosState extends State<Inventarios> {
                         displayPercentage: 10,
                       ),
                       DataGridHeader(
+                        link: 'complete',
+                        alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 10,
+                      ),
+                      DataGridHeader(
                         link: 'operador',
                         title: 'Operador',
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
-                        displayPercentage: 60,
+                        displayPercentage: 30,
                       ),
                       DataGridHeader(
                         link: 'data',
                         title: 'Data',
                         alignment: Alignment.centerLeft,
+                        enableSearch: false,
+                        displayPercentage: 20,
+                      ),
+                      DataGridHeader(
+                        link: 'finalizado',
+                        title: 'Finalizado?',
+                        alignment: Alignment.center,
                         enableSearch: false,
                         displayPercentage: 20,
                       ),
@@ -284,6 +297,39 @@ class _InventariosState extends State<Inventarios> {
                             ),
                           ),
                           DataGridRowColumn(
+                            link: 'complete',
+                            alignment: Alignment.center,
+                            display: inventario.status != 'Sim'
+                            ? IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Theme.of(context).primaryColor,
+                              icon: const Icon(Icons.checklist),
+                              onPressed: () async {
+                                InventariosController request = InventariosController();
+                
+                                await request.finalizarInventario(context, inventario.id!);
+
+                                if(request.error != '')
+                                {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return AlertDialog(
+                                        title: const Text('Algo deu errado'),
+                                        content: Text(request.error),
+                                      );
+                                    },
+                                  );
+                                }
+                                else
+                                {
+                                  fetchInventarios();
+                                }
+                              },
+                            )
+                            : const SizedBox.shrink(),
+                          ),
+                          DataGridRowColumn(
                             link: 'operador',
                             display: Text(inventario.operador!.nome),
                             alignment: Alignment.centerLeft,
@@ -294,6 +340,12 @@ class _InventariosState extends State<Inventarios> {
                             display: Text(DateFormat('dd/MM/yyyy').format(inventario.dataHora!)),
                             textCompareOrder: DateFormat('dd/MM/yyyy').format(inventario.dataHora!),
                             alignment: Alignment.centerLeft
+                          ),
+                          DataGridRowColumn(
+                            link: 'finalizado',
+                            display: Text(inventario.status),
+                            textCompareOrder: inventario.status,
+                            alignment: Alignment.center
                           ),
                         ]
                       );

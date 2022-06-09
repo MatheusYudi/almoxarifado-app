@@ -35,7 +35,7 @@ class Inventario
     return Inventario(
       id: json['id'],
       dataHora : DateTime.tryParse(json['createdAt'].split('T')[0]),
-      status : json['status'] ?? '',
+      status : json['closed'] == true ? 'Sim' : 'Não',
       operador : json['user'] != null? Funcionario.fromJson(json['user']) : null,
       itens: listMateriaisInventario,
     );
