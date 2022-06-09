@@ -12,12 +12,12 @@ class MenuItensList
     ),
     DraweMenuItem(
       text: const Text('Fornecedores', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.group_add, color: Colors.white),
+      icon: const Icon(Icons.fire_truck, color: Colors.white),
       pageRoute: Routes.fornecedores,
     ),
     DraweMenuItem(
       text: const Text('Materiais', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.inventory_2, color: Colors.white),
+      icon: const Icon(Icons.inventory, color: Colors.white),
       pageRoute: Routes.materiais,
     ),
     DraweMenuItem(
@@ -27,7 +27,7 @@ class MenuItensList
     ),    
     DraweMenuItem(
       text: const Text('Grupos', style: TextStyle(color: Colors.white)),
-      icon: const Icon(Icons.inventory_2, color: Colors.white),
+      icon: const Icon(Icons.category, color: Colors.white),
       pageRoute: Routes.grupos,
     ),
     DraweMenuItem(
