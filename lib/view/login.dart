@@ -37,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 16),
                           child: Wrap(
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children:  [
@@ -55,13 +55,13 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         Container(
                           color: Colors.grey,
-                          height: 100,
+                          height: 200,
                           width: 2,
                         ),
                         Container(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 16),
                           child: Text(
-                            'OLÁ, BEM VINDO AO SISTEMA DO ALMOXARIFADO',
+                            'OLÁ,\nBEM VINDO AO SISTEMA DO ALMOXARIFADO',
                             style: Theme.of(context).textTheme.titleLarge,
                             overflow: TextOverflow.clip,
                           )
