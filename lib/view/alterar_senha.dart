@@ -10,13 +10,25 @@ class AlterarSenha extends StatefulWidget {
   @override
   State<AlterarSenha> createState() => _AlterarSenhaState();
 }
-//TODO testar alteração de senha
 class _AlterarSenhaState extends State<AlterarSenha> {
 
   TextEditingController confirmarSenha = TextEditingController();
   TextEditingController senha = TextEditingController();
   bool visibilidadeSenha = false;
   bool visibilidadeConfirmarSenha = false;
+
+  bool preenchido = false;
+  String token = '';
+
+  @override
+  void didChangeDependencies() {
+    if(!preenchido)
+    {
+      token = ModalRoute.of(context)!.settings.arguments as String;
+      preenchido = true;
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
