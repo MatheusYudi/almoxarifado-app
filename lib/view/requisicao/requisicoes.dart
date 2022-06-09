@@ -315,26 +315,7 @@ class _RequisicoesState extends State<Requisicoes> {
                               color: Theme.of(context).primaryColor,
                               icon: const Icon(Icons.checklist),
                               onPressed: () async {
-                                RequisicoesController request = RequisicoesController();
-                
-                                await request.finalizarRequisicao(context, requisicao.id!);
-
-                                if(request.error != '')
-                                {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context){
-                                      return AlertDialog(
-                                        title: const Text('Algo deu errado'),
-                                        content: Text(request.error),
-                                      );
-                                    },
-                                  );
-                                }
-                                else
-                                {
-                                  fetchRequisicoes();
-                                }
+                                Navigator.pushNamed(context, Routes.avaliarRequisicao, arguments: requisicao.id).then((value) => fetchRequisicoes());
                               },
                             )
                             : const SizedBox.shrink(),

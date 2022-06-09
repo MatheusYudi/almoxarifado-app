@@ -3,12 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../controller/requisicoes_controller.dart';
+import '../../model/funcionario.dart';
+import '../../model/requisicao.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
 
 class AvaliarRequisicao extends StatefulWidget {
+
   const AvaliarRequisicao({ Key? key }) : super(key: key);
 
   @override
@@ -19,6 +23,40 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
 
   TextEditingController data = TextEditingController(text: DateFormat("dd/MM/yyyy").format(DateTime.now()));
   TextEditingController operador = TextEditingController(text: 'Administrador');
+  
+  bool preenchido = false;
+  dynamic argument;
+
+  Requisicao requisicao = Requisicao();
+  Funcionario? funcionarioSelecionado;
+
+  fetchRequisicao() async {
+    requisicao = await RequisicoesController().getRequisicaoById(context, argument);
+    operador.text = requisicao.requisitante!.nome;
+    funcionarioSelecionado = requisicao.requisitante;
+    data.text = DateFormat("dd/MM/yyyy").format(requisicao.dataHora!);
+    setState((){});
+  }
+
+  @override
+  void initState() {
+    fetchRequisicao();
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if(!preenchido)
+    {
+      argument = ModalRoute.of(context)!.settings.arguments;
+      if(argument.runtimeType == int)
+      {
+        fetchRequisicao();
+      }
+      preenchido = true;
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +109,8 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                         enableSearch: false,
                       ),
                       DataGridHeader(
-                        link: 'descricao',
-                        title: 'Descrição',
+                        link: 'nome',
+                        title: 'Nome',
                         displayPercentage: 50,
                         sortable: false,
                         enableSearch: false,
@@ -85,56 +123,30 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                         enableSearch: false,
                       ),
                     ],
-                    data: [
-                      DataGridRow(
+                    data: requisicao.itens!.map((item){
+                      return DataGridRow(
                         columns: [
                           DataGridRowColumn(
                             link: 'codigoBarras',
-                            display: Text('001'),
+                            display: Text(item.material!.codigoBarras),
+                            textCompareOrder: item.material!.codigoBarras,
+                            alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
-                            link: 'descricao',
-                            display: Text('Material 1'),
-                          ),
-                          DataGridRowColumn(
-                            link: 'qtd',
-                            display: Text('5'),
-                          ),
-                        ],
-                      ),
-                      DataGridRow(
-                        columns: [
-                          DataGridRowColumn(
-                            link: 'codigoBarras',
-                            display: Text('002'),
-                          ),
-                          DataGridRowColumn(
-                            link: 'descricao',
-                            display: Text('Material 2'),
+                            link: 'nome',
+                            display: Text(item.material!.nome),
+                            textCompareOrder: item.material!.nome,
+                            alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
                             link: 'qtd',
-                            display: Text('5'),
+                            display: Text(item.qtd.toString()),
+                            textCompareOrder: item.qtd.toString(),
+                            alignment: Alignment.centerLeft,
                           ),
-                        ],
-                      ),
-                      DataGridRow(
-                        columns: [
-                          DataGridRowColumn(
-                            link: 'codigoBarras',
-                            display: Text('003'),
-                          ),
-                          DataGridRowColumn(
-                            link: 'descricao',
-                            display: Text('Material 3'),
-                          ),
-                          DataGridRowColumn(
-                            link: 'qtd',
-                            display: Text('5'),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ]
+                      );
+                    }).toList(),
                     width: MediaQuery.of(context).size.width,
                   ),
                 ),
@@ -150,13 +162,34 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
             padding: const EdgeInsets.all(8),
             child: ElevatedButton.icon(
               icon: const Icon(Icons.save),
-              label: const Text('Salvar'),
-              onPressed: () {},
+              label: const Text('Aprovar'),
               style: ButtonStyle(
                 maximumSize: MaterialStateProperty.all(const Size(130, 50)),
                 minimumSize: MaterialStateProperty.all(const Size(0, 50)),
                 backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
               ),
+              onPressed: () async {
+                RequisicoesController request = RequisicoesController();
+                
+                await request.finalizarRequisicao(context, requisicao.id!);
+
+                if(request.error != '')
+                {
+                  showDialog(
+                    context: context,
+                    builder: (context){
+                      return AlertDialog(
+                        title: const Text('Algo deu errado'),
+                        content: Text(request.error),
+                      );
+                    },
+                  );
+                }
+                else
+                {
+                  Navigator.pop(context);
+                }
+              },
             ),
           ),
           Container(
