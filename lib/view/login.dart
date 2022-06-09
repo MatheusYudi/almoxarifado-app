@@ -154,8 +154,6 @@ class _LoginViewState extends State<LoginView> {
                                 if(response.body['status'] == true)
                                 {
                                   Navigator.pushNamed(context, Routes.homePage);
-                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('FuncionarioAtual', jsonEncode(FuncionarioAtual.fromJson(response.body['data']).toJson()));
                                   Provider.of<FuncionarioAtualController>(context, listen: false).setFuncionarioAtual(FuncionarioAtual.fromJson(response.body['data']));
                                 }
                               }
