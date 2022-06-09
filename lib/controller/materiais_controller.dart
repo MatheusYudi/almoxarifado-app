@@ -15,9 +15,8 @@ class MateriaisController
   Future<List<MaterialModel>> getMateriais(BuildContext context, [Map? material]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'material?page=1&size=1000&orderBy=ASC',
+      endPoint: 'material?page=1&size=1000&orderBy=ASC&status=Ativo',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
-      filters: {'status': 'Ativo'},
     );
 
     if(response.statusCode != 200)

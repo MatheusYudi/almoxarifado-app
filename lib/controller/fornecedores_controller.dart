@@ -12,9 +12,8 @@ class FornecedoresController
   Future<List<Fornecedor>> getFornecedores(BuildContext context, [Map? fornecedor]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'supplier?page=1&size=1000&orderBy=ASC',
+      endPoint: 'supplier?page=1&size=1000&orderBy=ASC&status=Ativo',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
-      filters: {'status': 'Ativo'},
     );
 
     if(response.statusCode != 200)

@@ -28,7 +28,7 @@ class MaterialModel
     return{
       'id' : id,
       'name' : nome,
-      'ncm' : ncm,
+      'ncmId' : ncm,
       'unit' : unidade,
       'barcode' : codigoBarras,
       'unitPrice' : valorUnitario,
