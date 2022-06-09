@@ -38,7 +38,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
   TextEditingController complemento = TextEditingController();
   Fornecedor fornecedor = Fornecedor();
   MaskTextInputFormatter cnpjMask = MaskTextInputFormatter(mask: "##.###.###/####-##");
-  MaskTextInputFormatter cepMask = MaskTextInputFormatter(mask: "##.###-###");
+  MaskTextInputFormatter cepMask = MaskTextInputFormatter(mask: "#####-###");
   bool cepIsLoading = false;
   bool cnpjIsLoading = false;
   dynamic argument;
