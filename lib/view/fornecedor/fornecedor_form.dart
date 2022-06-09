@@ -244,7 +244,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         labelText: 'Cep',
                         keyboardType: TextInputType.number,
                         inputFormatters: [cepMask],
-                        onChanged: (data) => fornecedor.cep = cep.text,
+                        onChanged: (data) => fornecedor.cep = cepMask.getMaskedText(),
                         suffixIcon: cepIsLoading
                         ? Center(
                           child: SizedBox(
