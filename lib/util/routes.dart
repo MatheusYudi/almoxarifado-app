@@ -45,8 +45,7 @@ class Routes{
   static const String alterarSenha = '/alterarSenha';
   static const String avaliarRequisicao = '/avaliarRequisicao';
 
-  static Map<String, WidgetBuilder> getRoutes(BuildContext context){
-    String token = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi;
+  static Map<String, WidgetBuilder> getRoutes(BuildContext context, String token){
     return {
       login: (context) => const LoginView(),
       homePage : (context) => const HomePageView(),
