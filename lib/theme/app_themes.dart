@@ -19,6 +19,7 @@ class AppTheme{
       background: const Color(0xFF37474f),
       primary: const Color(0xFF2E7D32),
     ),
+    fontFamily: 'Roboto',
     textTheme: const TextTheme(
       displaySmall: TextStyle(
         color: Color(0xFF000000),
