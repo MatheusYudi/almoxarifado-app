@@ -19,7 +19,7 @@ class MaterialRequisicao
 
   factory MaterialRequisicao.fromJson(Map<String, dynamic> json){
     return MaterialRequisicao(
-      qtd : json['quantity'] ?? 0,
+      qtd : double.parse("${json['quantity']}"),
       material : json['material'] != null? MaterialModel.fromJson(json['material']) : null,
     );
   }

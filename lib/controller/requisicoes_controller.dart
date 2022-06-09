@@ -92,4 +92,24 @@ class RequisicoesController{
     }
     return null;
   }
+
+  Future<bool> finalizarRequisicao(BuildContext context, int id) async
+  {
+    ApiResponse response = await ApiClient().post(
+      endPoint: 'requisition/$id/approve',
+      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+    );
+    
+    if(response.statusCode > 299)
+    {
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+    }
+    else
+    {
+      return false;
+    }
+    return true;
+  }
 }

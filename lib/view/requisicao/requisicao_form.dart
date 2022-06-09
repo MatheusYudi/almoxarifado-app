@@ -171,12 +171,26 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                                   onPressed: (){
                                     if(materialSelecionado != null && quantidade.text.isNotEmpty)
                                     {
-                                      requisicao.itens!.add(
-                                        MaterialRequisicao(
-                                          qtd: double.parse(quantidade.text),
-                                          material: materialSelecionado
-                                        )
-                                      );
+                                      bool existe = requisicao.itens!.where((item) => item.material!.id == materialSelecionado!.id).isNotEmpty;
+                                      if(!existe)
+                                      {
+                                        requisicao.itens!.add(
+                                          MaterialRequisicao(
+                                            qtd: double.parse(quantidade.text),
+                                            material: materialSelecionado
+                                          )
+                                        );
+                                      }
+                                      else
+                                      {
+                                        requisicao.itens = requisicao.itens!.map((item){
+                                          if(item.material!.id == materialSelecionado!.id)
+                                          {
+                                            item.qtd += double.parse(quantidade.text);
+                                          }
+                                          return item;
+                                        }).toList();
+                                      }
                                       materialSelecionado = null;
                                       nome.text = '';
                                       quantidade.text = '';
@@ -208,11 +222,19 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                         sortable: false,
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 70,
+                        displayPercentage: 50,
                       ),
                       DataGridHeader(
                         link: 'qtd',
                         title: 'Quantidade',
+                        sortable: false,
+                        enableSearch: false,
+                        alignment: Alignment.centerLeft,
+                        displayPercentage: 20,
+                      ),
+                      DataGridHeader(
+                        link: 'qtdEstoque',
+                        title: 'Quantidade em Estoque',
                         sortable: false,
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
@@ -243,6 +265,11 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                           DataGridRowColumn(
                             link: 'qtd',
                             display: Text(item.qtd.toString()),
+                            alignment: Alignment.centerLeft,
+                          ),
+                          DataGridRowColumn(
+                            link: 'qtdEstoque',
+                            display: Text(item.material!.qtdeEstoque.toString()),
                             alignment: Alignment.centerLeft,
                           ),
                         ]

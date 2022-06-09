@@ -254,7 +254,7 @@ class _RequisicoesState extends State<Requisicoes> {
                       DataGridHeader(
                         link: 'requisitante',
                         title: 'Requisitante',
-                        displayPercentage: 50,
+                        displayPercentage: 30,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                       ),
@@ -265,6 +265,12 @@ class _RequisicoesState extends State<Requisicoes> {
                         displayPercentage: 20,
                         enableSearch: false,
                       ),
+                      DataGridHeader(
+                        link: 'aprovada',
+                        title: 'Aprovada?',
+                        displayPercentage: 20,
+                        enableSearch: false,
+                      ),
                     ],
                     data: requisicoesGrid.map((requisicao){
                       return DataGridRow(
@@ -272,7 +278,8 @@ class _RequisicoesState extends State<Requisicoes> {
                           DataGridRowColumn(
                             link: 'delete',
                             alignment: Alignment.center,
-                            display: IconButton(
+                            display: requisicao.aprovada != 'Sim'
+                            ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
@@ -281,12 +288,14 @@ class _RequisicoesState extends State<Requisicoes> {
                                   fetchRequisicoes();
                                 });
                               },
-                            ),
+                            )
+                            : const SizedBox.shrink(),
                           ),
                           DataGridRowColumn(
                             link: 'edit',
                             alignment: Alignment.center,
-                            display: IconButton(
+                            display: requisicao.aprovada != 'Sim'
+                            ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
@@ -295,10 +304,40 @@ class _RequisicoesState extends State<Requisicoes> {
                                   fetchRequisicoes();
                                 });
                               },
-                            ),
+                            )
+                            : const SizedBox.shrink(),
                           ),
                           DataGridRowColumn(
                             link: 'avaliar',
+                            display: requisicao.aprovada != 'Sim'
+                            ? IconButton(
+                              padding: EdgeInsets.zero,
+                              color: Theme.of(context).primaryColor,
+                              icon: const Icon(Icons.checklist),
+                              onPressed: () async {
+                                RequisicoesController request = RequisicoesController();
+                
+                                await request.finalizarRequisicao(context, requisicao.id!);
+
+                                if(request.error != '')
+                                {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return AlertDialog(
+                                        title: const Text('Algo deu errado'),
+                                        content: Text(request.error),
+                                      );
+                                    },
+                                  );
+                                }
+                                else
+                                {
+                                  fetchRequisicoes();
+                                }
+                              },
+                            )
+                            : const SizedBox.shrink(),
                           ),
                           DataGridRowColumn(
                             link: 'requisitante',
@@ -312,6 +351,11 @@ class _RequisicoesState extends State<Requisicoes> {
                             textCompareOrder: DateFormat('dd/MM/yyyy').format(requisicao.dataHora!),
                             alignment: Alignment.centerLeft,
                           ),
+                          DataGridRowColumn(
+                            link: 'aprovada',
+                            display: Text(requisicao.aprovada),
+                            textCompareOrder: requisicao.aprovada,
+                          )
                         ]
                       );
                     }).toList(),
