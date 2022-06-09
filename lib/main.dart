@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'Almoxarifado',
       theme: AppTheme.defaultTheme,//ThemeData(primarySwatch: Colors.blue),//ThemeData.dark(),
       home: const LoginView(),
-      routes: Routes.getRoutes(),
+      routes: Routes.getRoutes(context),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate

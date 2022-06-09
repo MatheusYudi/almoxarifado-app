@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
+import '../controller/funcionario_atual_controller.dart';
 import '../view/alterar_senha.dart';
 import '../view/fornecedor/fornecedor_form.dart';
 import '../view/fornecedor/selecionar_fornecedor.dart';
@@ -43,28 +45,29 @@ class Routes{
   static const String alterarSenha = '/alterarSenha';
   static const String avaliarRequisicao = '/avaliarRequisicao';
 
-  static Map<String, WidgetBuilder> getRoutes(){
+  static Map<String, WidgetBuilder> getRoutes(BuildContext context){
+    String token = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi;
     return {
       login: (context) => const LoginView(),
-      homePage : (context) => const HomePageView(),
-      fornecedores: (context)=> const Fornecedores(),
-      fornecedorForm: (context)=> const FornecedorForm(),
-      materiais: (context)=> const Materiais(),
-      materialForm: (context)=> const MaterialForm(),
-      funcionarios: (context)=> const Funcionarios(),
-      funcionarioForm: (context)=> const FuncionarioForm(),
-      inventarios: (context)=> const Inventarios(),
-      inventarioForm: (context)=> const InventarioForm(),
-      requisicoes: (context)=> const Requisicoes(),
-      requisicaoForm: (context)=> const RequisicaoForm(),
-      grupos: (context)=> const Grupos(),
-      movimentacoes: (context)=> const Movimentacoes(),
-      gerenciarEntrada: (context)=> const GerenciarEntrada(),
-      entradaForm: (context)=> const EntradaForm(),
-      selecionarMaterial: (context) => const SelecionarMaterial(),
-      selecionarFornecedor: (context) => const SelecionarFornecedor(),
-      alterarSenha: (context) => const AlterarSenha(),
-      avaliarRequisicao: (context) => const AvaliarRequisicao(),
+      homePage : (context) => token.isEmpty ? const LoginView() : const HomePageView(),
+      fornecedores: (context)=> token.isEmpty ? const LoginView() : const Fornecedores(),
+      fornecedorForm: (context)=> token.isEmpty ? const LoginView() : const FornecedorForm(),
+      materiais: (context)=> token.isEmpty ? const LoginView() : const Materiais(),
+      materialForm: (context)=> token.isEmpty ? const LoginView() : const MaterialForm(),
+      funcionarios: (context)=> token.isEmpty ? const LoginView() : const Funcionarios(),
+      funcionarioForm: (context)=> token.isEmpty ? const LoginView() : const FuncionarioForm(),
+      inventarios: (context)=> token.isEmpty ? const LoginView() : const Inventarios(),
+      inventarioForm: (context)=> token.isEmpty ? const LoginView() : const InventarioForm(),
+      requisicoes: (context)=> token.isEmpty ? const LoginView() : const Requisicoes(),
+      requisicaoForm: (context)=> token.isEmpty ? const LoginView() : const RequisicaoForm(),
+      grupos: (context)=> token.isEmpty ? const LoginView() : const Grupos(),
+      movimentacoes: (context)=> token.isEmpty ? const LoginView() : const Movimentacoes(),
+      gerenciarEntrada: (context)=> token.isEmpty ? const LoginView() : const GerenciarEntrada(),
+      entradaForm: (context)=> token.isEmpty ? const LoginView() : const EntradaForm(),
+      selecionarMaterial: (context) => token.isEmpty ? const LoginView() : const SelecionarMaterial(),
+      selecionarFornecedor: (context) => token.isEmpty ? const LoginView() : const SelecionarFornecedor(),
+      alterarSenha: (context) => token.isEmpty ? const LoginView() : const AlterarSenha(),
+      avaliarRequisicao: (context) => token.isEmpty ? const LoginView() : const AvaliarRequisicao(),
     };
   }
 
