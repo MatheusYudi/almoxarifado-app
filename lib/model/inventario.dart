@@ -20,7 +20,6 @@ class Inventario
   Map<String, dynamic> toJson(){
     return{
       'id': id,
-      'dataHora' : dataHora,
       'status' : status,
       'userId' : operador == null ? '' : operador!.id,
       'items' : itens!.map((item) => item.toJson()).toList()
@@ -28,11 +27,17 @@ class Inventario
   }
 
   factory Inventario.fromJson(Map<String, dynamic> json){
+    List list = json['inventoryMaterials'] ?? [];
+    List<MaterialInventario> listMateriaisInventario= list.map((materialInventario){
+      return MaterialInventario.fromJson(materialInventario);
+    }).toList();
+
     return Inventario(
       id: json['id'],
       dataHora : DateTime.tryParse(json['createdAt'].split('T')[0]),
       status : json['status'] ?? '',
       operador : json['user'] != null? Funcionario.fromJson(json['user']) : null,
+      itens: listMateriaisInventario,
     );
   }
 }
