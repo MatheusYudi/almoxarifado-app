@@ -111,7 +111,7 @@ class _DataGridState extends State<DataGrid> {
                   itemBuilder: (context, index){
                     return InkWell(
                       child: Container(
-                        color: index%2 == 0? Colors.grey[200]: Colors.grey[100],
+                        color: Colors.grey[200],
                         height: 50,
                         width: (widget.width - 16) * widget.headers[index].displayPercentage/100,
                         padding: const EdgeInsets.all(8.0),
