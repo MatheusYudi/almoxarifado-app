@@ -244,6 +244,7 @@ class _MateriaisState extends State<Materiais> {
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
+                              tooltip: "Excluir",
                               onPressed: () async {
                                 MateriaisController().deleteMaterial(context, material.id!).then((value){
                                   fetchMateriais();
@@ -258,6 +259,7 @@ class _MateriaisState extends State<Materiais> {
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
+                              tooltip: "Alterar",
                               onPressed: () async {
                                 Navigator.pushNamed(context, Routes.materialForm, arguments: material.id).then((value){
                                   fetchMateriais();

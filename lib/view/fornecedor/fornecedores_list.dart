@@ -195,6 +195,7 @@ class _FornecedoresState extends State<Fornecedores> {
                             alignment: Alignment.center,
                             display: IconButton(
                               padding: EdgeInsets.zero,
+                              tooltip: "Excluir",
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
                               onPressed: () async {
@@ -211,6 +212,7 @@ class _FornecedoresState extends State<Fornecedores> {
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
+                              tooltip: "Alterar",
                               onPressed: () async {
                                 Navigator.pushNamed(context, Routes.fornecedorForm, arguments: fornecedor.id!).then((value){
                                   fetchFornecedores();

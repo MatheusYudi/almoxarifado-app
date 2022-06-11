@@ -161,6 +161,7 @@ class _GruposState extends State<Grupos> {
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
+                              tooltip: "Excluir",
                               onPressed: () async {
                                 GruposMaterialController().deleteGrupoMaterial(context, grupoMaterial.id!).then((value){
                                   fetchGrupoMaterial();
@@ -175,6 +176,7 @@ class _GruposState extends State<Grupos> {
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
+                              tooltip: "Alterar",
                               onPressed: () async {
                                 showDialog(
                                   context: context,

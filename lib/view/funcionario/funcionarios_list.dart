@@ -237,6 +237,7 @@ class _FuncionariosState extends State<Funcionarios> {
                                 padding: EdgeInsets.zero,
                                 color: Colors.red,
                                 icon: const Icon(Icons.delete),
+                                tooltip: "Excluir",
                                 onPressed: () async {
                                   FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
                                     fetchFuncionarios();
@@ -251,6 +252,7 @@ class _FuncionariosState extends State<Funcionarios> {
                                 padding: EdgeInsets.zero,
                                 color: Colors.blue,
                                 icon: const Icon(Icons.edit),
+                                tooltip: "Alterar",
                                 onPressed: () async {
                                   Navigator.pushNamed(context, Routes.funcionarioForm, arguments: funcionario.id).then((value){
                                     fetchFuncionarios();

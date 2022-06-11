@@ -283,6 +283,7 @@ class _RequisicoesState extends State<Requisicoes> {
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
+                              tooltip: "Excluir",
                               onPressed: () async {
                                 RequisicoesController().deleteRequisicao(context, requisicao.id!).then((value){
                                   fetchRequisicoes();
@@ -299,6 +300,7 @@ class _RequisicoesState extends State<Requisicoes> {
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
+                              tooltip: "Alterar",
                               onPressed: () async {
                                 Navigator.pushNamed(context, Routes.requisicaoForm, arguments: requisicao.id!).then((value){
                                   fetchRequisicoes();
@@ -313,7 +315,8 @@ class _RequisicoesState extends State<Requisicoes> {
                             ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Theme.of(context).primaryColor,
-                              icon: const Icon(Icons.checklist),
+                              icon: const Icon(Icons.check),
+                              tooltip: "Aprovar",
                               onPressed: () async {
                                 Navigator.pushNamed(context, Routes.avaliarRequisicao, arguments: requisicao.id).then((value) => fetchRequisicoes());
                               },

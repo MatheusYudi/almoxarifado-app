@@ -251,6 +251,7 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
+                              tooltip: "Excluir",
                               onPressed: () {
                                 requisicao.itens!.removeWhere((itemRequisicao) => itemRequisicao.material!.id == item.material!.id);
                                 setState(() {});

@@ -260,6 +260,7 @@ class _InventarioFormState extends State<InventarioForm> {
                                   padding: EdgeInsets.zero,
                                   color: Colors.red,
                                   icon: const Icon(Icons.delete),
+                                  tooltip: "Excluir",
                                   onPressed: () {
                                     inventario.itens!.removeWhere((itemInventario) => itemInventario.material!.id == item.material!.id);
                                     setState(() {});

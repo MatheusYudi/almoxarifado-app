@@ -276,6 +276,7 @@ class _InventariosState extends State<Inventarios> {
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
+                              tooltip: "Excluir",
                               onPressed: () async {
                                 InventariosController().deleteInventario(context, inventario.id!).then((value){
                                   fetchInventarios();
@@ -292,6 +293,7 @@ class _InventariosState extends State<Inventarios> {
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
                               icon: const Icon(Icons.edit),
+                              tooltip: "Alterar",
                               onPressed: () async {
                                 Navigator.pushNamed(context, Routes.inventarioForm, arguments: inventario.id!).then((value){
                                   fetchInventarios();
@@ -307,7 +309,8 @@ class _InventariosState extends State<Inventarios> {
                             ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Theme.of(context).primaryColor,
-                              icon: const Icon(Icons.checklist),
+                              icon: const Icon(Icons.check),
+                              tooltip: "Finalizar",
                               onPressed: () async {
                                 InventariosController request = InventariosController();
                 

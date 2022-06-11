@@ -206,6 +206,7 @@ class _EntradaFormState extends State<EntradaForm> {
                               padding: EdgeInsets.zero,
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
+                              tooltip: "Excluir",
                               onPressed: () {
                                 entrada.itens!.removeWhere((itemEntrada) => itemEntrada.material!.id == item.material!.id);
                                 setState(() {});
