@@ -98,7 +98,13 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                     )
                   ],
                 ),
-                Flexible(
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.65,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Theme.of(context).cardColor,
+                  ),
                   child: DataGrid(
                     headers: [
                       DataGridHeader(
