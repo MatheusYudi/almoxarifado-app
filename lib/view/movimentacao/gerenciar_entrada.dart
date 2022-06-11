@@ -216,14 +216,14 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                         title: 'Chave',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 30,
                       ),
                       DataGridHeader(
                         link: 'data',
                         title: 'Data',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 10,
                       ),
                     ],
                     data: entradasGrid.map((entrada) {
@@ -237,13 +237,13 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                           ),
                           DataGridRowColumn(
                             link: 'fonecedor',
-                            display: Text(entrada.fornecedor!.razaoSocial),
+                            display: Text(entrada.fornecedor!.razaoSocial, style: TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: entrada.fornecedor!.razaoSocial,
                             alignment: Alignment.centerLeft
                           ),
                           DataGridRowColumn(
                             link: 'chave',
-                            display: Text(entrada.chave),
+                            display: Text(entrada.chave, style: TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: entrada.chave,
                             alignment: Alignment.centerLeft
                           ),
