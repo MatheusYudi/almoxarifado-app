@@ -235,7 +235,7 @@ class _InventarioFormState extends State<InventarioForm> {
                           ),
                           DataGridHeader(
                             link: 'qtdSistema',
-                            title: 'Quantidade de Sistema',
+                            title: 'Quantidade no Sistema',
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
