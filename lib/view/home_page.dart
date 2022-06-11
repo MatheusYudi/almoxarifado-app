@@ -6,10 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/funcionario_atual_controller.dart';
+import '../util/routes.dart';
 import '../widgets/drawer_menu_itens.dart';
 
 class HomePageView extends StatefulWidget {
-  const HomePageView({ Key? key }) : super(key: key);
+  const HomePageView({Key? key}) : super(key: key);
 
   @override
   State<HomePageView> createState() => _HomePageViewState();
@@ -31,56 +32,455 @@ class _HomePageViewState extends State<HomePageView> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                     Text(
-                      DateFormat.yMMMd('pt_BR').format(DateTime.now()),
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Colors.white,
-                        fontSize: 45,
-                      ),
-                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(50),
+                        child: Column(children: [
+                          Text(
+                            DateFormat.yMMMd('pt_BR').format(DateTime.now()),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize: 45,
+                                ),
+                          ),
+                          Text(
+                            DateFormat('HH:mm').format(DateTime.now()),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize: 45,
+                                ),
+                          )
+                        ])),
                     Text(
-                      DateFormat('HH:mm').format(DateTime.now()),
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Colors.white,
-                        fontSize: 45,
+                      "Olá, " + Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().nome,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                              padding: const EdgeInsets.only(right: 32),
+                              child: ElevatedButton(
+                                onPressed: () => Navigator.pushNamed(
+                                    context, Routes.requisicoes),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16),
+                                        child: const Text(
+                                          'Requisições',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 8),
+                                                        child: const Text(
+                                                            'Em aberto',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black))),
+                                                    const Text('25',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.orange,
+                                                            fontSize: 20))
+                                                  ]),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 8),
+                                                        child: const Text(
+                                                            'Aprovadas',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black))),
+                                                    const Text('25',
+                                                        style: TextStyle(
+                                                            color: Colors.green,
+                                                            fontSize: 20))
+                                                  ]),
+                                            )
+                                          ])
+                                    ]),
+                                style: ButtonStyle(
+                                    minimumSize: MaterialStateProperty.all(
+                                        const Size(0, 150)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.white),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18)))),
+                              )),
+                          ElevatedButton(
+                            onPressed: () => Navigator.pushNamed(
+                                context, Routes.inventarios),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.only(bottom: 16),
+                                    child: const Text(
+                                      'Inventários',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8),
+                                                    child: const Text(
+                                                        'Em aberto',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black))),
+                                                const Text('25',
+                                                    style: TextStyle(
+                                                        color: Colors.orange,
+                                                        fontSize: 20))
+                                              ]),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8),
+                                                    child: const Text(
+                                                        'Finalizados',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black))),
+                                                const Text('25',
+                                                    style: TextStyle(
+                                                        color: Colors.green,
+                                                        fontSize: 20))
+                                              ]),
+                                        )
+                                      ])
+                                ]),
+                            style: ButtonStyle(
+                                minimumSize: MaterialStateProperty.all(
+                                    const Size(0, 150)),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18)))),
+                          )
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 100),
-              Container(width: 1, color: Colors.white),
+              Container(width: 1, height: 200, color: Colors.white),
               const SizedBox(width: 100),
               Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListView.builder(
-                      itemCount: MenuItensList.itens.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        if(index > 0 && MenuItensList.itens[index].children.isEmpty)
-                        {
-                          return Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: ElevatedButton(
-                              onPressed: () => Navigator.pushNamed(context, MenuItensList.itens[index].pageRoute),
-                              child: MenuItensList.itens[index].text,
-                              style: ButtonStyle(
-                                minimumSize: MaterialStateProperty.all(const Size(0, 50)),
-                              ),
+                  child:
+                      Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          // mainAxisSize: MainAxisSize.min,
+                          children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(
+                                Icons.upload,
+                                color: Colors.green,
+                              )),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: const Text(
+                                    'Entrada de Material',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  'realizada em 13/11/20 as 17:11',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
                             ),
-                          );
-                        }
-                        else
-                        {
-                          return const SizedBox.shrink();
-                        }
-                      }
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Routes.movimentacoes);
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(
+                                Icons.download_rounded,
+                                color: Colors.red,
+                              )),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: const Text(
+                                    'Saída de Material',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  "realizada em 13/11/20 as 17:11",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Routes.movimentacoes);
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(
+                                Icons.upload,
+                                color: Colors.green,
+                              )),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: const Text(
+                                    'Entrada de Material',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  'realizada em 13/11/20 as 17:11',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Routes.movimentacoes);
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(
+                                Icons.download_rounded,
+                                color: Colors.red,
+                              )),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: const Text(
+                                    'Saída de Material',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  'realizada em 13/11/20 as 17:11',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Routes.movimentacoes);
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(
+                                Icons.upload,
+                                color: Colors.green,
+                              )),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: const Text(
+                                    'Entrada de Material',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  'realizada em 13/11/20 as 17:11',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, Routes.movimentacoes);
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ])),
             ],
           ),
         ),

@@ -19,13 +19,13 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
         children: [
           IconButton(
             onPressed: () { Navigator.pushNamed(context, Routes.homePage); },
-            icon: Icon(Icons.lightbulb_outline)
+            icon: const Icon(Icons.lightbulb_outline)
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.fromLTRB(12, 0, 24, 0),
             child: Container(            
               height: 40,
-              width: 2,            
+              width: 1,            
               color: Colors.white,
             ),
           ),
