@@ -144,8 +144,8 @@ class _DataGridState extends State<DataGrid> {
                             widget.headers[index].sortable
                             ? widget.headers[index].title == orderBy
                               ? Icon(orientation == direcao.asc
-                                ? Icons.keyboard_arrow_up
-                                : Icons.keyboard_arrow_down)
+                                ? Icons.keyboard_arrow_down
+                                : Icons.keyboard_arrow_up)
                               : const SizedBox(width:24)
                             : const SizedBox.shrink(),
                           ],
