@@ -14,7 +14,7 @@ class GruposMaterialController
   Future<List<GrupoMaterial>> getGruposMaterial(BuildContext context, [Map? grupoMaterial]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'material-group?page=1&size=1000&orderBy=ASC&status=Ativo',
+      endPoint: 'material-group?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 

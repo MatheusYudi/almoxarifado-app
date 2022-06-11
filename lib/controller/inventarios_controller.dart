@@ -13,7 +13,7 @@ class InventariosController{
   Future<List<Inventario>> getInventarios(BuildContext context, [Map? inventario]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'inventory?page=1&size=1000&orderBy=ASC',
+      endPoint: 'inventory?page=1&size=1000&order=id&orderBy=DESC',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 

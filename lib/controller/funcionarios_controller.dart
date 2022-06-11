@@ -14,7 +14,7 @@ class FuncionariosController
   Future<List<Funcionario>> getFuncionarios(BuildContext context, [Map? funcionario]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'user?page=1&size=1000&orderBy=ASC&status=Ativo',
+      endPoint: 'user?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 

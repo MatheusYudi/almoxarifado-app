@@ -12,7 +12,7 @@ class FornecedoresController
   Future<List<Fornecedor>> getFornecedores(BuildContext context, [Map? fornecedor]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'supplier?page=1&size=1000&orderBy=ASC&status=Ativo',
+      endPoint: 'supplier?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 
