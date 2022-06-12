@@ -33,7 +33,7 @@ class Requisicao
     
     return Requisicao(
       id: json['id'],
-      dataHora : json['dataHora'] ?? DateTime.now(),
+      dataHora : DateTime.tryParse(json['createdAt'].split('T')[0]),
       aprovada : json['approved'] == true ? 'Sim' : 'Não',
       requisitante : json['user'] != null? Funcionario.fromJson(json['user']) : null,
       itens: listMateriaisRequisicao,

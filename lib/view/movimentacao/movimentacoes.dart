@@ -222,9 +222,14 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                 {
                                   return true;
                                 }
-                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]}");
-                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]}");
+                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]} 00:00:00");
+                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]} 23:59:59");
+                               
                                 if(movimentacao.dataHora!.isAfter(dataInicioParse) && movimentacao.dataHora!.isBefore(dataFimParse))
+                                {
+                                  return true;
+                                }
+                                if(movimentacao.dataHora!.isAtSameMomentAs(dataInicioParse) || movimentacao.dataHora!.isAtSameMomentAs(dataFimParse))
                                 {
                                   return true;
                                 }

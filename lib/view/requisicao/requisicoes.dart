@@ -214,6 +214,10 @@ class _RequisicoesState extends State<Requisicoes> {
                                 {
                                   return true;
                                 }
+                                if(requisicao.dataHora!.isAtSameMomentAs(dataInicioParse) || requisicao.dataHora!.isAtSameMomentAs(dataFimParse))
+                                {
+                                  return true;
+                                }
                                 return false;
                               }).toList();
                               setState(() {});
