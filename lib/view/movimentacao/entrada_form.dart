@@ -153,18 +153,32 @@ class _EntradaFormState extends State<EntradaForm> {
                         onPressed: (){
                           if(materialSelecionado != null && quantidade.text.isNotEmpty)
                           {
-                            entrada.itens!.add(
-                              MaterialEntrada(
-                                qtd: double.parse(quantidade.text),
-                                material: materialSelecionado
-                              )
-                            );
+                            bool existe = entrada.itens!.where((item) => item.material!.id == materialSelecionado!.id).isNotEmpty;
+                            if(!existe)
+                            {
+                              entrada.itens!.add(
+                                MaterialEntrada(
+                                  qtd: double.parse(quantidade.text),
+                                  material: materialSelecionado
+                                )
+                              );
+                            }
+                            else
+                            {
+                              entrada.itens = entrada.itens!.map((item){
+                                if(item.material!.id == materialSelecionado!.id)
+                                {
+                                  item.qtd += double.parse(quantidade.text);
+                                }
+                                return item;
+                              }).toList();
+                            }
                             materialSelecionado = null;
                             nome.text = '';
                             quantidade.text = '';
                             setState(() {});
                           }
-                        },
+                        }
                       ),
                     ),
                   ],
