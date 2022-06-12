@@ -93,9 +93,14 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                   suffixIcon: IconButton(
                                     padding: const EdgeInsets.all(8.0),
                                     onPressed: (){
+                                      dynamic dataInicioParse;
+                                      if(dataInicio.text.isNotEmpty)
+                                      {
+                                        dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]} 00:00:00");
+                                      }
                                       showDatePicker(
                                         context: context,
-                                        initialDate: DateTime.now(),
+                                        initialDate: dataInicioParse ?? DateTime.now(),
                                         firstDate: DateTime(2000),
                                         lastDate: DateTime(2100),
                                       ).then((value){
@@ -118,9 +123,14 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                   suffixIcon: IconButton(
                                     padding: const EdgeInsets.all(8.0),
                                     onPressed: (){
+                                      dynamic dataFimParse;
+                                      if(dataFim.text.isNotEmpty)
+                                      {
+                                        dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]} 00:00:00");
+                                      }
                                       showDatePicker(
                                         context: context,
-                                        initialDate: DateTime.now(),
+                                        initialDate: dataFimParse ?? DateTime.now(),
                                         firstDate: DateTime(2000),
                                         lastDate: DateTime(2100),
                                       ).then((value){
