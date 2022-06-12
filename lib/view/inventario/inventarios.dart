@@ -206,6 +206,10 @@ class _InventariosState extends State<Inventarios> {
                                 {
                                   return true;
                                 }
+                                if(inventario.dataHora!.isAtSameMomentAs(dataInicioParse) || inventario.dataHora!.isAtSameMomentAs(dataFimParse))
+                                {
+                                  return true;
+                                }
                                 return false;
                               }).toList();
                               setState(() {});
