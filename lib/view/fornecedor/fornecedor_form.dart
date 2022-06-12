@@ -79,59 +79,67 @@ class _FornecedorFormState extends State<FornecedorForm> {
 
   void buscarCnpj() async
   {
-    if(cnpjMask.getUnmaskedText() != '')
-    {
-      setState(() => cnpjIsLoading = true);
-
-      Uri url = Uri.parse('https://brasilapi.com.br/api/cnpj/v1/${cnpjMask.getUnmaskedText()}');
-      dynamic response = await http.get(url);
-      dynamic jsonResponse = jsonDecode(response.body);
-      razaoSocial.text = jsonResponse['razao_social'] ?? '';
-      fornecedor.razaoSocial = jsonResponse['razao_social'] ?? '';
-      nomeFantasia.text = jsonResponse['nome_fantasia'] ?? '';
-      fornecedor.nomeFantasia = jsonResponse['nome_fantasia'] ?? '';
-      cep.text = jsonResponse['cep'] == null ? '' : [jsonResponse['cep'].substring(0, 5), '-', jsonResponse['cep'].substring(5)].join('');
-      fornecedor.cep = cep.text;
-      estado.text = jsonResponse['uf'] ?? '';
-      fornecedor.estado = jsonResponse['uf'] ?? '';
-      cidade.text = jsonResponse['municipio'] ?? '';
-      fornecedor.cidade = jsonResponse['municipio'] ?? '';
-      bairro.text = jsonResponse['bairro'] ?? '';
-      fornecedor.bairro = jsonResponse['bairro'] ?? '';
-      logradouro.text = jsonResponse['logradouro'] ?? '';
-      fornecedor.rua = jsonResponse['logradouro'] ?? '';
-      complemento.text = jsonResponse['complemento'] ?? '';
-      fornecedor.complemento = jsonResponse['complemento'] ?? '';
-      numero.text = jsonResponse['numero'] ?? '';
-      fornecedor.numero = int.parse(jsonResponse['numero'] ?? '');
-      fornecedor.regimeTibutario = '';
-      regimeApuracao.text = '';
-      tipoIe.text = '';
-      inscricaoEstadual.text = '';
-      complemento.text = '';
-
+    try {
+      if(cnpjMask.getUnmaskedText() != '')
+      {
+        setState(() => cnpjIsLoading = true);
+      
+        Uri url = Uri.parse('https://brasilapi.com.br/api/cnpj/v1/${cnpjMask.getUnmaskedText()}');
+        dynamic response = await http.get(url);
+        dynamic jsonResponse = jsonDecode(response.body);
+        razaoSocial.text = jsonResponse['razao_social'] ?? '';
+        fornecedor.razaoSocial = jsonResponse['razao_social'] ?? '';
+        nomeFantasia.text = jsonResponse['nome_fantasia'] ?? '';
+        fornecedor.nomeFantasia = jsonResponse['nome_fantasia'] ?? '';
+        cep.text = jsonResponse['cep'] == null ? '' : [jsonResponse['cep'].substring(0, 5), '-', jsonResponse['cep'].substring(5)].join('');
+        fornecedor.cep = cep.text;
+        estado.text = jsonResponse['uf'] ?? '';
+        fornecedor.estado = jsonResponse['uf'] ?? '';
+        cidade.text = jsonResponse['municipio'] ?? '';
+        fornecedor.cidade = jsonResponse['municipio'] ?? '';
+        bairro.text = jsonResponse['bairro'] ?? '';
+        fornecedor.bairro = jsonResponse['bairro'] ?? '';
+        logradouro.text = jsonResponse['logradouro'] ?? '';
+        fornecedor.rua = jsonResponse['logradouro'] ?? '';
+        complemento.text = jsonResponse['complemento'] ?? '';
+        fornecedor.complemento = jsonResponse['complemento'] ?? '';
+        numero.text = jsonResponse['numero'] ?? '';
+        fornecedor.numero = int.parse(jsonResponse['numero'] ?? '');
+        fornecedor.regimeTibutario = '';
+        regimeApuracao.text = '';
+        tipoIe.text = '';
+        inscricaoEstadual.text = '';
+        complemento.text = '';
+      
+        setState(() => cnpjIsLoading = false);
+      }
+    } on Exception catch (e) {
       setState(() => cnpjIsLoading = false);
     }
   }
 
   void buscarCep() async
   {
-    if(cep.text != '')
-    {
-      setState(() => cepIsLoading = true);
-
-      Uri url = Uri.parse('https://brasilapi.com.br/api/cep/v1/${cep.text}');
-      dynamic response = await http.get(url);
-      dynamic jsonResponse = jsonDecode(response.body);
-      estado.text = jsonResponse['state'] ?? '';
-      fornecedor.estado = jsonResponse['state'] ?? '';
-      cidade.text = jsonResponse['city'] ?? '';
-      fornecedor.cidade = jsonResponse['city'] ?? '';
-      bairro.text = jsonResponse['neighborhood'] ?? '';
-      fornecedor.bairro = jsonResponse['neighborhood'] ?? '';
-      logradouro.text = jsonResponse['street'] ?? '';
-      fornecedor.rua = jsonResponse['street'] ?? '';
-
+    try {
+      if(cep.text != '')
+      {
+        setState(() => cepIsLoading = true);
+      
+        Uri url = Uri.parse('https://brasilapi.com.br/api/cep/v1/${cep.text}');
+        dynamic response = await http.get(url);
+        dynamic jsonResponse = jsonDecode(response.body);
+        estado.text = jsonResponse['state'] ?? '';
+        fornecedor.estado = jsonResponse['state'] ?? '';
+        cidade.text = jsonResponse['city'] ?? '';
+        fornecedor.cidade = jsonResponse['city'] ?? '';
+        bairro.text = jsonResponse['neighborhood'] ?? '';
+        fornecedor.bairro = jsonResponse['neighborhood'] ?? '';
+        logradouro.text = jsonResponse['street'] ?? '';
+        fornecedor.rua = jsonResponse['street'] ?? '';
+      
+        setState(() => cepIsLoading = false);
+      }
+    } on Exception catch (e) {
       setState(() => cepIsLoading = false);
     }
   }

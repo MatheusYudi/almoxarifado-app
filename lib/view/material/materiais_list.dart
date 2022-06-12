@@ -108,17 +108,17 @@ class _MateriaisState extends State<Materiais> {
                                       return true;
                                     }
                                     return false;
-                                  }).toList();
-                                  materiaisGrid = materiaisGrid.where((material){
-                                    if(material.nome
-                                    .toUpperCase()
-                                    .contains(nome.text.toUpperCase()))
-                                    {
-                                      return true;
-                                    }
-                                    return false;
-                                  }).toList();
-                                  setState(() {});
+                                    }).toList();
+                                    materiaisGrid = materiaisGrid.where((material){
+                                      if(material.nome
+                                      .toUpperCase()
+                                      .contains(nome.text.toUpperCase()))
+                                      {
+                                        return true;
+                                      }
+                                      return false;
+                                    }).toList();
+                                    setState(() {});
                                   },
                                   child: const Icon(Icons.search),
                                   style: ButtonStyle(
