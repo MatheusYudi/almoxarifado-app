@@ -98,16 +98,27 @@ class _MateriaisState extends State<Materiais> {
                                 padding: const EdgeInsets.all(8),
                                 child: ElevatedButton(
                                   onPressed: (){
-                                    materiaisGrid = materiais
-                                      .where((material) =>
-                                          material.nome
-                                              .toUpperCase()
-                                              .contains(nome.text.toUpperCase()) ||
-                                          (grupoMaterialSelecionado != null &&
-                                          material.grupoMaterial != null &&
-                                          material.grupoMaterial?.id == grupoMaterialSelecionado?.id)
-                                      ).toList();
-                                    setState(() {});
+                                    materiaisGrid = materiais.where((material){
+                                    if(material.grupoMaterial == null || grupoMaterialSelecionado == null)
+                                    {
+                                      return true;
+                                    }
+                                    if(material.grupoMaterial!.id == grupoMaterialSelecionado!.id)
+                                    {
+                                      return true;
+                                    }
+                                    return false;
+                                  }).toList();
+                                  materiaisGrid = materiaisGrid.where((material){
+                                    if(material.nome
+                                    .toUpperCase()
+                                    .contains(nome.text.toUpperCase()))
+                                    {
+                                      return true;
+                                    }
+                                    return false;
+                                  }).toList();
+                                  setState(() {});
                                   },
                                   child: const Icon(Icons.search),
                                   style: ButtonStyle(
