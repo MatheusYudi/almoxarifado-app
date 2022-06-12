@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../controller/funcionarios_controller.dart';
 import '../../controller/requisicoes_controller.dart';
+import '../../enum/e_status_requisicao.dart';
 import '../../model/funcionario.dart';
 import '../../model/requisicao.dart';
 import '../../util/routes.dart';
@@ -162,8 +163,19 @@ class _RequisicoesState extends State<Requisicoes> {
                               Flexible(
                                 child: DefaultDropDown(
                                   controller: status,
-                                  labelText: 'Status',
-                                  itens: [],
+                                  labelText: 'Aprovada?',
+                                  itens: [
+                                    DropdownMenuItem(
+                                      value: 'Sim',
+                                      child: const Text('Sim'),
+                                      onTap: () => status.text =  'Sim',
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Não',
+                                      child: const Text('Não'),
+                                      onTap: () => status.text = 'Não',
+                                    ),
+                                  ]
                                 ),
                               ),
                             ],
@@ -207,6 +219,15 @@ class _RequisicoesState extends State<Requisicoes> {
                                   return true;
                                 }
                                 if(requisicao.requisitante!.id == funcionarioSelecionado!.id)
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              requisicoesGrid = requisicoesGrid.where((requisicao){
+                                if(requisicao.aprovada
+                                .toUpperCase()
+                                .contains(status.text.toUpperCase()))
                                 {
                                   return true;
                                 }
