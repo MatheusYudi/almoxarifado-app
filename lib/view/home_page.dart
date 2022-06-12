@@ -30,7 +30,7 @@ class _HomePageViewState extends State<HomePageView> {
             children: [
               Flexible(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
                         padding: const EdgeInsets.all(50),
@@ -56,16 +56,19 @@ class _HomePageViewState extends State<HomePageView> {
                                 ),
                           )
                         ])),
-                    Text(
-                      "Olá, " + Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().nome,
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w300),
+                    Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: Text(
+                        "Olá, " + Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().nome,
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w300),
+                      ),
                     ),
                     Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
+                      child: Wrap(
+                        runSpacing: 25,
                         children: [
                           Container(
                               padding: const EdgeInsets.only(right: 32),
@@ -87,8 +90,7 @@ class _HomePageViewState extends State<HomePageView> {
                                           ),
                                         ),
                                       ),
-                                      Row(
-                                          mainAxisSize: MainAxisSize.min,
+                                      Wrap(
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.all(8),
@@ -165,8 +167,7 @@ class _HomePageViewState extends State<HomePageView> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                      mainAxisSize: MainAxisSize.min,
+                                  Wrap(
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.all(8),
