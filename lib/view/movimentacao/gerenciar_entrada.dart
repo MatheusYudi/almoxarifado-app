@@ -47,7 +47,7 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Gerenciar Entradas'),
+      appBar: const DefaultAppBar(pageName: 'Entradas'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
