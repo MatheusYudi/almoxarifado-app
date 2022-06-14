@@ -103,10 +103,6 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
                                           },
                                         );
                                       }
-                                      else
-                                      {
-                                        Navigator.pop(context);
-                                      }
                                     },
                                   ),
                                 ),

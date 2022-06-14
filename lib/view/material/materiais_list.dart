@@ -160,10 +160,6 @@ class _MateriaisState extends State<Materiais> {
                                   },
                                 );
                               }
-                              else
-                              {
-                                Navigator.pop(context);
-                              }
                             },
                           ),
                         ),
