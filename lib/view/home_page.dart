@@ -42,7 +42,7 @@ class _HomePageViewState extends State<HomePageView> {
                                 .titleLarge!
                                 .copyWith(
                                   color: Colors.white,
-                                  fontSize: 45,
+                                  fontSize: 24,
                                 ),
                           ),
                           Text(
@@ -52,7 +52,7 @@ class _HomePageViewState extends State<HomePageView> {
                                 .titleLarge!
                                 .copyWith(
                                   color: Colors.white,
-                                  fontSize: 45,
+                                  fontSize: 65,
                                 ),
                           )
                         ])),
