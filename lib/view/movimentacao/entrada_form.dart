@@ -37,7 +37,7 @@ class _EntradaFormState extends State<EntradaForm> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18,
             child: Column(
               children: [
                 Row(
@@ -184,63 +184,71 @@ class _EntradaFormState extends State<EntradaForm> {
                   ],
                 ),
                 Flexible(
-                  child: DataGrid(
-                    headers: [
-                      DataGridHeader(
-                        link: 'delete',
-                        alignment: Alignment.centerLeft,
-                        enableSearch: false,
-                        sortable: false,
-                        displayPercentage: 10,
-                      ),
-                      DataGridHeader(
-                        link: 'material',
-                        title: 'Material',
-                        alignment: Alignment.centerLeft,
-                        enableSearch: false,
-                        sortable: false,
-                        displayPercentage: 70,
-                      ),
-                      DataGridHeader(
-                        link: 'qtd',
-                        title: 'Quantidade',
-                        alignment: Alignment.centerLeft,
-                        enableSearch: false,
-                        sortable: false,
-                        displayPercentage: 20,
-                      ),
-                    ],
-                    data: entrada.itens!.map((item){
-                      return DataGridRow(
-                        columns: [
-                          DataGridRowColumn(
-                            link: 'delete',
-                            alignment: Alignment.center,
-                            display: IconButton(
-                              padding: EdgeInsets.zero,
-                              color: Colors.red,
-                              icon: const Icon(Icons.delete),
-                              tooltip: "Excluir",
-                              onPressed: () {
-                                entrada.itens!.removeWhere((itemEntrada) => itemEntrada.material!.id == item.material!.id);
-                                setState(() {});
-                              },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.50,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: DataGrid(
+                      headers: [
+                        DataGridHeader(
+                          link: 'delete',
+                          alignment: Alignment.centerLeft,
+                          enableSearch: false,
+                          sortable: false,
+                          displayPercentage: 10,
+                        ),
+                        DataGridHeader(
+                          link: 'material',
+                          title: 'Material',
+                          alignment: Alignment.centerLeft,
+                          enableSearch: false,
+                          sortable: false,
+                          displayPercentage: 70,
+                        ),
+                        DataGridHeader(
+                          link: 'qtd',
+                          title: 'Quantidade',
+                          alignment: Alignment.centerLeft,
+                          enableSearch: false,
+                          sortable: false,
+                          displayPercentage: 20,
+                        ),
+                      ],
+                      data: entrada.itens!.map((item){
+                        return DataGridRow(
+                          columns: [
+                            DataGridRowColumn(
+                              link: 'delete',
+                              alignment: Alignment.center,
+                              display: IconButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.red,
+                                icon: const Icon(Icons.delete),
+                                tooltip: "Excluir",
+                                onPressed: () {
+                                  entrada.itens!.removeWhere((itemEntrada) => itemEntrada.material!.id == item.material!.id);
+                                  setState(() {});
+                                },
+                              ),
                             ),
-                          ),
-                          DataGridRowColumn(
-                            link: 'material',
-                            alignment: Alignment.centerLeft,
-                            display: Text(item.material!.nome),
-                          ),
-                          DataGridRowColumn(
-                            link: 'qtd',
-                            alignment: Alignment.centerLeft,
-                            display: Text(item.qtd.toString()),
-                          ),
-                        ]
-                      );
-                    }).toList(),
-                    width: MediaQuery.of(context).size.width,
+                            DataGridRowColumn(
+                              link: 'material',
+                              alignment: Alignment.centerLeft,
+                              display: Text(item.material!.nome),
+                            ),
+                            DataGridRowColumn(
+                              link: 'qtd',
+                              alignment: Alignment.centerLeft,
+                              display: Text(item.qtd.toString()),
+                            ),
+                          ]
+                        );
+                      }).toList(),
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ],

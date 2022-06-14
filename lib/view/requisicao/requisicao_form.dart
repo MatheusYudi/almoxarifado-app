@@ -88,7 +88,7 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18,
             child: Column(
               children: [
                 Row(

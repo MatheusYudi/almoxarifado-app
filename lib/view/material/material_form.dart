@@ -101,7 +101,7 @@ class _MaterialFormState extends State<MaterialForm> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18,
             child: Column(
               children: [
                 Row(

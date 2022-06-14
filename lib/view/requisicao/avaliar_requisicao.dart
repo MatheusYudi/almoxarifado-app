@@ -65,7 +65,7 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18,
             child: Column(
               children: [
                 Row(
@@ -98,62 +98,64 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                     )
                   ],
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).cardColor,
-                  ),
-                  child: DataGrid(
-                    headers: [
-                      DataGridHeader(
-                        link: 'codigoBarras',
-                        title: 'Código de Barras',
-                        displayPercentage: 25,
-                        sortable: false,
-                        enableSearch: false,
-                      ),
-                      DataGridHeader(
-                        link: 'nome',
-                        title: 'Nome',
-                        displayPercentage: 50,
-                        sortable: false,
-                        enableSearch: false,
-                      ),
-                      DataGridHeader(
-                        link: 'qtd',
-                        title: 'Quantidade',
-                        displayPercentage: 25,
-                        sortable: false,
-                        enableSearch: false,
-                      ),
-                    ],
-                    data: requisicao.itens!.map((item){
-                      return DataGridRow(
-                        columns: [
-                          DataGridRowColumn(
-                            link: 'codigoBarras',
-                            display: Text(item.material!.codigoBarras),
-                            textCompareOrder: item.material!.codigoBarras,
-                            alignment: Alignment.centerLeft,
-                          ),
-                          DataGridRowColumn(
-                            link: 'nome',
-                            display: Text(item.material!.nome),
-                            textCompareOrder: item.material!.nome,
-                            alignment: Alignment.centerLeft,
-                          ),
-                          DataGridRowColumn(
-                            link: 'qtd',
-                            display: Text(item.qtd.toString()),
-                            textCompareOrder: item.qtd.toString(),
-                            alignment: Alignment.centerLeft,
-                          ),
-                        ]
-                      );
-                    }).toList(),
-                    width: MediaQuery.of(context).size.width,
+                Flexible(
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height * 0.65,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      // color: Theme.of(context).cardColor,
+                    ),
+                    child: DataGrid(
+                      headers: [
+                        DataGridHeader(
+                          link: 'codigoBarras',
+                          title: 'Código de Barras',
+                          displayPercentage: 25,
+                          sortable: false,
+                          enableSearch: false,
+                        ),
+                        DataGridHeader(
+                          link: 'nome',
+                          title: 'Nome',
+                          displayPercentage: 50,
+                          sortable: false,
+                          enableSearch: false,
+                        ),
+                        DataGridHeader(
+                          link: 'qtd',
+                          title: 'Quantidade',
+                          displayPercentage: 25,
+                          sortable: false,
+                          enableSearch: false,
+                        ),
+                      ],
+                      data: requisicao.itens!.map((item){
+                        return DataGridRow(
+                          columns: [
+                            DataGridRowColumn(
+                              link: 'codigoBarras',
+                              display: Text(item.material!.codigoBarras),
+                              textCompareOrder: item.material!.codigoBarras,
+                              alignment: Alignment.centerLeft,
+                            ),
+                            DataGridRowColumn(
+                              link: 'nome',
+                              display: Text(item.material!.nome),
+                              textCompareOrder: item.material!.nome,
+                              alignment: Alignment.centerLeft,
+                            ),
+                            DataGridRowColumn(
+                              link: 'qtd',
+                              display: Text(item.qtd.toString()),
+                              textCompareOrder: item.qtd.toString(),
+                              alignment: Alignment.centerLeft,
+                            ),
+                          ]
+                        );
+                      }).toList(),
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ],

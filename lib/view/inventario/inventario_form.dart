@@ -90,7 +90,7 @@ class _InventarioFormState extends State<InventarioForm> {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(8.0),
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18,
             child: Column(
               children: [
                 Row(

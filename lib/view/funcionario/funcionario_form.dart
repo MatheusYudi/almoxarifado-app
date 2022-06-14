@@ -87,7 +87,7 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
         child: SafeArea(
           child: SingleChildScrollView(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height - kToolbarHeight,
+              height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18,
               child: Column(
                 children: [
                   Row(

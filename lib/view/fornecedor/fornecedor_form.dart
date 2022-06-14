@@ -151,8 +151,8 @@ class _FornecedorFormState extends State<FornecedorForm> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
-            padding: const EdgeInsets.all(8.0),
+            height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight - 18 - 18,
+            padding: const EdgeInsets.all(8),
             child: Column(
               children: [
                 Row(
