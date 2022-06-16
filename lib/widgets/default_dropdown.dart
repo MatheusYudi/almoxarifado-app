@@ -180,7 +180,8 @@ class _DefaultDropDownState extends State<DefaultDropDown> {
               keyboardType: widget.keyboardType,
               controller: widget.controller,
               inputFormatters: widget.inputFormatters ?? [],
-              validator: widget.validator,              
+              validator: widget.validator,       
+              style: TextStyle(color: widget.enabled ? Colors.black : Colors.grey),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(10),
                 labelText: widget.labelText,
