@@ -117,7 +117,7 @@ class _SaidaFormState extends State<SaidaForm> {
                                 controller: quantidade,
                                 labelText: 'Quantidade',
                                 keyboardType: TextInputType.number,
-                                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
                                 onChanged: (data) => movimentacao.quantidadeMovimentada = double.parse(data),
                               ),
                             ),

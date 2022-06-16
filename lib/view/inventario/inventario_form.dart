@@ -160,7 +160,7 @@ class _InventarioFormState extends State<InventarioForm> {
                                   controller: quantidade,
                                   labelText: 'Quantidade',
                                   keyboardType: TextInputType.number,
-                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
                                 ),
                               ),
                               Container(

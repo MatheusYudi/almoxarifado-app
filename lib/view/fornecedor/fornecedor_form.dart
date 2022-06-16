@@ -227,7 +227,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                     Flexible(
                       child: DefaultDropDown(
                         controller: tipoIe,
-                        labelText: 'Tipo Inscrição Estadual',
+                        labelText: 'Tipo de Inscrição Estadual',
                         itens: ETipoIe.values.map((tipoIe){
                           return DropdownMenuItem(
                             child: Text(tipoIe.nome),
@@ -242,7 +242,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: inscricaoEstadual,
                         labelText: 'Inscrição Estadual',
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d{0,12}'))],
                         onChanged: (data) => fornecedor.ie = data,
                       ),
                     ),
@@ -253,7 +253,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                     Flexible(
                       child: DefaultTextFormField(
                         controller: cep,
-                        labelText: 'Cep',
+                        labelText: 'CEP',
                         keyboardType: TextInputType.number,
                         inputFormatters: [cepMask],
                         onChanged: (data) => fornecedor.cep = cepMask.getMaskedText(),

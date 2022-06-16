@@ -67,7 +67,7 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                                 child: DefaultTextFormField(
                                   controller: numeroNota,
                                   labelText: 'Número da Nota',
-                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                   keyboardType: TextInputType.number,
                                 ),
                               ),
@@ -108,8 +108,8 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                               Flexible(
                                 child: DefaultTextFormField(
                                   controller: chave,
-                                  labelText: 'Chave',
-                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                  labelText: 'Chave da Nota',
+                                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                   keyboardType: TextInputType.number,
                                 ),
                               ),

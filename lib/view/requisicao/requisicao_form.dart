@@ -158,7 +158,7 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                                   controller: quantidade,
                                   labelText: 'Quantidade',
                                   keyboardType: TextInputType.number,
-                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,2}'))],
+                                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))],
                                 ),
                               ),
                               Container(
