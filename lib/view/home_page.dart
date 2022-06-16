@@ -1,13 +1,15 @@
 import 'package:almoxarifado/widgets/default_app_bar.dart';
-import 'package:almoxarifado/widgets/default_dropdown.dart';
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/funcionario_atual_controller.dart';
+import '../controller/inventarios_controller.dart';
+import '../controller/movimentacoes_controller.dart';
+import '../controller/requisicoes_controller.dart';
+import '../model/movimentacao.dart';
 import '../util/routes.dart';
-import '../widgets/drawer_menu_itens.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -17,6 +19,37 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
+
+  Map<String, dynamic> balancoRequisicao = {};
+  Map<String, dynamic> balancoInventario = {};
+
+  List<Movimentacao> movimentacoes = [];
+  bool movimentacoesLoading = false;
+
+  fetchBalancoRequisicao() async {
+    balancoRequisicao = await RequisicoesController().getBalanco(context) ?? {};
+    setState((){});
+  }
+
+  fetchBalancoInventario() async {
+    balancoInventario = await InventariosController().getBalanco(context) ?? {};
+    setState((){});
+  }
+
+  fetchMovimentacoes() async {
+    setState(() => movimentacoesLoading = true);
+    movimentacoes = await MovimentacoesController().getMovimentacoes(context);
+    setState(() => movimentacoesLoading = false);
+  }
+
+  @override
+  void initState() {
+    fetchBalancoRequisicao();
+    fetchBalancoInventario();
+    fetchMovimentacoes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,31 +64,35 @@ class _HomePageViewState extends State<HomePageView> {
               Flexible(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
                         padding: const EdgeInsets.all(50),
-                        child: Column(children: [
+                        child: Column(
+                          children: [
                           Text(
                             DateFormat.yMMMd('pt_BR').format(DateTime.now()),
                             style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                ),
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
                           ),
                           Text(
                             DateFormat('HH:mm').format(DateTime.now()),
                             style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                  color: Colors.white,
-                                  fontSize: 65,
-                                ),
-                          )
-                        ])),
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(
+                              color: Colors.white,
+                              fontSize: 65,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(32.0),
                       child: Text(
@@ -71,95 +108,17 @@ class _HomePageViewState extends State<HomePageView> {
                         runSpacing: 25,
                         children: [
                           Container(
-                              padding: const EdgeInsets.only(right: 32),
-                              child: ElevatedButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, Routes.requisicoes),
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 16),
-                                        child: const Text(
-                                          'Requisições',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      Wrap(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8),
-                                              child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                bottom: 8),
-                                                        child: const Text(
-                                                            'Em aberto',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black))),
-                                                    const Text('25',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.orange,
-                                                            fontSize: 20))
-                                                  ]),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8),
-                                              child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                bottom: 8),
-                                                        child: const Text(
-                                                            'Aprovadas',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black))),
-                                                    const Text('25',
-                                                        style: TextStyle(
-                                                            color: Colors.green,
-                                                            fontSize: 20))
-                                                  ]),
-                                            )
-                                          ])
-                                    ]),
-                                style: ButtonStyle(
-                                    minimumSize: MaterialStateProperty.all(
-                                        const Size(0, 150)),
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18)))),
-                              )),
-                          ElevatedButton(
-                            onPressed: () => Navigator.pushNamed(
-                                context, Routes.inventarios),
-                            child: Column(
+                            padding: const EdgeInsets.only(right: 32),
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.pushNamed(
+                                  context, Routes.requisicoes),
+                              child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Container(
                                     padding: const EdgeInsets.only(bottom: 16),
                                     child: const Text(
-                                      'Inventários',
+                                      'Requisições',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
@@ -168,60 +127,158 @@ class _HomePageViewState extends State<HomePageView> {
                                     ),
                                   ),
                                   Wrap(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 8),
-                                                    child: const Text(
-                                                        'Em aberto',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black))),
-                                                const Text('25',
-                                                    style: TextStyle(
-                                                        color: Colors.orange,
-                                                        fontSize: 20))
-                                              ]),
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.only(bottom: 8),
+                                              child: const Text(
+                                                'Em aberto',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              balancoRequisicao.isEmpty
+                                              ? ''
+                                              : balancoRequisicao['pending'].toString(),
+                                              style: const TextStyle(
+                                                color:Colors.orange,
+                                                fontSize: 20
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 8),
-                                                    child: const Text(
-                                                        'Finalizados',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black))),
-                                                const Text('25',
-                                                    style: TextStyle(
-                                                        color: Colors.green,
-                                                        fontSize: 20))
-                                              ]),
-                                        )
-                                      ])
-                                ]),
-                            style: ButtonStyle(
-                                minimumSize: MaterialStateProperty.all(
-                                    const Size(0, 150)),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          mainAxisSize:MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.only(bottom: 8),
+                                              child: const Text(
+                                                'Aprovadas',
+                                                style: TextStyle(
+                                                  color: Colors.black
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              balancoRequisicao.isEmpty
+                                              ? ''
+                                              : balancoRequisicao['approved'].toString(),
+                                              style: const TextStyle(
+                                                color:Colors.green,
+                                                fontSize: 20
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              style: ButtonStyle(
+                                minimumSize: MaterialStateProperty.all(const Size(0, 150)),
+                                backgroundColor:MaterialStateProperty.all(Colors.white),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18)))),
-                          )
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.pushNamed(context, Routes.inventarios),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: const Text(
+                                    'Inventários',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Wrap(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.only(bottom: 8),
+                                              child: const Text(
+                                                'Em aberto',
+                                                style: TextStyle(
+                                                  color:Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              balancoInventario.isEmpty
+                                              ? ''
+                                              : balancoInventario['pending'].toString(),
+                                              style: const TextStyle(
+                                                color:Colors.orange,
+                                                fontSize: 20
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.only(bottom: 8),
+                                              child: const Text(
+                                                'Finalizados',
+                                                style: TextStyle(
+                                                  color:Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              balancoInventario.isEmpty
+                                              ? ''
+                                              : balancoInventario['closed'].toString(),
+                                              style: const TextStyle(
+                                                color:Colors.green,
+                                                fontSize: 20
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                              ],
+                            ),
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(const Size(0, 150)),
+                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius:BorderRadius.circular(18),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -232,10 +289,34 @@ class _HomePageViewState extends State<HomePageView> {
               Container(width: 1, height: 200, color: Colors.white),
               const SizedBox(width: 100),
               Expanded(
-                  child:
-                      Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          // mainAxisSize: MainAxisSize.min,
-                          children: [
+                child: movimentacoesLoading
+                ? const Center(
+                    child: SizedBox(child: CircularProgressIndicator()))
+                : ListView.builder(
+                  itemCount: movimentacoes.length,
+                  itemBuilder: (context, index){
+                    return ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      tileColor: Colors.white,
+                      leading: const Icon(
+                        Icons.upload,
+                        color: Colors.green,
+                      ),
+                      title: Text(movimentacoes[index].tipo),
+                      subtitle: Text("Realizada em: ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)}"),
+                      trailing: IconButton(
+                        onPressed: () => Navigator.pushNamed(context, Routes.movimentacoes),
+                        icon: const Icon(Icons.remove_red_eye_outlined),
+                      ),
+                    );
+                  },
+                ),
+               /* child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
                     Container(
                       padding: const EdgeInsets.all(16),
                       clipBehavior: Clip.hardEdge,
@@ -481,7 +562,9 @@ class _HomePageViewState extends State<HomePageView> {
                         ],
                       ),
                     )
-                  ])),
+                  ],
+                ),*/
+              ),
             ],
           ),
         ),

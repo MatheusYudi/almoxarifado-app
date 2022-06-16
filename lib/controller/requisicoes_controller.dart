@@ -112,4 +112,23 @@ class RequisicoesController{
     }
     return true;
   }
+
+  Future<Map<String, dynamic>?> getBalanco(BuildContext context) async {
+    ApiResponse response = await ApiClient().get(
+      endPoint: 'requisition/balance',
+      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+    );
+    
+    if(response.statusCode > 299)
+    {
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+    }
+    else
+    {
+      return response.body['data'];
+    }
+    return null;
+  }
 }
