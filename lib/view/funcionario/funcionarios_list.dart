@@ -197,14 +197,14 @@ class _FuncionariosState extends State<Funcionarios> {
                             title: '',
                             enableSearch: false,
                             sortable: false,
-                            displayPercentage: 10,
+                            displayPercentage: 5,
                           ),
                           DataGridHeader(
                             link: 'edit',
                             title: '',
                             enableSearch: false,
                             sortable: false,
-                            displayPercentage: 10,
+                            displayPercentage: 5,
                           ),
                           DataGridHeader(
                             link: 'cpf',
@@ -216,7 +216,7 @@ class _FuncionariosState extends State<Funcionarios> {
                           DataGridHeader(
                             link: 'nome',
                             title: 'Nome',
-                            displayPercentage: 30,
+                            displayPercentage: 40,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                           ),
@@ -262,9 +262,9 @@ class _FuncionariosState extends State<Funcionarios> {
                             ),
                             DataGridRowColumn(
                               link: 'cpf',
-                              textCompareOrder: funcionario.cpf,
-                              display: Text(funcionario.cpf),
                               alignment: Alignment.centerLeft,
+                              display: Text(funcionario.cpf, style: const TextStyle(overflow: TextOverflow.ellipsis)),
+                              textCompareOrder: funcionario.cpf,
                             ),
                             DataGridRowColumn(
                               link: 'nome',

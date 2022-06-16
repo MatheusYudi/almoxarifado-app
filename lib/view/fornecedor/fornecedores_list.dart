@@ -168,7 +168,7 @@ class _FornecedoresState extends State<Fornecedores> {
                       DataGridHeader(
                         link: 'cnpj',
                         title: 'CNPJ',
-                        displayPercentage: 10,
+                        displayPercentage: 15,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                       ),
@@ -182,7 +182,7 @@ class _FornecedoresState extends State<Fornecedores> {
                       DataGridHeader(
                         link: 'nomeFantasia',
                         title: 'Nome Fantasia',
-                        displayPercentage: 40,
+                        displayPercentage: 35,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                       ),

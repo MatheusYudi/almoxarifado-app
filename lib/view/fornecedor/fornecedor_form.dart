@@ -162,7 +162,7 @@ class _FornecedorFormState extends State<FornecedorForm> {
                         controller: cnpj,
                         labelText: 'CNPJ',
                         inputFormatters: [cnpjMask],
-                        onChanged: (data) => fornecedor.cnpj = cnpjMask.getUnmaskedText(),
+                        onChanged: (data) => fornecedor.cnpj = data,
                         suffixIcon: cnpjIsLoading
                         ? Center(
                           child: SizedBox(

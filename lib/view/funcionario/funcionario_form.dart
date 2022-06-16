@@ -98,7 +98,7 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                           labelText: 'CPF',
                           keyboardType: TextInputType.number,
                           inputFormatters: [cpfMask],
-                          onChanged: (data) => funcionario.cpf = cpfMask.getUnmaskedText(),
+                          onChanged: (data) => funcionario.cpf = data,
                         ),
                       ),
                       Flexible(
