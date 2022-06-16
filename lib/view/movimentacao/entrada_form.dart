@@ -151,7 +151,7 @@ class _EntradaFormState extends State<EntradaForm> {
                           minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                         ),
                         onPressed: (){
-                          if(materialSelecionado != null && quantidade.text.isNotEmpty)
+                          if(materialSelecionado != null && quantidade.text.isNotEmpty && double.parse(quantidade.text) > 0)
                           {
                             bool existe = entrada.itens!.where((item) => item.material!.id == materialSelecionado!.id).isNotEmpty;
                             if(!existe)

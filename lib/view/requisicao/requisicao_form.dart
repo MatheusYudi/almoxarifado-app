@@ -168,8 +168,8 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                                   style: ButtonStyle(
                                     minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                                   ),
-                                  onPressed: (){
-                                    if(materialSelecionado != null && quantidade.text.isNotEmpty)
+                                  onPressed: () {
+                                    if(materialSelecionado != null && quantidade.text.isNotEmpty && double.parse(quantidade.text) > 0)
                                     {
                                       bool existe = requisicao.itens!.where((item) => item.material!.id == materialSelecionado!.id).isNotEmpty;
                                       if(!existe)
