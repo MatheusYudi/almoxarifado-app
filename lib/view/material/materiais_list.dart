@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../controller/funcionario_atual_controller.dart';
 import '../../controller/grupo_material_controller.dart';
 import '../../controller/materiais_controller.dart';
 
+import '../../model/grupo_acesso.dart';
 import '../../model/grupo_material.dart';
 import '../../model/material_model.dart';
 import '../../util/routes.dart';
@@ -30,6 +33,7 @@ class _MateriaisState extends State<Materiais> {
   GrupoMaterial? grupoMaterialSelecionado;
   bool materiaisLoading = false;
   bool gruposAcessoLoading = false;
+  GrupoAcesso? permissao;
 
   fetchMateriais() async {
     setState(() => materiaisLoading = true);
@@ -45,6 +49,7 @@ class _MateriaisState extends State<Materiais> {
 
   @override
   void initState() {
+    permissao = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso;
     fetchMateriais();
     fetchGruposMaterial();
     super.initState();
@@ -134,7 +139,9 @@ class _MateriaisState extends State<Materiais> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        permissao != null && permissao?.id != 3
+                        ? const SizedBox.shrink()
+                        : Container(
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton.icon(
                             icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
