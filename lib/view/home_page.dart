@@ -314,7 +314,7 @@ class _HomePageViewState extends State<HomePageView> {
                   shrinkWrap: true,
                   itemBuilder: (context, index){
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: ListTile(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
