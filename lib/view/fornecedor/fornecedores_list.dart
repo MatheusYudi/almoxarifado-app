@@ -228,13 +228,13 @@ class _FornecedoresState extends State<Fornecedores> {
                           ),
                           DataGridRowColumn(
                             link: 'razaoSocial',
-                            display: Text(fornecedor.razaoSocial, style: TextStyle(overflow: TextOverflow.ellipsis)),
+                            display: Text(fornecedor.razaoSocial, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: fornecedor.razaoSocial,
                             alignment: Alignment.centerLeft
                           ),
                           DataGridRowColumn(
                             link: 'nomeFantasia',
-                            display: Text(fornecedor.nomeFantasia, style: TextStyle(overflow: TextOverflow.ellipsis)),
+                            display: Text(fornecedor.nomeFantasia, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: fornecedor.nomeFantasia,
                             alignment: Alignment.centerLeft
                           ),
