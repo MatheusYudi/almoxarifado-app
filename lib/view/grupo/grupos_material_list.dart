@@ -134,14 +134,14 @@ class _GruposState extends State<Grupos> {
                         title: '',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 10,
+                        displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'edit',
                         title: '',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 10,
+                        displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'nome',
