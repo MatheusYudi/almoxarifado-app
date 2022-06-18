@@ -11,10 +11,10 @@ class MovimentacoesController
 
   String error = '';
 
-  Future<List<Movimentacao>> getMovimentacoes(BuildContext context, [Map? movimentacao]) async
+  Future<List<Movimentacao>> getMovimentacoes(BuildContext context, [Map? filters]) async
   {
     ApiResponse response = await ApiClient().get(
-      endPoint: 'movement?page=1&size=1000&order=id&orderBy=DESC',
+      endPoint: "movement?page=1&size=${filters != null ? filters['size'] : 1000}&order=id&orderBy=DESC",
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
     );
 

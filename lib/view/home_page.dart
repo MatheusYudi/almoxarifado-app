@@ -40,7 +40,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   fetchMovimentacoes() async {
     setState(() => movimentacoesLoading = true);
-    movimentacoes = await MovimentacoesController().getMovimentacoes(context);
+    movimentacoes = await MovimentacoesController().getMovimentacoes(context, {'page': 1, 'size': 5});
     setState(() => movimentacoesLoading = false);
   }
 
@@ -311,21 +311,25 @@ class _HomePageViewState extends State<HomePageView> {
                     child: SizedBox(child: CircularProgressIndicator()))
                 : ListView.builder(
                   itemCount: movimentacoes.length,
+                  shrinkWrap: true,
                   itemBuilder: (context, index){
-                    return ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      tileColor: Colors.white,
-                      leading: Icon(
-                        movimentacoes[index].tipo.toLowerCase() == "entrada" ? Icons.upload : Icons.download_rounded,
-                        color: movimentacoes[index].tipo.toLowerCase() == "entrada" ? Colors.green : Colors.red,
-                      ),
-                      title: Text(movimentacoes[index].tipo),
-                      subtitle: Text("Realizada em: ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)}"),
-                      trailing: IconButton(
-                        onPressed: () => Navigator.pushNamed(context, Routes.movimentacoes),
-                        icon: const Icon(Icons.remove_red_eye_outlined),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        tileColor: Colors.white,
+                        leading: Icon(
+                          movimentacoes[index].tipo.toLowerCase() == "entrada" ? Icons.upload : Icons.download_rounded,
+                          color: movimentacoes[index].tipo.toLowerCase() == "entrada" ? Colors.green : Colors.red,
+                        ),
+                        title: Text(movimentacoes[index].tipo),
+                        subtitle: Text("Realizada em: ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)}"),
+                        trailing: IconButton(
+                          onPressed: () => Navigator.pushNamed(context, Routes.movimentacoes),
+                          icon: const Icon(Icons.remove_red_eye_outlined),
+                        ),
                       ),
                     );
                   },
