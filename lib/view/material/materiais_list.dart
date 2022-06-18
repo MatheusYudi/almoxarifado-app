@@ -210,14 +210,14 @@ class _MateriaisState extends State<Materiais> {
                         title: '',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 10,
+                        displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'edit',
                         title: '',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 10,
+                        displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'nome',
@@ -238,7 +238,7 @@ class _MateriaisState extends State<Materiais> {
                         title: 'Código de Barras',
                         enableSearch: false,
                         sortable: false,
-                        displayPercentage: 15,
+                        displayPercentage: 25,
                       ),
                       DataGridHeader(
                         link: 'qtdEstoque',
