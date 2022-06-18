@@ -321,6 +321,7 @@ class _RequisicoesState extends State<Requisicoes> {
                     ],
                     data: requisicoesGrid.map((requisicao){
                       return DataGridRow(
+                        backgroundColor: requisicao.aprovada == "Sim" ? Colors.green[50] : Colors.red[50],
                         columns: [
                           DataGridRowColumn(
                             link: 'delete',

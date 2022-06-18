@@ -281,6 +281,7 @@ class _InventariosState extends State<Inventarios> {
                     ],
                     data: inventariosGrid.map((inventario){
                       return DataGridRow(
+                        backgroundColor: inventario.status == "Sim" ? Colors.green[50] : Colors.red[50],
                         columns: [
                           DataGridRowColumn(
                             link: 'delete',
