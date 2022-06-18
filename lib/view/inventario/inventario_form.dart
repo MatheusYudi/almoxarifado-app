@@ -209,12 +209,13 @@ class _InventarioFormState extends State<InventarioForm> {
                   ],
                 ),
                 Flexible(
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).cardColor,
                       ),
                       child: DataGrid(
                         headers: [
@@ -223,7 +224,7 @@ class _InventarioFormState extends State<InventarioForm> {
                             alignment: Alignment.center,
                             sortable: false,
                             enableSearch: false,
-                            displayPercentage: 10,
+                            displayPercentage: 5,
                           ),
                           DataGridHeader(
                             link: 'descricao',
@@ -231,7 +232,7 @@ class _InventarioFormState extends State<InventarioForm> {
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
-                            displayPercentage: 50,
+                            displayPercentage: 55,
                           ),
                           DataGridHeader(
                             link: 'qtdSistema',

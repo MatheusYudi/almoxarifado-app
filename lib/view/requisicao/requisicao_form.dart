@@ -207,76 +207,86 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                   ],
                 ),
                 Flexible(
-                  child: DataGrid(
-                    headers: [
-                      DataGridHeader(
-                        link: 'delete',
-                        alignment: Alignment.center,
-                        sortable: false,
-                        enableSearch: false,
-                        displayPercentage: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).cardColor,
                       ),
-                      DataGridHeader(
-                        link: 'nome',
-                        title: 'Nome',
-                        sortable: false,
-                        enableSearch: false,
-                        alignment: Alignment.centerLeft,
-                        displayPercentage: 50,
-                      ),
-                      DataGridHeader(
-                        link: 'qtd',
-                        title: 'Quantidade',
-                        sortable: false,
-                        enableSearch: false,
-                        alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
-                      ),
-                      DataGridHeader(
-                        link: 'qtdEstoque',
-                        title: 'Quantidade em Estoque',
-                        sortable: false,
-                        enableSearch: false,
-                        alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
-                      ),
-                    ],
-                    data: requisicao.itens!.map((item) {
-                      return DataGridRow(
-                        columns: [
-                          DataGridRowColumn(
+                      child: DataGrid(
+                        headers: [
+                          DataGridHeader(
                             link: 'delete',
                             alignment: Alignment.center,
-                            display: IconButton(
-                              padding: EdgeInsets.zero,
-                              color: Colors.red,
-                              icon: const Icon(Icons.delete),
-                              tooltip: "Excluir",
-                              onPressed: () {
-                                requisicao.itens!.removeWhere((itemRequisicao) => itemRequisicao.material!.id == item.material!.id);
-                                setState(() {});
-                              },
-                            ),
+                            sortable: false,
+                            enableSearch: false,
+                            displayPercentage: 5,
                           ),
-                          DataGridRowColumn(
+                          DataGridHeader(
                             link: 'nome',
-                            display: Text(item.material!.nome),
+                            title: 'Nome',
+                            sortable: false,
+                            enableSearch: false,
                             alignment: Alignment.centerLeft,
+                            displayPercentage: 55,
                           ),
-                          DataGridRowColumn(
+                          DataGridHeader(
                             link: 'qtd',
-                            display: Text(item.qtd.toString()),
+                            title: 'Quantidade',
+                            sortable: false,
+                            enableSearch: false,
                             alignment: Alignment.centerLeft,
+                            displayPercentage: 20,
                           ),
-                          DataGridRowColumn(
+                          DataGridHeader(
                             link: 'qtdEstoque',
-                            display: Text(item.material!.qtdeEstoque.toString()),
+                            title: 'Quantidade em Estoque',
+                            sortable: false,
+                            enableSearch: false,
                             alignment: Alignment.centerLeft,
+                            displayPercentage: 20,
                           ),
-                        ]
-                      );
-                    }).toList(),
-                    width: MediaQuery.of(context).size.width,
+                        ],
+                        data: requisicao.itens!.map((item) {
+                          return DataGridRow(
+                            columns: [
+                              DataGridRowColumn(
+                                link: 'delete',
+                                alignment: Alignment.center,
+                                display: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  color: Colors.red,
+                                  icon: const Icon(Icons.delete),
+                                  tooltip: "Excluir",
+                                  onPressed: () {
+                                    requisicao.itens!.removeWhere((itemRequisicao) => itemRequisicao.material!.id == item.material!.id);
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                              DataGridRowColumn(
+                                link: 'nome',
+                                display: Text(item.material!.nome),
+                                alignment: Alignment.centerLeft,
+                              ),
+                              DataGridRowColumn(
+                                link: 'qtd',
+                                display: Text(item.qtd.toString()),
+                                alignment: Alignment.centerLeft,
+                              ),
+                              DataGridRowColumn(
+                                link: 'qtdEstoque',
+                                display: Text(item.material!.qtdeEstoque.toString()),
+                                alignment: Alignment.centerLeft,
+                              ),
+                            ]
+                          );
+                        }).toList(),
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
                   ),
                 ),
               ],
