@@ -317,9 +317,9 @@ class _HomePageViewState extends State<HomePageView> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       tileColor: Colors.white,
-                      leading: const Icon(
-                        Icons.upload,
-                        color: Colors.green,
+                      leading: Icon(
+                        movimentacoes[index].tipo.toLowerCase() == "Entrada" ? Icons.upload : Icons.download_rounded,
+                        color: movimentacoes[index].tipo.toLowerCase() == "Entrada" ? Colors.green : Colors.red,
                       ),
                       title: Text(movimentacoes[index].tipo),
                       subtitle: Text("Realizada em: ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)}"),
