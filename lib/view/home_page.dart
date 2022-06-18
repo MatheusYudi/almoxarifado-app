@@ -318,8 +318,8 @@ class _HomePageViewState extends State<HomePageView> {
                       ),
                       tileColor: Colors.white,
                       leading: Icon(
-                        movimentacoes[index].tipo.toLowerCase() == "Entrada" ? Icons.upload : Icons.download_rounded,
-                        color: movimentacoes[index].tipo.toLowerCase() == "Entrada" ? Colors.green : Colors.red,
+                        movimentacoes[index].tipo.toLowerCase() == "entrada" ? Icons.upload : Icons.download_rounded,
+                        color: movimentacoes[index].tipo.toLowerCase() == "entrada" ? Colors.green : Colors.red,
                       ),
                       title: Text(movimentacoes[index].tipo),
                       subtitle: Text("Realizada em: ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)}"),
