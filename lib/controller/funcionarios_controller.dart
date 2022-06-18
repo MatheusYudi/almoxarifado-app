@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../api/api_client.dart';
 import '../api/api_response.dart';
 import '../model/funcionario.dart';
+import '../model/requisicao.dart';
 import 'funcionario_atual_controller.dart';
 
 class FuncionariosController
@@ -95,5 +96,17 @@ class FuncionariosController
     return null;
   }
 
+  Future<List<Requisicao>> getRequisicoes(BuildContext context, Funcionario funcionario) async
+  {
+    ApiResponse response = await ApiClient().get(
+      endPoint: 'user/${funcionario.id}/requisition?page=1&size=1000&order=id&orderBy=DESC',
+      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+    );
 
+    if(response.statusCode != 200)
+    {
+      throw Exception(response.body['error']);
+    }
+    return response.body['data']['rows'].map<Requisicao>((requisicao) => Requisicao.fromJson(requisicao)).toList();
+  }
 }
