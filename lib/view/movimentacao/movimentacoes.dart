@@ -317,13 +317,13 @@ class _MovimentacoesState extends State<Movimentacoes> {
                         columns: [
                           DataGridRowColumn(
                             link: 'usuario',
-                            display: Text(movimentacao.funcionario!.nome),
+                            display: Text(movimentacao.funcionario!.nome, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: movimentacao.funcionario!.nome,
                             alignment: Alignment.centerLeft,
                           ),
                           DataGridRowColumn(
                             link: 'material',
-                            display: Text(movimentacao.material!.nome),
+                            display: Text(movimentacao.material!.nome, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: movimentacao.material!.nome,
                             alignment: Alignment.centerLeft,
                           ),
@@ -341,7 +341,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                           ),
                           DataGridRowColumn(
                             link: 'motivo',
-                            display: Text(movimentacao.motivo),
+                            display: Text(movimentacao.motivo, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: movimentacao.motivo,
                             alignment: Alignment.centerLeft,
                           ),
