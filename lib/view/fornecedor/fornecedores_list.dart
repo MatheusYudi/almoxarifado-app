@@ -119,7 +119,7 @@ class _FornecedoresState extends State<Fornecedores> {
                                 .where((fornecedor) =>
                                     fornecedor.cnpj
                                         .toUpperCase()
-                                        .contains(cnpjMask.getUnmaskedText().toUpperCase()) &&
+                                        .contains(cnpj.text.toUpperCase()) &&
                                     fornecedor.razaoSocial
                                         .toUpperCase()
                                         .contains(razaoSocial.text.toUpperCase())&&
@@ -222,7 +222,7 @@ class _FornecedoresState extends State<Fornecedores> {
                           ),
                           DataGridRowColumn(
                             link: 'cnpj',
-                            display: Text(fornecedor.cnpj),
+                            display: Text(fornecedor.cnpj, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: fornecedor.cnpj,
                             alignment: Alignment.centerLeft
                           ),
