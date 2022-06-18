@@ -8,6 +8,7 @@ import '../controller/funcionario_atual_controller.dart';
 import '../controller/inventarios_controller.dart';
 import '../controller/movimentacoes_controller.dart';
 import '../controller/requisicoes_controller.dart';
+import '../model/grupo_acesso.dart';
 import '../model/movimentacao.dart';
 import '../util/routes.dart';
 
@@ -25,6 +26,7 @@ class _HomePageViewState extends State<HomePageView> {
 
   List<Movimentacao> movimentacoes = [];
   bool movimentacoesLoading = false;
+  GrupoAcesso? permissao;
 
   fetchBalancoRequisicao() async {
     balancoRequisicao = await RequisicoesController().getBalanco(context) ?? {};
@@ -44,9 +46,16 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   void initState() {
+    permissao = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso;
+    
     fetchBalancoRequisicao();
-    fetchBalancoInventario();
-    fetchMovimentacoes();
+
+    if(!(permissao != null && permissao?.id != 1))
+    {
+      fetchBalancoInventario();
+      fetchMovimentacoes();
+    }
+
     super.initState();
   }
 
@@ -195,7 +204,9 @@ class _HomePageViewState extends State<HomePageView> {
                               ),
                             ),
                           ),
-                          ElevatedButton(
+                          permissao != null && permissao?.id != 1
+                          ? const SizedBox.shrink()
+                          : ElevatedButton(
                             onPressed: () => Navigator.pushNamed(context, Routes.inventarios),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -285,10 +296,18 @@ class _HomePageViewState extends State<HomePageView> {
                   ],
                 ),
               ),
-              const SizedBox(width: 100),
-              Container(width: 1, height: 200, color: Colors.white),
-              const SizedBox(width: 100),
-              Expanded(
+              // const SizedBox(width: 100),
+              permissao != null && permissao?.id != 1
+              ? const SizedBox.shrink()
+              : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: const VerticalDivider(color: Colors.white),
+              ),
+              // Container(width: 1, height: 200, color: Colors.white),
+              // const SizedBox(width: 100),
+              permissao != null && permissao?.id != 1
+              ? const SizedBox.shrink()
+              : Expanded(
                 child: movimentacoesLoading
                 ? const Center(
                     child: SizedBox(child: CircularProgressIndicator()))
@@ -313,257 +332,6 @@ class _HomePageViewState extends State<HomePageView> {
                     );
                   },
                 ),
-               /* child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.upload,
-                                color: Colors.green,
-                              )),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: const Text(
-                                    'Entrada de Material',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  'realizada em 13/11/20 as 17:11',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.movimentacoes);
-                            },
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.download_rounded,
-                                color: Colors.red,
-                              )),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: const Text(
-                                    'Saída de Material',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  "realizada em 13/11/20 as 17:11",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.movimentacoes);
-                            },
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.upload,
-                                color: Colors.green,
-                              )),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: const Text(
-                                    'Entrada de Material',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  'realizada em 13/11/20 as 17:11',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.movimentacoes);
-                            },
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.download_rounded,
-                                color: Colors.red,
-                              )),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: const Text(
-                                    'Saída de Material',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  'realizada em 13/11/20 as 17:11',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.movimentacoes);
-                            },
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          const Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.upload,
-                                color: Colors.green,
-                              )),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: const Text(
-                                    'Entrada de Material',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  'realizada em 13/11/20 as 17:11',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.movimentacoes);
-                            },
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),*/
               ),
             ],
           ),

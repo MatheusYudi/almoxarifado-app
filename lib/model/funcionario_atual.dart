@@ -1,4 +1,5 @@
 import 'funcionario.dart';
+import 'grupo_acesso.dart';
 
 class FuncionarioAtual extends Funcionario{
   String tokenApi;
@@ -10,12 +11,14 @@ class FuncionarioAtual extends Funcionario{
     nome,
     email,
     senha,
+    grupoAcesso,
   }) : super(
     id: id,
     cpf: cpf ?? '',
     email: email ?? '',
     nome: nome ?? '',
-    senha: senha ?? ''
+    senha: senha ?? '',
+    grupoAcesso: grupoAcesso,
   );
 
   factory FuncionarioAtual.fromJson(Map<String, dynamic> json){
@@ -26,6 +29,7 @@ class FuncionarioAtual extends Funcionario{
       email : json['email'] ?? '',
       senha : json['senha'] ?? '',
       tokenApi : json['accessToken'] ?? '',
+      grupoAcesso: json['accessGroup'] != null? GrupoAcesso.fromJson(json['accessGroup']) : null
     );
   }
 }

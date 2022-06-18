@@ -12,13 +12,20 @@ class DefaultUserDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().toJson());
     return Menu(
       user: {
         'profilePicture':'https://picsum.photos/200',
         'name': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().nome,
         'email': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().email,
       },
-      pages: MenuItensList.itens,
+      pages: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso == null
+      ? MenuItensList.itens
+      : Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso.id == 1
+      ? MenuItensList.funcionarioItens
+      : Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso.id == 2
+      ? MenuItensList.requisitanteItens
+      : MenuItensList.itens,
       footer: ElevatedButton(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
