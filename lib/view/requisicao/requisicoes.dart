@@ -43,7 +43,14 @@ class _RequisicoesState extends State<Requisicoes> {
   fetchRequisicoes() async
   {
     setState(() => requisicoesLoading = true);
-    requisicoes = await RequisicoesController().getRequisicoes(context);
+    if(permissao != null && permissao?.id == 2)
+    {
+      requisicoes = await FuncionariosController().getRequisicoes(context, Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual());
+    }
+    else
+    {
+      requisicoes = await RequisicoesController().getRequisicoes(context);
+    }
     requisicoesGrid = requisicoes;
     setState(() => requisicoesLoading = false);
   }
