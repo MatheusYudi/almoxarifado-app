@@ -2,11 +2,14 @@ import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../controller/funcionario_atual_controller.dart';
 import '../../controller/funcionarios_controller.dart';
 import '../../controller/requisicoes_controller.dart';
 import '../../enum/e_status_requisicao.dart';
 import '../../model/funcionario.dart';
+import '../../model/grupo_acesso.dart';
 import '../../model/requisicao.dart';
 import '../../util/routes.dart';
 import '../../widgets/data_grid.dart';
@@ -35,6 +38,7 @@ class _RequisicoesState extends State<Requisicoes> {
   bool funcionariosLoading = false;
   List<Funcionario> funcionarios = [];
   Funcionario? funcionarioSelecionado;
+  GrupoAcesso? permissao;
 
   fetchRequisicoes() async
   {
@@ -53,6 +57,7 @@ class _RequisicoesState extends State<Requisicoes> {
 
   @override
   void initState() {
+    permissao = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso;
     fetchRequisicoes();
     fetchFuncionarios();
     super.initState();
@@ -330,7 +335,9 @@ class _RequisicoesState extends State<Requisicoes> {
                           DataGridRowColumn(
                             link: 'edit',
                             alignment: Alignment.center,
-                            display: requisicao.aprovada != 'Sim'
+                            display: permissao != null && permissao?.id == 1
+                            ? const SizedBox.shrink()
+                            : requisicao.aprovada != 'Sim'
                             ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Colors.blue,
@@ -346,7 +353,9 @@ class _RequisicoesState extends State<Requisicoes> {
                           ),
                           DataGridRowColumn(
                             link: 'avaliar',
-                            display: requisicao.aprovada != 'Sim'
+                            display: permissao != null && permissao?.id == 2
+                            ? const SizedBox.shrink()
+                            : requisicao.aprovada != 'Sim'
                             ? IconButton(
                               padding: EdgeInsets.zero,
                               color: Theme.of(context).primaryColor,
