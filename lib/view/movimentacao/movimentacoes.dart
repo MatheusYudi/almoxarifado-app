@@ -274,14 +274,14 @@ class _MovimentacoesState extends State<Movimentacoes> {
                         title: 'Funcionário',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 25,
                       ),
                       DataGridHeader(
                         link: 'material',
                         title: 'Material',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 25,
                       ),
                       DataGridHeader(
                         link: 'qtd',
@@ -295,7 +295,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                         title: 'Tipo',
                         enableSearch: false,
                         alignment: Alignment.centerLeft,
-                        displayPercentage: 20,
+                        displayPercentage: 10,
                       ),
                       DataGridHeader(
                         link: 'motivo',
