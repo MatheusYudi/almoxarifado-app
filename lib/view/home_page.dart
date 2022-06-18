@@ -50,7 +50,7 @@ class _HomePageViewState extends State<HomePageView> {
     
     fetchBalancoRequisicao();
 
-    if(!(permissao != null && permissao?.id != 1))
+    if(!(permissao != null && permissao?.id == 2))
     {
       fetchBalancoInventario();
       fetchMovimentacoes();
@@ -204,7 +204,7 @@ class _HomePageViewState extends State<HomePageView> {
                               ),
                             ),
                           ),
-                          permissao != null && permissao?.id != 1
+                          permissao != null && permissao?.id == 2
                           ? const SizedBox.shrink()
                           : ElevatedButton(
                             onPressed: () => Navigator.pushNamed(context, Routes.inventarios),
@@ -297,15 +297,13 @@ class _HomePageViewState extends State<HomePageView> {
                 ),
               ),
               // const SizedBox(width: 100),
-              permissao != null && permissao?.id != 1
+              permissao != null && permissao?.id == 2
               ? const SizedBox.shrink()
-              : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: const VerticalDivider(color: Colors.white),
+              : const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: VerticalDivider(color: Colors.white),
               ),
-              // Container(width: 1, height: 200, color: Colors.white),
-              // const SizedBox(width: 100),
-              permissao != null && permissao?.id != 1
+              permissao != null && permissao?.id == 2
               ? const SizedBox.shrink()
               : Expanded(
                 child: movimentacoesLoading
