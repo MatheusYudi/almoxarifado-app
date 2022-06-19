@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:almoxarifado/widgets/default_app_bar.dart';
 import 'package:almoxarifado/widgets/default_user_drawer.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ class _HomePageViewState extends State<HomePageView> {
   List<Movimentacao> movimentacoes = [];
   bool movimentacoesLoading = false;
   GrupoAcesso? permissao;
+  DateTime clockTime = DateTime.now();
 
   fetchBalancoRequisicao() async {
     balancoRequisicao = await RequisicoesController().getBalanco(context) ?? {};
@@ -48,6 +51,10 @@ class _HomePageViewState extends State<HomePageView> {
   void initState() {
     permissao = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso;
     
+    Timer.periodic(const Duration(seconds: 1), (Timer t) => setState(() {
+      clockTime = DateTime.now();
+    }));
+
     fetchBalancoRequisicao();
 
     if(!(permissao != null && permissao?.id == 2))
@@ -80,7 +87,7 @@ class _HomePageViewState extends State<HomePageView> {
                         child: Column(
                           children: [
                           Text(
-                            DateFormat.yMMMd('pt_BR').format(DateTime.now()),
+                            DateFormat.yMMMd('pt_BR').format(clockTime),
                             style: Theme.of(context)
                             .textTheme
                             .titleLarge!
@@ -90,7 +97,7 @@ class _HomePageViewState extends State<HomePageView> {
                             ),
                           ),
                           Text(
-                            DateFormat('HH:mm').format(DateTime.now()),
+                            DateFormat('HH:mm').format(clockTime),
                             style: Theme.of(context)
                             .textTheme
                             .titleLarge!
