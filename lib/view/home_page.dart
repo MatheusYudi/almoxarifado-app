@@ -96,15 +96,42 @@ class _HomePageViewState extends State<HomePageView> {
                               fontSize: 24,
                             ),
                           ),
-                          Text(
-                            DateFormat('HH:mm').format(clockTime),
-                            style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(
-                              color: Colors.white,
-                              fontSize: 65,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                DateFormat('HH').format(clockTime),
+                                style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize: 65,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: Text(':',
+                                  style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white.withOpacity(clockTime.second % 2 == 0 ? 1 : 0),
+                                    fontSize: 65,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                DateFormat('mm').format(clockTime),
+                                style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize: 65,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
