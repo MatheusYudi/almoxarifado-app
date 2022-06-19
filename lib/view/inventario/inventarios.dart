@@ -365,7 +365,7 @@ class _InventariosState extends State<Inventarios> {
                           ),
                           DataGridRowColumn(
                             link: 'finalizado',
-                            display: Text(inventario.status),
+                            display: Text(inventario.status, style: TextStyle(color: inventario.status == "Sim" ? Colors.green : Colors.red)),
                             textCompareOrder: inventario.status,
                             alignment: Alignment.center
                           ),

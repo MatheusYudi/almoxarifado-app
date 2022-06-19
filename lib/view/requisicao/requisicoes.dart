@@ -389,7 +389,7 @@ class _RequisicoesState extends State<Requisicoes> {
                           ),
                           DataGridRowColumn(
                             link: 'aprovada',
-                            display: Text(requisicao.aprovada),
+                            display: Text(requisicao.aprovada, style: TextStyle(color: requisicao.aprovada == "Sim" ? Colors.green : Colors.red)),
                             textCompareOrder: requisicao.aprovada,
                           )
                         ]
