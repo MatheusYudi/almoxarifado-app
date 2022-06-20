@@ -56,10 +56,16 @@ class FuncionariosController
 
   Future<Funcionario?> updateFuncionario(BuildContext context, Funcionario funcionario) async
   {
+    Map funcionarioAtualizado = funcionario.toJson();
+  
+    if (funcionario.senha == null) {
+      funcionarioAtualizado.remove('senha');
+    }
+
     ApiResponse response = await ApiClient().put(
       endPoint: 'user',
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
-      data: funcionario.toJson(),
+      data: funcionarioAtualizado,
     );
     
     if(response.statusCode > 299)

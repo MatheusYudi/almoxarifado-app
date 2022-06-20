@@ -156,12 +156,9 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                           ),
                           validator: (value)
                           {
-                            if(funcionario.senha != null)
+                            if(funcionario.senha != null && value != null && value.isNotEmpty)
                             {
-                              if (value == null || value.isEmpty) {
-                                return 'Digite algum valor';
-                              }
-                              else if(value.length < 6)
+                              if(value.length < 6)
                               {
                                 return 'A Senha deve ter no mínimo 6 caracteres';
                               }
@@ -187,18 +184,15 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                             ),
                           ),
                           validator: (value) {
-                            if(funcionario.senha != null)
+                            if(funcionario.senha != null && value != null && value.isNotEmpty)
                             {
-                              if (value == null || value.isEmpty) {
-                                return 'Digite algum valor';
-                              }
-                              else if(value != senha.text)
+                              if(value != senha.text)
                               {
                                 return 'Os campos "Confirmar Senha" e "Senha" devem ser iguais';
                               }
                               else if(value.length < 6)
                               {
-                                return 'A Senha deve ter no minimo 6 caracteres';
+                                return 'A Senha deve ter no mínimo 6 caracteres';
                               }
                             }
                             return null;
