@@ -102,9 +102,17 @@ class RequisicoesController{
     
     if(response.statusCode > 299)
     {
-      response.body['error'].forEach((requestError){
-        error += requestError['msg'] + "\n";
-      });
+      if (response.body['error']['value'].isNotEmpty) {
+        error = response.body['error']['message'] + ":\n";
+
+        response.body['error']['value'].forEach((requestError){
+          error += "- " + requestError + "\n";
+        });
+      } else {
+        response.body['error'].forEach((requestError){
+          error += requestError['msg'] + "\n";
+        });
+      }
     }
     else
     {
