@@ -187,7 +187,7 @@ class _HomePageViewState extends State<HomePageView> {
                                             ),
                                             Text(
                                               balancoRequisicao.isEmpty
-                                              ? ''
+                                              ? '0'
                                               : balancoRequisicao['pending'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.orange,
@@ -213,7 +213,7 @@ class _HomePageViewState extends State<HomePageView> {
                                             ),
                                             Text(
                                               balancoRequisicao.isEmpty
-                                              ? ''
+                                              ? '0'
                                               : balancoRequisicao['approved'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.green,
@@ -274,7 +274,7 @@ class _HomePageViewState extends State<HomePageView> {
                                             ),
                                             Text(
                                               balancoInventario.isEmpty
-                                              ? ''
+                                              ? '0'
                                               : balancoInventario['pending'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.orange,
@@ -300,7 +300,7 @@ class _HomePageViewState extends State<HomePageView> {
                                             ),
                                             Text(
                                               balancoInventario.isEmpty
-                                              ? ''
+                                              ? '0'
                                               : balancoInventario['closed'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.green,
@@ -342,8 +342,8 @@ class _HomePageViewState extends State<HomePageView> {
               : Expanded(
                 child: movimentacoesLoading
                 ? const Center(
-                    child: SizedBox(child: CircularProgressIndicator()))
-                : ListView.builder(
+                  child: SizedBox(child: CircularProgressIndicator()))
+                : movimentacoes.isNotEmpty ? ListView.builder(
                   itemCount: movimentacoes.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index){
@@ -367,6 +367,14 @@ class _HomePageViewState extends State<HomePageView> {
                       ),
                     );
                   },
+                ) : Center(
+                  child: Text(
+                    "Nenhuma movimentação foi realizada.",
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
               ),
             ],
