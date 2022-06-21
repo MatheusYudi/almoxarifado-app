@@ -110,7 +110,7 @@ class _HomePageViewState extends State<HomePageView> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right: 8),
+                                padding: const EdgeInsets.only(left: 8, right: 8),
                                 child: Text(':',
                                   style: Theme.of(context)
                                   .textTheme
