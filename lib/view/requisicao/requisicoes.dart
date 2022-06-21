@@ -43,7 +43,7 @@ class _RequisicoesState extends State<Requisicoes> {
   fetchRequisicoes() async
   {
     setState(() => requisicoesLoading = true);
-    if(permissao != null && permissao?.id == 2)
+    if(permissao != null && permissao?.nome == "Requisitante")
     {
       requisicoes = await FuncionariosController().getRequisicoes(context, Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual());
     }
@@ -343,7 +343,7 @@ class _RequisicoesState extends State<Requisicoes> {
                           DataGridRowColumn(
                             link: 'edit',
                             alignment: Alignment.center,
-                            display: permissao != null && permissao?.id == 1
+                            display: permissao != null && permissao?.nome == "Funcionário"
                             ? const SizedBox.shrink()
                             : requisicao.aprovada != 'Sim'
                             ? IconButton(
@@ -361,7 +361,7 @@ class _RequisicoesState extends State<Requisicoes> {
                           ),
                           DataGridRowColumn(
                             link: 'avaliar',
-                            display: permissao != null && permissao?.id == 2
+                            display: permissao != null && permissao?.nome == "Requisitante"
                             ? const SizedBox.shrink()
                             : requisicao.aprovada != 'Sim'
                             ? IconButton(

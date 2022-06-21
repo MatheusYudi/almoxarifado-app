@@ -21,9 +21,9 @@ class DefaultUserDrawer extends StatelessWidget {
       },
       pages: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso == null
       ? MenuItensList.itens
-      : Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso.id == 1
+      : Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso.nome == "Funcionário"
       ? MenuItensList.funcionarioItens
-      : Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso.id == 2
+      : Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso.nome == "Requisitante"
       ? MenuItensList.requisitanteItens
       : MenuItensList.itens,
       footer: ElevatedButton(

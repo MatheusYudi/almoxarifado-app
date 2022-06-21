@@ -139,7 +139,7 @@ class _MateriaisState extends State<Materiais> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        permissao != null && permissao?.id != 3
+                        permissao != null && permissao?.nome != "Supervisor"
                         ? const SizedBox.shrink()
                         : Container(
                           padding: const EdgeInsets.all(8),
