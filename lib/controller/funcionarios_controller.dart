@@ -59,7 +59,7 @@ class FuncionariosController
     Map funcionarioAtualizado = funcionario.toJson();
   
     if (funcionario.senha == null) {
-      funcionarioAtualizado.remove('senha');
+      funcionarioAtualizado.remove('password');
     }
 
     ApiResponse response = await ApiClient().put(
