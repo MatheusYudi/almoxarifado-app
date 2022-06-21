@@ -151,7 +151,7 @@ class _HomePageViewState extends State<HomePageView> {
                         runSpacing: 25,
                         children: [
                           Container(
-                            padding: const EdgeInsets.only(right: 32),
+                            padding: EdgeInsets.only(right: (permissao != null && permissao?.nome == "Requisitante" ) ? 0 : 32),
                             child: ElevatedButton(
                               onPressed: () => Navigator.pushNamed(
                                   context, Routes.requisicoes),
