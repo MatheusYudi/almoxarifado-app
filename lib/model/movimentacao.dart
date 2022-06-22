@@ -1,4 +1,3 @@
-
 import 'funcionario.dart';
 import 'material_model.dart';
 
@@ -36,7 +35,7 @@ class Movimentacao
   factory Movimentacao.fromJson(Map<String, dynamic> json){
     return Movimentacao(
       id: json['id'],
-      dataHora : DateTime.tryParse(json['createdAt']),
+      dataHora : DateTime.parse(json['createdAt']).toLocal(),
       quantidadeMovimentada : double.parse("${json['quantity']}"),
       tipo : json['type'] ?? '',
       motivo : json['reason'] ?? '',
