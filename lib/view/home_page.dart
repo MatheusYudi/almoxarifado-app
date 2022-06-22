@@ -191,7 +191,7 @@ class _HomePageViewState extends State<HomePageView> {
                                               : balancoRequisicao['pending'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.orange,
-                                                fontSize: 20
+                                                fontSize: 24
                                               ),
                                             ),
                                           ],
@@ -217,7 +217,7 @@ class _HomePageViewState extends State<HomePageView> {
                                               : balancoRequisicao['approved'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.green,
-                                                fontSize: 20
+                                                fontSize: 24
                                               ),
                                             ),
                                           ],
@@ -278,7 +278,7 @@ class _HomePageViewState extends State<HomePageView> {
                                               : balancoInventario['pending'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.orange,
-                                                fontSize: 20
+                                                fontSize: 24
                                               ),
                                             ),
                                           ],
@@ -304,7 +304,7 @@ class _HomePageViewState extends State<HomePageView> {
                                               : balancoInventario['closed'].toString(),
                                               style: const TextStyle(
                                                 color:Colors.green,
-                                                fontSize: 20
+                                                fontSize: 24
                                               ),
                                             ),
                                           ],
@@ -358,8 +358,11 @@ class _HomePageViewState extends State<HomePageView> {
                           movimentacoes[index].tipo.toLowerCase() == "entrada" ? Icons.upload : Icons.download_rounded,
                           color: movimentacoes[index].tipo.toLowerCase() == "entrada" ? Colors.green : Colors.red,
                         ),
-                        title: Text(movimentacoes[index].tipo),
-                        subtitle: Text("Realizada em: ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)}"),
+                        title: Text(
+                          movimentacoes[index].tipo,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text("realizada em ${DateFormat('dd/MM/yyyy').format(movimentacoes[index].dataHora!)} às ${DateFormat('HH:mm').format(movimentacoes[index].dataHora!)}"),
                         trailing: IconButton(
                           onPressed: () => Navigator.pushNamed(context, Routes.movimentacoes),
                           icon: const Icon(Icons.remove_red_eye_outlined),

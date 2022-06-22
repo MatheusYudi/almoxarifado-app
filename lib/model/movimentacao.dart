@@ -36,7 +36,7 @@ class Movimentacao
   factory Movimentacao.fromJson(Map<String, dynamic> json){
     return Movimentacao(
       id: json['id'],
-      dataHora : DateTime.tryParse(json['createdAt'].split('T')[0]),
+      dataHora : DateTime.tryParse(json['createdAt']),
       quantidadeMovimentada : double.parse("${json['quantity']}"),
       tipo : json['type'] ?? '',
       motivo : json['reason'] ?? '',
