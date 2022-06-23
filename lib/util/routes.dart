@@ -33,7 +33,7 @@ class Routes{
   static const String inventarios = '/inventarios';
   static const String inventarioForm = '/inventarioForm';
   static const String requisicoes = '/requisicoes';
-  static const String requisicaoForm = '/requisicacForm';
+  static const String requisicaoForm = '/requisicaoForm';
   static const String grupos = '/grupos';
   static const String movimentacoes = '/movimentacoes';
   static const String gerenciarEntrada = '/gerenciarEntrada';
