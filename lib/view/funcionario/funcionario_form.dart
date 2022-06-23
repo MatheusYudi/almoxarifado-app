@@ -122,7 +122,7 @@ class _FuncionarioFormState extends State<FuncionarioForm> {
                               child: Text(grupoAcesso.nome),
                               onTap: () => funcionario.grupoAcesso = grupoAcesso,
                             );
-                          }).toList(),
+                          }).toList().where((element) => element.value != "Administrador").toList(),
                         ),
                       ),
                       Flexible(
