@@ -38,7 +38,7 @@ class FuncionarioAtualController extends ChangeNotifier
   alterarSenha(BuildContext context, String senha) async {
     ApiResponse response = await ApiClient().post(
       endPoint: 'auth/reset',
-      // TODO: usar o token do link do email
+      // TODO: usar o token do link do email e enviar como x-reset-token no header
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
       data: {'password' : senha}
     );
