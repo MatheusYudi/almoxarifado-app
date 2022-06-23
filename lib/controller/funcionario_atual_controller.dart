@@ -21,7 +21,6 @@ class FuncionarioAtualController extends ChangeNotifier
   recuperarSenha(BuildContext context, String email) async {
     ApiResponse response = await ApiClient().post(
       endPoint: 'auth/recover',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
       data: {
         'email' : email,
         'resetUrl' : 'https://almoxarifado-app-staging.vercel.app/#/alterarSenha'
@@ -38,7 +37,8 @@ class FuncionarioAtualController extends ChangeNotifier
 
   alterarSenha(BuildContext context, String senha) async {
     ApiResponse response = await ApiClient().post(
-      endPoint: 'auth/recover',
+      endPoint: 'auth/reset',
+      // TODO: usar o token do link do email
       token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
       data: {'password' : senha}
     );

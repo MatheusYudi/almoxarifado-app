@@ -91,8 +91,7 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
                                       
                                       await request.recuperarSenha(context, email.text);
                                       
-                                      if(request.error != '')
-                                      {
+                                      if (request.error != '') {
                                         showDialog(
                                           context: context,
                                           builder: (context){
@@ -102,6 +101,8 @@ class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
                                             );
                                           },
                                         );
+                                      } else {
+                                        Navigator.pop(context);
                                       }
                                     },
                                   ),
