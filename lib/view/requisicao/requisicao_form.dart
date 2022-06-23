@@ -29,6 +29,7 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
   TextEditingController data = TextEditingController(text: DateFormat("dd/MM/yyyy").format(DateTime.now()));
   TextEditingController operador = TextEditingController();
   TextEditingController nome = TextEditingController();
+  TextEditingController quantidadeEstoque = TextEditingController();
   TextEditingController quantidade = TextEditingController();
 
   bool preenchido = false;
@@ -146,11 +147,20 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                                         if(materialSelecionado != null)
                                         {
                                           nome.text = materialSelecionado!.nome;
+                                          quantidadeEstoque.text = materialSelecionado!.qtdeEstoque.toString();
                                         }
                                         setState(() {});
                                       }),
                                     ),
                                   ),
+                                ),
+                              ),
+                              Flexible(
+                                child: DefaultTextFormField(
+                                  controller: quantidadeEstoque,
+                                  labelText: 'Quantidade em Estoque',
+                                  keyboardType: TextInputType.number,
+                                  enabled: false,
                                 ),
                               ),
                               Flexible(
@@ -233,16 +243,16 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                             displayPercentage: 55,
                           ),
                           DataGridHeader(
-                            link: 'qtd',
-                            title: 'Quantidade',
+                            link: 'qtdEstoque',
+                            title: 'Quantidade em Estoque',
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
                             displayPercentage: 20,
                           ),
                           DataGridHeader(
-                            link: 'qtdEstoque',
-                            title: 'Quantidade em Estoque',
+                            link: 'qtd',
+                            title: 'Quantidade',
                             sortable: false,
                             enableSearch: false,
                             alignment: Alignment.centerLeft,
@@ -272,13 +282,13 @@ class _RequisicaoFormState extends State<RequisicaoForm> {
                                 alignment: Alignment.centerLeft,
                               ),
                               DataGridRowColumn(
-                                link: 'qtd',
-                                display: Text(item.qtd.toString()),
+                                link: 'qtdEstoque',
+                                display: Text(item.material!.qtdeEstoque.toString()),
                                 alignment: Alignment.centerLeft,
                               ),
                               DataGridRowColumn(
-                                link: 'qtdEstoque',
-                                display: Text(item.material!.qtdeEstoque.toString()),
+                                link: 'qtd',
+                                display: Text(item.qtd.toString()),
                                 alignment: Alignment.centerLeft,
                               ),
                             ]
