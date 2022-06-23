@@ -32,4 +32,17 @@ class FuncionarioAtual extends Funcionario{
       grupoAcesso: json['accessGroup'] != null? GrupoAcesso.fromJson(json['accessGroup']) : null
     );
   }
+
+  @override
+  Map<String, dynamic> toJson(){
+    return{
+      'id': id,
+      'name' : nome,
+      'document' : cpf,
+      'email' : email,
+      'password' : senha,
+      'accessGroupId' : grupoAcesso == null ? '' : grupoAcesso!.id,
+      'token': tokenApi,
+    };
+  }
 }
