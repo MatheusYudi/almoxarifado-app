@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +18,7 @@ class GruposAcessoController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'access-group?page=1&size=1000&order=id&orderBy=DESC',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
     if(response.statusCode != 200)
@@ -31,7 +33,7 @@ class GruposAcessoController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'access-group/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -46,7 +48,7 @@ class GruposAcessoController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'access-group/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -61,7 +63,7 @@ class GruposAcessoController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'access-group',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: grupoAcesso.toJson(),
     );
     
@@ -77,7 +79,7 @@ class GruposAcessoController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'access-group',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: grupoAcesso.toJson(),
     );
     

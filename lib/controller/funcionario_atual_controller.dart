@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +20,7 @@ class FuncionarioAtualController extends ChangeNotifier
   setFuncionarioAtual(FuncionarioAtual funcionario) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     funcionarioAtual = funcionario;
-    await prefs.setString('token', funcionario.tokenApi);
+    await prefs.setString('funcionario', jsonEncode(funcionario.toJson()));
     notifyListeners();
   }
 

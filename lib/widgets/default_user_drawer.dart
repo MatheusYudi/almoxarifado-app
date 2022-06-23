@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,16 +10,35 @@ import '../util/routes.dart';
 import 'menu.dart';
 import 'drawer_menu_itens.dart';
 
-class DefaultUserDrawer extends StatelessWidget {
+class DefaultUserDrawer extends StatefulWidget {
   const DefaultUserDrawer({ Key? key }) : super(key: key);
+
+  @override
+  State<DefaultUserDrawer> createState() => _DefaultUserDrawerState();
+}
+
+class _DefaultUserDrawerState extends State<DefaultUserDrawer> {
+
+  SharedPreferences? prefs;
+
+  getPreferences() async{
+    prefs = await SharedPreferences.getInstance();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getPreferences();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Menu(
-      user: {
+      user: prefs == null ? {} : {
         'profilePicture':'https://picsum.photos/200',
-        'name': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().nome,
-        'email': Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().email,
+        'name': jsonDecode(prefs!.getString('funcionario')?? '')['name'],
+        'email': jsonDecode(prefs!.getString('funcionario')?? '')['email'],
       },
       pages: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso == null
       ? MenuItensList.itens

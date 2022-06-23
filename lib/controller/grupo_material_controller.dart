@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +20,7 @@ class GruposMaterialController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'material-group?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
     if(response.statusCode != 200)
@@ -33,7 +35,7 @@ class GruposMaterialController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'material-group/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -48,7 +50,7 @@ class GruposMaterialController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'material-group/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -63,7 +65,7 @@ class GruposMaterialController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'material-group',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: grupoMaterial.toJson(),
     );
     
@@ -85,7 +87,7 @@ class GruposMaterialController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'material-group',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: grupoMaterial.toJson(),
     );
     

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:almoxarifado/model/funcionario_atual.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +19,7 @@ class FornecedoresController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'supplier?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
     if(response.statusCode != 200)
@@ -31,7 +34,7 @@ class FornecedoresController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'supplier/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -46,7 +49,7 @@ class FornecedoresController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'supplier/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -61,7 +64,7 @@ class FornecedoresController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'supplier',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: fornecedor.toJson(),
     );
     
@@ -77,7 +80,7 @@ class FornecedoresController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'supplier',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: fornecedor.toJson(),
     );
     

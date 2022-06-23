@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +21,7 @@ class FuncionariosController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'user?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
     if(response.statusCode != 200)
@@ -34,7 +36,7 @@ class FuncionariosController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'user/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -49,7 +51,7 @@ class FuncionariosController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'user/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -70,7 +72,7 @@ class FuncionariosController
 
     ApiResponse response = await ApiClient().put(
       endPoint: 'user',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: funcionarioAtualizado,
     );
     
@@ -92,7 +94,7 @@ class FuncionariosController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'user',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: funcionario.toJson(),
     );
     
@@ -114,7 +116,7 @@ class FuncionariosController
     prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'user/${funcionario.id}/requisition?page=1&size=1000&order=id&orderBy=DESC',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
     if(response.statusCode != 200)

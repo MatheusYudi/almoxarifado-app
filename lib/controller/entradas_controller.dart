@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,9 +15,10 @@ class EntradasController{
 
   Future<List<EntradaModel>> getEntradas(BuildContext context, [Map? entrada]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'invoice?page=1&size=1000&order=id&orderBy=DESC',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
     if(response.statusCode != 200)
@@ -27,9 +30,10 @@ class EntradasController{
 
   Future<EntradaModel> getEntradaModelById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'invoice/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -41,9 +45,10 @@ class EntradasController{
 
   Future<bool> deleteEntradaModel(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'invoice/$id',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
     
     if(response.statusCode != 200)
@@ -55,9 +60,10 @@ class EntradasController{
 
   Future<EntradaModel?> updateEntradaModel(BuildContext context, EntradaModel entrada) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'invoice',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: entrada.toJson(),
     );
     
@@ -76,9 +82,10 @@ class EntradasController{
 
   Future<EntradaModel?> postEntradaModel(BuildContext context, EntradaModel entrada) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'invoice',
-      token: prefs!.getString('token') ?? '',
+      token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
       data: entrada.toJson(),
     );
     
