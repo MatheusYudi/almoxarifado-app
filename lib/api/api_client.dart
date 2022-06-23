@@ -66,4 +66,22 @@ class ApiClient{
 
     return response;
   }
+
+  Future<ApiResponse> resetPassword({required String endPoint, String token = '', Map? data}) async
+  {
+    ApiRequest request = ApiRequest(url: baseUrl + endPoint, requestType: RequestType.PUT);
+    request.header = {
+      'Content-Type': 'application/json',
+      'x-reset-token': token
+    };
+
+    if(data != null)
+    {
+      request.body = jsonEncode(data);
+    }
+
+    ApiResponse response = await request.makeCall();
+
+    return response;
+  }
 }
