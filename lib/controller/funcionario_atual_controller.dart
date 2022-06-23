@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../api/api_client.dart';
 import '../api/api_response.dart';
 import '../model/funcionario_atual.dart';
+import 'dart:html' as html;
 
 class FuncionarioAtualController extends ChangeNotifier
 {
@@ -26,7 +27,7 @@ class FuncionarioAtualController extends ChangeNotifier
       endPoint: 'auth/recover',
       data: {
         'email' : email,
-        'resetUrl' : 'https://almoxarifado-app-staging.vercel.app/#/alterarSenha'
+        'resetUrl' : '${html.window.location.hostname}/#/alterarSenha'
       }
     );
     
