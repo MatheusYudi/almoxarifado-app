@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/funcionario_atual_controller.dart';
 import '../model/funcionario_atual.dart';
@@ -46,9 +47,11 @@ class DefaultUserDrawer extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () {
+        onPressed: () async {
           Provider.of<FuncionarioAtualController>(context, listen: false).setFuncionarioAtual(FuncionarioAtual());
           Navigator.pushReplacementNamed(context, Routes.login);
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', '');
         },
       ),
     );
