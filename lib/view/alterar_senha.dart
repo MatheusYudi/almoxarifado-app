@@ -7,7 +7,7 @@ import '../widgets/default_text_form_field.dart';
 class AlterarSenha extends StatefulWidget {
   final String token;
 
-  const AlterarSenha({ Key? key, this.token = "" }) : super(key: key);
+  const AlterarSenha({Key? key, this.token = ""}) : super(key: key);
 
   @override
   State<AlterarSenha> createState() => _AlterarSenhaState();
@@ -22,7 +22,27 @@ class _AlterarSenhaState extends State<AlterarSenha> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(pageName: 'Alterar Senha'),
+      appBar: AppBar(
+        leading: const SizedBox.shrink(),
+        title: Row(
+          children: [
+            const Icon(Icons.lightbulb_outline),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Container(
+                height: 40,
+                width: 1,
+                color: Colors.white,
+              ),
+            ),
+            const Flexible(
+              fit: FlexFit.tight,
+              child: Text("Alterar Senha"),
+            ),
+          ],
+        ),
+        // actions: actions,
+      ),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -46,8 +66,8 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                           ),
                           child: Icon(
                             visibilidadeSenha
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                             color: const Color(0xFF757575),
                           ),
                         ),
@@ -76,8 +96,8 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                           ),
                           child: Icon(
                             visibilidadeConfirmarSenha
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                             color: const Color(0xFF757575),
                           ),
                         ),
@@ -95,39 +115,39 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                       ),
                     ),
                     Container(
-                    padding: const EdgeInsets.all(8),
-                    child: ElevatedButton.icon(
-                      icon: const Icon(Icons.save),
-                      label: const Text('Alterar Senha'),
-                      style: ButtonStyle(
-                        maximumSize: MaterialStateProperty.all(const Size(130, 50)),
-                        minimumSize: MaterialStateProperty.all(const Size(0, 50)),
-                        backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.save),
+                        label: const Text('Alterar Senha'),
+                        style: ButtonStyle(
+                          maximumSize: MaterialStateProperty.all(const Size(130, 50)),
+                          minimumSize: MaterialStateProperty.all(const Size(0, 50)),
+                          backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
+                        ),
+                        onPressed: () async {
+                          FuncionarioAtualController request = FuncionarioAtualController();
+
+                          await request.alterarSenha(context, senha.text, widget.token);
+
+                          if(request.error != '')
+                          {
+                            showDialog(
+                              context: context,
+                              builder: (context){
+                                return AlertDialog(
+                                  title: const Text('Algo deu errado'),
+                                  content: Text(request.error),
+                                );
+                              },
+                            );
+                          }
+                          else
+                          {
+                            Navigator.pop(context);
+                          }
+                        },
                       ),
-                      onPressed: () async {
-                        FuncionarioAtualController request = FuncionarioAtualController();
-                                      
-                        await request.alterarSenha(context, senha.text, widget.token);
-                        
-                        if(request.error != '')
-                        {
-                          showDialog(
-                            context: context,
-                            builder: (context){
-                              return AlertDialog(
-                                title: const Text('Algo deu errado'),
-                                content: Text(request.error),
-                              );
-                            },
-                          );
-                        }
-                        else
-                        {
-                          Navigator.pop(context);
-                        }
-                      },
                     ),
-                  ),
                   ],
                 ),
               ),
