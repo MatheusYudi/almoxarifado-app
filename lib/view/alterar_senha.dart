@@ -5,7 +5,9 @@ import '../widgets/default_app_bar.dart';
 import '../widgets/default_text_form_field.dart';
 
 class AlterarSenha extends StatefulWidget {
-  const AlterarSenha({ Key? key }) : super(key: key);
+  final String token;
+
+  const AlterarSenha({ Key? key, this.token = "" }) : super(key: key);
 
   @override
   State<AlterarSenha> createState() => _AlterarSenhaState();
@@ -16,19 +18,6 @@ class _AlterarSenhaState extends State<AlterarSenha> {
   TextEditingController senha = TextEditingController();
   bool visibilidadeSenha = false;
   bool visibilidadeConfirmarSenha = false;
-
-  bool preenchido = false;
-  String token = '';
-
-  @override
-  void didChangeDependencies() {
-    if(!preenchido)
-    {
-      token = ModalRoute.of(context)!.settings.arguments as String;
-      preenchido = true;
-    }
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +107,7 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                       onPressed: () async {
                         FuncionarioAtualController request = FuncionarioAtualController();
                                       
-                        await request.alterarSenha(context, senha.text);
+                        await request.alterarSenha(context, senha.text, widget.token);
                         
                         if(request.error != '')
                         {
