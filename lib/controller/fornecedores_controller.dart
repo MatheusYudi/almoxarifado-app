@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -9,11 +10,13 @@ import 'funcionario_atual_controller.dart';
 class FornecedoresController
 {
   String error = '';
+  SharedPreferences? prefs;
   Future<List<Fornecedor>> getFornecedores(BuildContext context, [Map? fornecedor]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'supplier?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -25,9 +28,10 @@ class FornecedoresController
 
   Future<Fornecedor> getFornecedorById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'supplier/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -39,9 +43,10 @@ class FornecedoresController
 
   Future<bool> deleteFornecedor(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'supplier/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -53,9 +58,10 @@ class FornecedoresController
 
   Future<Fornecedor> updateFornecedor(BuildContext context, Fornecedor fornecedor) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'supplier',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: fornecedor.toJson(),
     );
     
@@ -68,9 +74,10 @@ class FornecedoresController
 
   Future<Fornecedor?> postFornecedor(BuildContext context, Fornecedor fornecedor) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'supplier',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: fornecedor.toJson(),
     );
     

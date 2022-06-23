@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -8,12 +9,13 @@ import 'funcionario_atual_controller.dart';
 
 class EntradasController{
   String error = '';
+  SharedPreferences? prefs;
 
   Future<List<EntradaModel>> getEntradas(BuildContext context, [Map? entrada]) async
   {
     ApiResponse response = await ApiClient().get(
       endPoint: 'invoice?page=1&size=1000&order=id&orderBy=DESC',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -27,7 +29,7 @@ class EntradasController{
   {
     ApiResponse response = await ApiClient().get(
       endPoint: 'invoice/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -41,7 +43,7 @@ class EntradasController{
   {
     ApiResponse response = await ApiClient().delete(
       endPoint: 'invoice/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -55,7 +57,7 @@ class EntradasController{
   {
     ApiResponse response = await ApiClient().put(
       endPoint: 'invoice',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: entrada.toJson(),
     );
     
@@ -76,7 +78,7 @@ class EntradasController{
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'invoice',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: entrada.toJson(),
     );
     

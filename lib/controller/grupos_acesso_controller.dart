@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -8,11 +9,14 @@ import 'funcionario_atual_controller.dart';
 
 class GruposAcessoController
 {
+  SharedPreferences? prefs;
+
   Future<List<GrupoAcesso>> getGruposAcesso(BuildContext context, [Map? grupoAcesso]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'access-group?page=1&size=1000&order=id&orderBy=DESC',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -24,9 +28,10 @@ class GruposAcessoController
 
   Future<GrupoAcesso> getGrupoAcessoById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'access-group/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -38,9 +43,10 @@ class GruposAcessoController
 
   Future<bool> deleteGrupoAcesso(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'access-group/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -52,9 +58,10 @@ class GruposAcessoController
 
   Future<GrupoAcesso> updateGrupoAcesso(BuildContext context, GrupoAcesso grupoAcesso) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'access-group',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: grupoAcesso.toJson(),
     );
     
@@ -67,9 +74,10 @@ class GruposAcessoController
 
   Future<GrupoAcesso> postGrupoAcesso(BuildContext context, GrupoAcesso grupoAcesso) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'access-group',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: grupoAcesso.toJson(),
     );
     

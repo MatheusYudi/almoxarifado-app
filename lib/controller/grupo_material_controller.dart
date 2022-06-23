@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -10,12 +11,14 @@ class GruposMaterialController
 {
 
   String error = '';
+  SharedPreferences? prefs;
 
   Future<List<GrupoMaterial>> getGruposMaterial(BuildContext context, [Map? grupoMaterial]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'material-group?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -27,9 +30,10 @@ class GruposMaterialController
 
   Future<GrupoMaterial> getGrupoMaterialById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'material-group/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -41,9 +45,10 @@ class GruposMaterialController
 
   Future<bool> deleteGrupoMaterial(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'material-group/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -55,9 +60,10 @@ class GruposMaterialController
 
   Future<GrupoMaterial?> updateGrupoMaterial(BuildContext context, GrupoMaterial grupoMaterial) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'material-group',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: grupoMaterial.toJson(),
     );
     
@@ -76,9 +82,10 @@ class GruposMaterialController
 
   Future<GrupoMaterial?> postGrupoMaterial(BuildContext context, GrupoMaterial grupoMaterial) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'material-group',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: grupoMaterial.toJson(),
     );
     

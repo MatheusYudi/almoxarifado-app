@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -8,12 +9,14 @@ import 'funcionario_atual_controller.dart';
 
 class RequisicoesController{
   String error = '';
+  SharedPreferences? prefs;
 
   Future<List<Requisicao>> getRequisicoes(BuildContext context, [Map? requisicao]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'requisition?page=1&size=1000&order=id&orderBy=DESC',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -25,9 +28,10 @@ class RequisicoesController{
 
   Future<Requisicao> getRequisicaoById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'requisition/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -39,9 +43,10 @@ class RequisicoesController{
 
   Future<bool> deleteRequisicao(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'requisition/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -53,9 +58,10 @@ class RequisicoesController{
 
   Future<Requisicao?> updateRequisicao(BuildContext context, Requisicao requisicao) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'requisition',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: requisicao.toJson(),
     );
     
@@ -74,9 +80,10 @@ class RequisicoesController{
 
   Future<Requisicao?> postRequisicao(BuildContext context, Requisicao requisicao) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'requisition',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: requisicao.toJson(),
     );
     
@@ -95,9 +102,10 @@ class RequisicoesController{
 
   Future<bool> finalizarRequisicao(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'requisition/$id/approve',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode > 299)
@@ -121,10 +129,12 @@ class RequisicoesController{
     return true;
   }
 
-  Future<Map<String, dynamic>?> getBalanco(BuildContext context) async {
+  Future<Map<String, dynamic>?> getBalanco(BuildContext context) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'requisition/balance',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode > 299)

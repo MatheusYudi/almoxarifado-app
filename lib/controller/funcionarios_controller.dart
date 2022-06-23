@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -11,12 +12,14 @@ class FuncionariosController
 {
 
   String error = '';
+  SharedPreferences? prefs;
 
   Future<List<Funcionario>> getFuncionarios(BuildContext context, [Map? funcionario]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'user?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -28,9 +31,10 @@ class FuncionariosController
 
   Future<Funcionario> getFuncionarioById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'user/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -42,9 +46,10 @@ class FuncionariosController
 
   Future<bool> deleteFuncionario(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'user/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -56,6 +61,7 @@ class FuncionariosController
 
   Future<Funcionario?> updateFuncionario(BuildContext context, Funcionario funcionario) async
   {
+    prefs = await SharedPreferences.getInstance();
     Map funcionarioAtualizado = funcionario.toJson();
   
     if (funcionario.senha == null) {
@@ -64,7 +70,7 @@ class FuncionariosController
 
     ApiResponse response = await ApiClient().put(
       endPoint: 'user',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: funcionarioAtualizado,
     );
     
@@ -83,9 +89,10 @@ class FuncionariosController
 
   Future<Funcionario?> postFuncionario(BuildContext context, Funcionario funcionario) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'user',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: funcionario.toJson(),
     );
     
@@ -104,9 +111,10 @@ class FuncionariosController
 
   Future<List<Requisicao>> getRequisicoes(BuildContext context, Funcionario funcionario) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'user/${funcionario.id}/requisition?page=1&size=1000&order=id&orderBy=DESC',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)

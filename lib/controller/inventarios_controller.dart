@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -9,12 +10,14 @@ import 'funcionario_atual_controller.dart';
 class InventariosController{
   
   String error = '';
+  SharedPreferences? prefs;
 
   Future<List<Inventario>> getInventarios(BuildContext context, [Map? inventario]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'inventory?page=1&size=1000&order=id&orderBy=DESC',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -26,9 +29,10 @@ class InventariosController{
 
   Future<Inventario> getInventarioById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'inventory/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -40,9 +44,10 @@ class InventariosController{
 
   Future<bool> deleteInventario(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'inventory/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -54,9 +59,10 @@ class InventariosController{
 
   Future<Inventario?> updateInventario(BuildContext context, Inventario inventario) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'inventory',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: inventario.toJson(),
     );
     
@@ -75,9 +81,10 @@ class InventariosController{
 
   Future<Inventario?> postInventario(BuildContext context, Inventario inventario) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'inventory',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: inventario.toJson(),
     );
     
@@ -98,7 +105,7 @@ class InventariosController{
   {
     ApiResponse response = await ApiClient().post(
       endPoint: 'inventory/$id/close',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode > 299)
@@ -117,7 +124,7 @@ class InventariosController{
   Future<Map<String, dynamic>?> getBalanco(BuildContext context) async {
     ApiResponse response = await ApiClient().get(
       endPoint: 'inventory/balance',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode > 299)

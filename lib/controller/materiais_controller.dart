@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -8,14 +9,14 @@ import 'funcionario_atual_controller.dart';
 
 class MateriaisController {
   String error = '';
+  SharedPreferences? prefs;
 
-  Future<List<MaterialModel>> getMateriais(BuildContext context,
-      [Map? material]) async {
+  Future<List<MaterialModel>> getMateriais(BuildContext context,[Map? material]) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'material?page=1&size=1000&order=id&orderBy=DESC&status=Ativo',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false)
-          .getFuncionarioAtual()
-          .tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if (response.statusCode != 200) {
@@ -26,12 +27,12 @@ class MateriaisController {
         .toList();
   }
 
-  Future<MaterialModel> getMaterialById(BuildContext context, int id) async {
+  Future<MaterialModel> getMaterialById(BuildContext context, int id) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'material/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false)
-          .getFuncionarioAtual()
-          .tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if (response.statusCode != 200) {
@@ -40,12 +41,12 @@ class MateriaisController {
     return MaterialModel.fromJson(response.body['data']);
   }
 
-  Future<bool> deleteMaterial(BuildContext context, int id) async {
+  Future<bool> deleteMaterial(BuildContext context, int id) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'material/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false)
-          .getFuncionarioAtual()
-          .tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if (response.statusCode != 200) {
@@ -54,13 +55,12 @@ class MateriaisController {
     return true;
   }
 
-  Future<MaterialModel?> updateMaterial(
-      BuildContext context, MaterialModel material) async {
+  Future<MaterialModel?> updateMaterial(BuildContext context, MaterialModel material) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'material',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false)
-          .getFuncionarioAtual()
-          .tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: material.toJson(),
     );
 
@@ -74,13 +74,12 @@ class MateriaisController {
     return null;
   }
 
-  Future<MaterialModel?> postMaterial(
-      BuildContext context, MaterialModel material) async {
+  Future<MaterialModel?> postMaterial(BuildContext context, MaterialModel material) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'material',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false)
-          .getFuncionarioAtual()
-          .tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: material.toJson(),
     );
 
@@ -95,12 +94,12 @@ class MateriaisController {
   }
 
 //TODO confirmar qual email vai ser enviada a solicitação
-  Future<bool> solicitarCompra(BuildContext context) async {
+  Future<bool> solicitarCompra(BuildContext context) async
+  {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'material/purchase-request',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false)
-          .getFuncionarioAtual()
-          .tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: {
         "email": Provider.of<FuncionarioAtualController>(context, listen: false)
             .getFuncionarioAtual()

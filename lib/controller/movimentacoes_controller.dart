@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
@@ -10,12 +11,14 @@ class MovimentacoesController
 {
 
   String error = '';
+  SharedPreferences? prefs;
 
   Future<List<Movimentacao>> getMovimentacoes(BuildContext context, [Map? filters]) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: "movement?page=1&size=${filters != null ? filters['size'] : 1000}&order=id&orderBy=DESC",
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
 
     if(response.statusCode != 200)
@@ -27,9 +30,10 @@ class MovimentacoesController
 
   Future<Movimentacao> getMovimentacaoById(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'movement/$id',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -41,9 +45,10 @@ class MovimentacoesController
 
   Future<bool> deleteMovimentacao(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().delete(
       endPoint: 'movement/$id/',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
     );
     
     if(response.statusCode != 200)
@@ -55,9 +60,10 @@ class MovimentacoesController
 
   Future<Movimentacao?> updateMovimentacao(BuildContext context, Movimentacao movimentacao) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().put(
       endPoint: 'movement',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: movimentacao.toJson(),
     );
     
@@ -76,9 +82,10 @@ class MovimentacoesController
 
   Future<Movimentacao?> postMovimentacao(BuildContext context, Movimentacao movimentacao) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'movement',
-      token: Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().tokenApi,
+      token: prefs!.getString('token') ?? '',
       data: movimentacao.toJson(),
     );
     
