@@ -12,7 +12,6 @@ class DefaultUserDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().toJson());
     return Menu(
       user: {
         'profilePicture':'https://picsum.photos/200',

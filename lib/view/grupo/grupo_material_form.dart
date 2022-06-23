@@ -111,7 +111,6 @@ class _GrupoFormState extends State<GrupoForm> {
                                       backgroundColor: MaterialStateProperty.all(const Color(0xFF43a047)),
                                     ),
                                     onPressed: () async {
-                                      print(grupo.toJson());
                                       GruposMaterialController request = GruposMaterialController();
                                       if(grupo.id == null)
                                       {
