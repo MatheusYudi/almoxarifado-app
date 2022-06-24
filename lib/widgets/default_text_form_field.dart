@@ -57,7 +57,6 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           enabled: widget.enabled,
           obscureText: widget.obscureText,
           onChanged: widget.onChanged,
-          focusNode: FocusNode(),
           style: TextStyle(color: widget.enabled ? Colors.black : Colors.grey),
           decoration: InputDecoration(
             labelText: widget.labelText,
