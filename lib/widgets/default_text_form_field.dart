@@ -5,7 +5,6 @@ class DefaultTextFormField extends StatefulWidget {
 
   final TextEditingController? controller;
   final String? initialValue;
-  final FocusNode? focusNode;
   final String? labelText;
   final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
@@ -20,7 +19,6 @@ class DefaultTextFormField extends StatefulWidget {
   const DefaultTextFormField({
     this.controller,
     this.initialValue,
-    this.focusNode,
     this.labelText,
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
@@ -59,7 +57,6 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           enabled: widget.enabled,
           obscureText: widget.obscureText,
           onChanged: widget.onChanged,
-          focusNode: widget.focusNode,
           style: TextStyle(color: widget.enabled ? Colors.black : Colors.grey),
           decoration: InputDecoration(
             labelText: widget.labelText,
