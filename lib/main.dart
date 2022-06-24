@@ -33,17 +33,17 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.defaultTheme,
       home: const LoginView(),
       routes: Routes.getRoutes(),
-      onGenerateRoute: (settings) {
-        if (settings.name != null && settings.name!.contains(Routes.alterarSenha)) {
-          final String resetToken = settings.name!.split('/')[2];
+      // onGenerateRoute: (settings) {
+      //   if (settings.name != null && settings.name!.contains(Routes.alterarSenha)) {
+      //     final String resetToken = settings.name!.split('/')[2];
  
-          return MaterialPageRoute(builder: (context) {
-            return AlterarSenha(token: resetToken);
-          });
-        }
+      //     return MaterialPageRoute(builder: (context) {
+      //       return AlterarSenha(token: resetToken);
+      //     });
+      //   }
 
-        return null;
-      },
+      //   return null;
+      // },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
