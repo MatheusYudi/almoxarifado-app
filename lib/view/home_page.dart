@@ -30,6 +30,7 @@ class _HomePageViewState extends State<HomePageView> {
   bool movimentacoesLoading = false;
   GrupoAcesso? permissao;
   DateTime clockTime = DateTime.now();
+  Timer? timer;
 
   fetchBalancoRequisicao() async {
     balancoRequisicao = await RequisicoesController().getBalanco(context) ?? {};
@@ -50,8 +51,7 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   void initState() {
     permissao = Provider.of<FuncionarioAtualController>(context, listen: false).getFuncionarioAtual().grupoAcesso;
-    
-    Timer.periodic(const Duration(seconds: 1), (Timer t) => setState(() {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => setState(() {
       clockTime = DateTime.now();
     }));
 
@@ -64,6 +64,12 @@ class _HomePageViewState extends State<HomePageView> {
     }
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
   }
 
   @override
