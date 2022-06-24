@@ -105,6 +105,7 @@ class InventariosController{
 
   Future<bool> finalizarInventario(BuildContext context, int id) async
   {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().post(
       endPoint: 'inventory/$id/close',
       token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
@@ -124,6 +125,7 @@ class InventariosController{
   }
 
   Future<Map<String, dynamic>?> getBalanco(BuildContext context) async {
+    prefs = await SharedPreferences.getInstance();
     ApiResponse response = await ApiClient().get(
       endPoint: 'inventory/balance',
       token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
