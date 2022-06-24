@@ -119,7 +119,7 @@ class _FornecedoresState extends State<Fornecedores> {
                                 .where((fornecedor) =>
                                     fornecedor.cnpj
                                         .toUpperCase()
-                                        .contains(cnpj.text.toUpperCase()) &&
+                                        .contains(cnpjMask.getUnmaskedText().toUpperCase()) &&
                                     fornecedor.razaoSocial
                                         .toUpperCase()
                                         .contains(razaoSocial.text.toUpperCase())&&
