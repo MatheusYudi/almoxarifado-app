@@ -34,10 +34,13 @@ class MyApp extends StatelessWidget {
       home: const LoginView(),
       routes: Routes.getRoutes(),
       onGenerateRoute: (settings) {
+        print(settings.name);
         if (settings.name != null && settings.name!.contains(Routes.alterarSenha)) {
           final String resetToken = settings.name!.split('/')[2];
+          print(settings.name);
  
           return MaterialPageRoute(builder: (context) {
+            print(settings.name);
             return AlterarSenha(token: resetToken);
           });
         }
