@@ -1,14 +1,11 @@
 import 'dart:convert';
 
-import 'package:almoxarifado/model/funcionario_atual.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
 import '../model/fornecedor.dart';
-import 'funcionario_atual_controller.dart';
 
 class FornecedoresController
 {

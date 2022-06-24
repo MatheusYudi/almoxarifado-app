@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../controller/funcionario_atual_controller.dart';
-import '../widgets/default_app_bar.dart';
 import '../widgets/default_text_form_field.dart';
 
 class AlterarSenha extends StatefulWidget {

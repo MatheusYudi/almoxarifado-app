@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import '../../controller/funcionario_atual_controller.dart';
 import '../../controller/funcionarios_controller.dart';
 import '../../controller/requisicoes_controller.dart';
-import '../../enum/e_status_requisicao.dart';
 import '../../model/funcionario.dart';
 import '../../model/grupo_acesso.dart';
 import '../../model/requisicao.dart';

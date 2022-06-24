@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../controller/funcionario_atual_controller.dart';
 import 'drawer_menu_itens.dart';
 
 class Menu extends StatelessWidget {

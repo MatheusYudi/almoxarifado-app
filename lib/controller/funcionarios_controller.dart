@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/api_client.dart';
 import '../api/api_response.dart';
 import '../model/funcionario.dart';
 import '../model/requisicao.dart';
-import 'funcionario_atual_controller.dart';
 
 class FuncionariosController
 {

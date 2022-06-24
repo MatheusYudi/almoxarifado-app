@@ -8,7 +8,6 @@ import '../../model/fornecedor.dart';
 import '../../util/routes.dart';
 import '../../widgets/data_grid.dart';
 import '../../widgets/default_app_bar.dart';
-import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_text_form_field.dart';
 import '../../widgets/default_user_drawer.dart';
 
@@ -237,13 +236,13 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                           ),
                           DataGridRowColumn(
                             link: 'fonecedor',
-                            display: Text(entrada.fornecedor!.razaoSocial, style: TextStyle(overflow: TextOverflow.ellipsis)),
+                            display: Text(entrada.fornecedor!.razaoSocial, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: entrada.fornecedor!.razaoSocial,
                             alignment: Alignment.centerLeft
                           ),
                           DataGridRowColumn(
                             link: 'chave',
-                            display: Text(entrada.chave, style: TextStyle(overflow: TextOverflow.ellipsis)),
+                            display: Text(entrada.chave, style: const TextStyle(overflow: TextOverflow.ellipsis)),
                             textCompareOrder: entrada.chave,
                             alignment: Alignment.centerLeft
                           ),

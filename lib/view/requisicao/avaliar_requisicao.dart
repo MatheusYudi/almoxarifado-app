@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -88,7 +87,7 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                                   controller: operador,
                                   labelText: 'Operador',
                                   enabled: false,
-                                  itens: [],
+                                  itens: const [],
                                 ),
                               ),
                             ],

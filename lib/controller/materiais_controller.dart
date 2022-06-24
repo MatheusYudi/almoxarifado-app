@@ -95,7 +95,6 @@ class MateriaisController {
     return null;
   }
 
-//TODO confirmar qual email vai ser enviada a solicitação
   Future<bool> solicitarCompra(BuildContext context) async
   {
     prefs = await SharedPreferences.getInstance();

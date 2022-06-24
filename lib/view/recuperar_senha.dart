@@ -9,7 +9,6 @@ class RecuperarSenhaForm extends StatefulWidget {
   @override
   State<RecuperarSenhaForm> createState() => _RecuperarSenhaFormState();
 }
-//TODO testar rotina de recuperar senha
 class _RecuperarSenhaFormState extends State<RecuperarSenhaForm> {
   
   TextEditingController email = TextEditingController();

@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:almoxarifado/api/api_client.dart';
 import 'package:almoxarifado/util/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/funcionario_atual_controller.dart';
 import '../model/funcionario_atual.dart';

@@ -252,7 +252,7 @@ class _DataGridState extends State<DataGrid> {
                       else
                       {
                         widget.addMoreData!(indexLinha);
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }
                     }
                   },
