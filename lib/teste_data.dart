@@ -247,7 +247,7 @@ class TesteData
   static List<Map> headers = [
     {
       'link': 'cnpj_cpf',
-      'title': 'Cpf/Cnpj',
+      'title': 'CPF/CNPJ',
       'sortable': true,
       'alignment': Alignment.topLeft,
       'enableSearch': true,

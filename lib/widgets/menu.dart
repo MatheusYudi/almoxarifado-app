@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'drawer_menu_itens.dart';
 
 class Menu extends StatelessWidget {
@@ -27,6 +26,10 @@ class Menu extends StatelessWidget {
                 child: menuItemToTile(item.children, context),
               )
             ],
+            trailing: const Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.white,
+            ),
           );
       }
     }).toList();
@@ -46,13 +49,11 @@ class Menu extends StatelessWidget {
   final List<DraweMenuItem> pages;
   final Widget? footer;
 
-  final Map _user = {
-    'profilePicture':'https://picsum.photos/200',
-    'name':'Nome da Silva Sobrenome', 
-    'email':'email@email.com'};
+  final Map user;
 
-  Menu({
+  const Menu({
     required this.pages,
+    this.user = const {},
     this.footer,
     Key? key
   }) : super(key: key);
@@ -64,10 +65,10 @@ class Menu extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             currentAccountPicture: ClipOval(
-              child: Image.network(_user['profilePicture']),
+              child: Image.network(user['profilePicture']),
             ),
-            accountName: Text(_user['name']),
-            accountEmail: Text(_user['email']),
+            accountName: Text(user['name']),
+            accountEmail: Text(user['email']),
           ),
           Expanded(
             child: SingleChildScrollView(

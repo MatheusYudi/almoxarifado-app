@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DefaultTextFormField extends StatefulWidget {
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? initialValue;
   final FocusNode? focusNode;
   final String? labelText;
   final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
   final bool readOnly;
+  final Widget? suffixIcon;
+  final List<TextInputFormatter> inputFormatters;
+  final String? Function(String?)? validator;
+  final bool enabled;
+  final bool obscureText;
+  final Function(String)? onChanged;
 
   const DefaultTextFormField({
-    required this.controller,
+    this.controller,
     this.initialValue,
     this.focusNode,
     this.labelText,
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
     this.readOnly = false,
+    this.suffixIcon,
+    this.inputFormatters = const [],
+    this.validator,
+    this.enabled = true,
+    this.obscureText = false,
+    this.onChanged,
     Key? key
   }) : super(key: key);
 
@@ -41,10 +54,18 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           keyboardType: widget.keyboardType,
           textCapitalization: widget.textCapitalization,
           readOnly: widget.readOnly,
+          inputFormatters: widget.inputFormatters,
+          validator: widget.validator,
+          enabled: widget.enabled,
+          obscureText: widget.obscureText,
+          onChanged: widget.onChanged,
+          focusNode: widget.focusNode,
+          style: TextStyle(color: widget.enabled ? Colors.black : Colors.grey),
           decoration: InputDecoration(
             labelText: widget.labelText,
             contentPadding: const EdgeInsets.all(10),
             border: InputBorder.none,
+            suffixIcon: widget.suffixIcon,
           ),
         ),
       ),
