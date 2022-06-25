@@ -335,7 +335,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
                           ),
                           DataGridRowColumn(
                             link: 'tipo',
-                            display: Text(movimentacao.tipo),
+                            display: Text(movimentacao.tipo, style: TextStyle(color: movimentacao.tipo.toLowerCase() == "entrada" ? Colors.green : Colors.red)),
                             textCompareOrder: movimentacao.tipo,
                             alignment: Alignment.centerLeft,
                           ),
