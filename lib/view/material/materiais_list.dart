@@ -262,6 +262,23 @@ class _MateriaisState extends State<Materiais> {
                               onPressed: () async {
                                 MateriaisController().deleteMaterial(context, material.id!).then((value){
                                   fetchMateriais();
+                                  if(value == true)
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.cancel_outlined, color: Colors.red,),
+                                              Text('Material Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 });
                               },
                             ),
