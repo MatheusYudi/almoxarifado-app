@@ -175,7 +175,7 @@ class _GruposState extends State<Grupos> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
-                                              Text('Material Deletado')
+                                              Text('Grupo de material deletado')
                                             ],
                                           ),
                                         );

@@ -251,7 +251,7 @@ class _FuncionariosState extends State<Funcionarios> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: const [
                                                 Icon(Icons.cancel_outlined, color: Colors.red,),
-                                                Text('Funcionario Deletado')
+                                                Text('Funcionário Deletado')
                                               ],
                                             ),
                                           );
