@@ -201,6 +201,23 @@ class _FornecedoresState extends State<Fornecedores> {
                               onPressed: () async {
                                 FornecedoresController().deleteFornecedor(context, fornecedor.id!).then((value){
                                   fetchFornecedores();
+                                  if(value == true)
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.cancel_outlined, color: Colors.red,),
+                                              Text('Fornecedor Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 });
                               },
                             ),
