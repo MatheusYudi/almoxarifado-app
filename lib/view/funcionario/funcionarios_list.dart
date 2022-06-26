@@ -241,6 +241,23 @@ class _FuncionariosState extends State<Funcionarios> {
                                 onPressed: () async {
                                   FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
                                     fetchFuncionarios();
+                                    if(value == true)
+                                    {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return AlertDialog(
+                                            content: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: const [
+                                                Icon(Icons.cancel_outlined, color: Colors.red,),
+                                                Text('Funcionario Deletado')
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
                                   });
                                 },
                               ),
