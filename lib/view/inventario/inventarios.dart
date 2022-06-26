@@ -363,6 +363,20 @@ class _InventariosState extends State<Inventarios> {
                                 else
                                 {
                                   fetchInventarios();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return AlertDialog(
+                                        content: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            Icon(Icons.check_circle_outline_outlined, color: Colors.green,),
+                                            Text('Inventário Finalizado')
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
                                 }
                               },
                             )
