@@ -295,6 +295,23 @@ class _InventariosState extends State<Inventarios> {
                               onPressed: () async {
                                 InventariosController().deleteInventario(context, inventario.id!).then((value){
                                   fetchInventarios();
+                                  if(value == true)
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.cancel_outlined, color: Colors.red,),
+                                              Text('Inventário Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 });
                               },
                             )
