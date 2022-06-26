@@ -49,19 +49,20 @@ class _MovimentacoesState extends State<Movimentacoes> {
   fetchGruposMaterial() async {
     setState(() => gruposMaterialLoading = true);
     gruposMaterial = await GruposMaterialController().getGruposMaterial(context);
+    gruposMaterial.insert(0, GrupoMaterial(nome: 'Todos'));
     setState(() => gruposMaterialLoading = false);
   }
-  fetchFuncionarios() async {
-    setState(() => funcionariosLoading = true);
-    funcionarios = await FuncionariosController().getFuncionarios(context);
-    setState(() => funcionariosLoading = false);
-  }
+  // fetchFuncionarios() async {
+  //   setState(() => funcionariosLoading = true);
+  //   funcionarios = await FuncionariosController().getFuncionarios(context);
+  //   setState(() => funcionariosLoading = false);
+  // }
 
   @override
   void initState() {
     fetchMovimentacoes();
     fetchGruposMaterial();
-    fetchFuncionarios();
+    // fetchFuncionarios();
     super.initState();
   }
 
@@ -163,10 +164,16 @@ class _MovimentacoesState extends State<Movimentacoes> {
                                   labelText: 'Grupo',
                                   maximunItensShown: 5,
                                   itens: gruposMaterial.map((grupoMaterial){
-                                    return DropdownMenuItem(
+                                    return grupoMaterial.id == null
+                                    ?  DropdownMenuItem(
+                                        value: grupoMaterial.nome,
+                                        child: Text(grupoMaterial.nome),
+                                        onTap: () => grupoSelecionado = null,
+                                      )
+                                    :  DropdownMenuItem(
                                       value: grupoMaterial.nome,
                                       child: Text(grupoMaterial.nome),
-                                      onTap: () => setState(() => grupoSelecionado = grupoMaterial),
+                                      onTap: () => grupoSelecionado = grupoMaterial,
                                     );
                                   }).toList(),
                                 ),

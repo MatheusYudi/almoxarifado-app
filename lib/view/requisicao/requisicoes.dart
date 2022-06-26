@@ -58,6 +58,7 @@ class _RequisicoesState extends State<Requisicoes> {
   {
     setState(() => funcionariosLoading = true);
     funcionarios = await FuncionariosController().getFuncionarios(context);
+    funcionarios.insert(0, Funcionario(nome: 'Todos'));
     setState(() => funcionariosLoading = false);
   }
 
@@ -163,7 +164,13 @@ class _RequisicoesState extends State<Requisicoes> {
                                   controller: requisitante,
                                   labelText: 'Requisitante',
                                   itens: funcionarios.map((funcionario){
-                                    return DropdownMenuItem(
+                                    return funcionario.id == null
+                                    ?  DropdownMenuItem(
+                                        value: funcionario.nome,
+                                        child: Text(funcionario.nome),
+                                        onTap: () => funcionarioSelecionado = null,
+                                      )
+                                    :  DropdownMenuItem(
                                       value: funcionario.nome,
                                       child: Text(funcionario.nome),
                                       onTap: () => funcionarioSelecionado = funcionario,

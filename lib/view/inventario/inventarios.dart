@@ -46,6 +46,7 @@ class _InventariosState extends State<Inventarios> {
   {
     setState(() => funcionariosLoading = true);
     funcionarios = await FuncionariosController().getFuncionarios(context);
+    funcionarios.insert(0, Funcionario(nome: 'Todos'));
     setState(() => funcionariosLoading = false);
   }
 
@@ -149,8 +150,15 @@ class _InventariosState extends State<Inventarios> {
                                 child: DefaultDropDown(
                                   controller: operador,
                                   labelText: 'Operador',
+                                  maximunItensShown: 5,
                                   itens: funcionarios.map((funcionario){
-                                    return DropdownMenuItem(
+                                    return funcionario.id == null
+                                    ?  DropdownMenuItem(
+                                        value: funcionario.nome,
+                                        child: Text(funcionario.nome),
+                                        onTap: () => funcionarioSelecionado = null,
+                                      )
+                                    :  DropdownMenuItem(
                                       value: funcionario.nome,
                                       child: Text(funcionario.nome),
                                       onTap: () => funcionarioSelecionado = funcionario,

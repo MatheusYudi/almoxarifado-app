@@ -44,6 +44,7 @@ class _MateriaisState extends State<Materiais> {
   fetchGruposMaterial() async {
     setState(() => gruposAcessoLoading = true);
     gruposMaterial = await GruposMaterialController().getGruposMaterial(context);
+    gruposMaterial.insert(0, GrupoMaterial(nome: 'Todos'));
     setState(() => gruposAcessoLoading = false);
   }
 
@@ -80,10 +81,16 @@ class _MateriaisState extends State<Materiais> {
                                   labelText: 'Grupo',
                                   maximunItensShown: 5,
                                   itens: gruposMaterial.map((grupoMaterial){
-                                    return DropdownMenuItem(
+                                    return grupoMaterial.id == null
+                                    ?  DropdownMenuItem(
+                                        value: grupoMaterial.nome,
+                                        child: Text(grupoMaterial.nome),
+                                        onTap: () => grupoMaterialSelecionado = null,
+                                      )
+                                    :  DropdownMenuItem(
                                       value: grupoMaterial.nome,
                                       child: Text(grupoMaterial.nome),
-                                      onTap: () => setState(() => grupoMaterialSelecionado = grupoMaterial),
+                                      onTap: () => grupoMaterialSelecionado = grupoMaterial,
                                     );
                                   }).toList(),
                                 ),

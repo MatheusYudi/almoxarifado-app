@@ -38,6 +38,7 @@ class _FuncionariosState extends State<Funcionarios> {
   fetchGruposAcesso() async {
     setState(() => gruposAcessoLoading = true);
     gruposAcesso = await GruposAcessoController().getGruposAcesso(context);
+    gruposAcesso.insert(0, GrupoAcesso(nome: 'Todos'));
     setState(() => gruposAcessoLoading = false);
   }
 
@@ -84,10 +85,16 @@ class _FuncionariosState extends State<Funcionarios> {
                                 ),
                                 labelText: 'Grupo de Acesso',
                                 itens: gruposAcesso.map((grupoAcesso){
-                                  return DropdownMenuItem(
+                                  return grupoAcesso.id == null
+                                  ?  DropdownMenuItem(
+                                      value: grupoAcesso.nome,
+                                      child: Text(grupoAcesso.nome),
+                                      onTap: () => grupoAcessoSelecionado = null,
+                                    )
+                                  :  DropdownMenuItem(
                                     value: grupoAcesso.nome,
                                     child: Text(grupoAcesso.nome),
-                                    onTap: () => setState(() => grupoAcessoSelecionado = grupoAcesso),
+                                    onTap: () => grupoAcessoSelecionado = grupoAcesso,
                                   );
                                 }).toList(),
                               )),
