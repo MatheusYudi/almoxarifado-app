@@ -165,6 +165,23 @@ class _GruposState extends State<Grupos> {
                               onPressed: () async {
                                 GruposMaterialController().deleteGrupoMaterial(context, grupoMaterial.id!).then((value){
                                   fetchGrupoMaterial();
+                                  if(value == true)
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.cancel_outlined, color: Colors.red,),
+                                              Text('Material Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 });
                               },
                             ),
