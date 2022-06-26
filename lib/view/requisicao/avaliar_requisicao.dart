@@ -194,7 +194,7 @@ class _AvaliarRequisicaoState extends State<AvaliarRequisicao> {
                 }
                 else
                 {
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 }
               },
             ),

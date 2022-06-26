@@ -334,6 +334,23 @@ class _RequisicoesState extends State<Requisicoes> {
                               onPressed: () async {
                                 RequisicoesController().deleteRequisicao(context, requisicao.id!).then((value){
                                   fetchRequisicoes();
+                                  if(value == true)
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.cancel_outlined, color: Colors.red,),
+                                              Text('Requisição Deletada')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 });
                               },
                             )
@@ -369,7 +386,27 @@ class _RequisicoesState extends State<Requisicoes> {
                               icon: const Icon(Icons.check),
                               tooltip: "Aprovar",
                               onPressed: () async {
-                                Navigator.pushNamed(context, Routes.avaliarRequisicao, arguments: requisicao.id).then((value) => fetchRequisicoes());
+                                Navigator.pushNamed(context, Routes.avaliarRequisicao, arguments: requisicao.id).then((value){
+                                    fetchRequisicoes();
+                                    if(value == true)
+                                    {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return AlertDialog(
+                                            content: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: const [
+                                                Icon(Icons.check_circle_outline_rounded, color: Colors.green,),
+                                                Text('Requisição aprovada')
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                  }
+                                );
                               },
                             )
                             : const SizedBox.shrink(),
