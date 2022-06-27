@@ -22,6 +22,7 @@ class Funcionarios extends StatefulWidget {
 class _FuncionariosState extends State<Funcionarios> {
   TextEditingController cpf = TextEditingController();
   TextEditingController nome = TextEditingController();
+  TextEditingController grupoAcessoNome = TextEditingController();
   List<Funcionario> funcionarios = [];
   List<Funcionario> funcionariosGrid = [];
   List<GrupoAcesso> gruposAcesso = [];
@@ -78,11 +79,7 @@ class _FuncionariosState extends State<Funcionarios> {
                               ),
                               Flexible(
                                 child: DefaultDropDown(
-                                controller: TextEditingController(
-                                  text: grupoAcessoSelecionado == null 
-                                    ? ''
-                                    : grupoAcessoSelecionado!.nome
-                                ),
+                                controller: grupoAcessoNome,
                                 labelText: 'Grupo de Acesso',
                                 itens: gruposAcesso.map((grupoAcesso){
                                   return grupoAcesso.id == null
