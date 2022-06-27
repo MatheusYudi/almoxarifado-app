@@ -46,6 +46,7 @@ class _InventariosState extends State<Inventarios> {
   {
     setState(() => funcionariosLoading = true);
     funcionarios = await FuncionariosController().getFuncionarios(context);
+    funcionarios.insert(0, Funcionario(nome: 'Todos'));
     setState(() => funcionariosLoading = false);
   }
 
@@ -149,8 +150,15 @@ class _InventariosState extends State<Inventarios> {
                                 child: DefaultDropDown(
                                   controller: operador,
                                   labelText: 'Operador',
+                                  maximunItensShown: 5,
                                   itens: funcionarios.map((funcionario){
-                                    return DropdownMenuItem(
+                                    return funcionario.id == null
+                                    ?  DropdownMenuItem(
+                                        value: funcionario.nome,
+                                        child: Text(funcionario.nome),
+                                        onTap: () => funcionarioSelecionado = null,
+                                      )
+                                    :  DropdownMenuItem(
                                       value: funcionario.nome,
                                       child: Text(funcionario.nome),
                                       onTap: () => funcionarioSelecionado = funcionario,
@@ -295,6 +303,23 @@ class _InventariosState extends State<Inventarios> {
                               onPressed: () async {
                                 InventariosController().deleteInventario(context, inventario.id!).then((value){
                                   fetchInventarios();
+                                  if(value == true)
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.cancel_outlined, color: Colors.red,),
+                                              Text('Inventário Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 });
                               },
                             )
@@ -346,6 +371,20 @@ class _InventariosState extends State<Inventarios> {
                                 else
                                 {
                                   fetchInventarios();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return AlertDialog(
+                                        content: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            Icon(Icons.check_circle_outline_outlined, color: Colors.green,),
+                                            Text('Inventário Finalizado')
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
                                 }
                               },
                             )

@@ -60,6 +60,11 @@ class MenuItensList
 
   static List<DraweMenuItem> requisitanteItens = [
     DraweMenuItem(
+      text: const Text('Home', style: TextStyle(color: Colors.white)),
+      icon: const Icon(Icons.home, color: Colors.white),
+      pageRoute: Routes.homePage,
+    ),
+    DraweMenuItem(
       text: const Text('Movimentações', style: TextStyle(color: Colors.white)),
       icon: const Icon(Icons.swap_vert, color: Colors.white),
       children: [
