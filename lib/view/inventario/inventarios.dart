@@ -24,7 +24,7 @@ class _InventariosState extends State<Inventarios> {
 
   TextEditingController dataInicio = TextEditingController();
   TextEditingController dataFim = TextEditingController();
-  TextEditingController operador = TextEditingController();
+  TextEditingController operador = TextEditingController(text: 'Todos');
 
   bool inventariosLoading = false;
   List<Inventario> inventarios = [];

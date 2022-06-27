@@ -29,7 +29,7 @@ class _MovimentacoesState extends State<Movimentacoes> {
   TextEditingController dataFim = TextEditingController();
   TextEditingController codigo = TextEditingController();
   TextEditingController nome = TextEditingController();
-  TextEditingController grupo = TextEditingController();
+  TextEditingController grupo = TextEditingController(text: 'Todos');
   List<Movimentacao> movimentacoes = [];
   List<Movimentacao> movimentacoesGrid = [];
   Funcionario? funcionarioSelecionado;

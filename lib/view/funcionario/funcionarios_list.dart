@@ -22,7 +22,7 @@ class Funcionarios extends StatefulWidget {
 class _FuncionariosState extends State<Funcionarios> {
   TextEditingController cpf = TextEditingController();
   TextEditingController nome = TextEditingController();
-  TextEditingController grupoAcessoNome = TextEditingController();
+  TextEditingController grupoAcessoNome = TextEditingController(text: 'Todos');
   List<Funcionario> funcionarios = [];
   List<Funcionario> funcionariosGrid = [];
   List<GrupoAcesso> gruposAcesso = [];
