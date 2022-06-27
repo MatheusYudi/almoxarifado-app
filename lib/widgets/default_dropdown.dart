@@ -102,36 +102,39 @@ class _DefaultDropDownState extends State<DefaultDropDown> {
                       bottomRight: Radius.circular(widget.borderRadius),
                     ),
                   ),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: filteredItens.length,
-                    itemBuilder: (context, index){
-                      return SizedBox(
-                        height: 40,
-                        width: width,
-                        child: GestureDetector(
-                          child: Container(
-                            child: filteredItens[index],
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: widget.itenListBackgroundColor,//Theme.of(context).canvasColor,
-                              border: Border.all(color: Colors.black12)
+                  child: Scrollbar(
+                    isAlwaysShown: true,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: filteredItens.length,
+                      itemBuilder: (context, index){
+                        return SizedBox(
+                          height: 40,
+                          width: width,
+                          child: GestureDetector(
+                            child: Container(
+                              child: filteredItens[index],
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: widget.itenListBackgroundColor,//Theme.of(context).canvasColor,
+                                border: Border.all(color: Colors.black12)
+                              ),
                             ),
+                            onTap: (){
+                              setState(() {
+                                widget.controller.text = filteredItens[index].value;
+                              });
+                              if(filteredItens[index].onTap != null)
+                              {
+                                filteredItens[index].onTap!();
+                              }
+                              overlay!.remove();
+                              setState(() => isShowingItens = !isShowingItens);
+                            },
                           ),
-                          onTap: (){
-                            setState(() {
-                              widget.controller.text = filteredItens[index].value;
-                            });
-                            if(filteredItens[index].onTap != null)
-                            {
-                              filteredItens[index].onTap!();
-                            }
-                            overlay!.remove();
-                            setState(() => isShowingItens = !isShowingItens);
-                          },
-                        ),
-                      );
-                    }
+                        );
+                      }
+                    ),
                   ),
                 ),
               ),
