@@ -25,7 +25,7 @@ class Materiais extends StatefulWidget {
 class _MateriaisState extends State<Materiais> {
 
   TextEditingController fornecedor = TextEditingController();
-  TextEditingController grupo = TextEditingController();
+  TextEditingController grupo = TextEditingController(text: 'Todos');
   TextEditingController nome = TextEditingController();
   List<MaterialModel> materiais = [];
   List<MaterialModel> materiaisGrid = [];

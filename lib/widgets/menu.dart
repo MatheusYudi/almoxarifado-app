@@ -63,13 +63,42 @@ class Menu extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
-            currentAccountPicture: ClipOval(
-              child: Image.network(user['profilePicture']),
+          Container(
+            color: Theme.of(context).primaryColor,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0, top: 8.0),
+                  child: const Icon(
+                    Icons.lightbulb_outline,
+                    size: 80,
+                    color: Colors.white,
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user['name'],
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      user['email'],
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            accountName: Text(user['name']),
-            accountEmail: Text(user['email']),
           ),
+          // UserAccountsDrawerHeader(
+          //   currentAccountPicture: ClipOval(
+          //     child: Image.network(user['profilePicture']),
+          //   ),
+          //   accountName: Text(user['name']),
+          //   accountEmail: Text(user['email']),
+          // ),
           Expanded(
             child: SingleChildScrollView(
               child: menuItemToTile(pages, context),

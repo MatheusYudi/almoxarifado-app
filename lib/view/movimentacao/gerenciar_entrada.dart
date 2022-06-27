@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../controller/entradas_controller.dart';
 import '../../model/entrada_model.dart';
@@ -23,6 +24,9 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
   TextEditingController numeroNota = TextEditingController();
   TextEditingController fornecedor = TextEditingController();
   TextEditingController chave = TextEditingController();
+
+  TextEditingController dataInicio = TextEditingController();
+  TextEditingController dataFim = TextEditingController();
 
   bool entradasLoading = false;
   List<EntradaModel> entradas = [];
@@ -59,6 +63,83 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                       fit: FlexFit.tight,
                       child: Column(
                         children: [
+                          Row(
+                            children: [
+                              Flexible(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text('Período', style: TextStyle(color: Colors.white),),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Flexible(
+                                      child: DefaultTextFormField(
+                                        controller: dataInicio,
+                                        keyboardType: TextInputType.datetime,
+                                        inputFormatters: [MaskTextInputFormatter(mask: "##/##/####")],
+                                        labelText: 'De',
+                                        suffixIcon: IconButton(
+                                          padding: const EdgeInsets.all(8.0),
+                                          onPressed: (){
+                                            dynamic dataInicioParse;
+                                            if(dataInicio.text.isNotEmpty)
+                                            {
+                                              dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]} 00:00:00");
+                                            }
+                                            showDatePicker(
+                                              context: context,
+                                              initialDate: dataInicioParse ?? DateTime.now(),
+                                              firstDate: DateTime(2000),
+                                              lastDate: DateTime(2100),
+                                            ).then((value){
+                                              if(value != null)
+                                              {
+                                                setState(() => dataInicio.text = DateFormat("dd/MM/yyyy").format(value));
+                                              }
+                                            });
+                                          },
+                                          icon: const Icon(Icons.date_range_rounded, size: 20),
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: DefaultTextFormField(
+                                        controller: dataFim,
+                                        keyboardType: TextInputType.datetime,
+                                        inputFormatters: [MaskTextInputFormatter(mask: "##/##/####")],
+                                        labelText: 'Até',
+                                        suffixIcon: IconButton(
+                                          padding: const EdgeInsets.all(8.0),
+                                          onPressed: (){
+                                            dynamic dataFimParse;
+                                            if(dataFim.text.isNotEmpty)
+                                            {
+                                              dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]} 00:00:00");
+                                            }
+                                            showDatePicker(
+                                              context: context,
+                                              initialDate: dataFimParse ?? DateTime.now(),
+                                              firstDate: DateTime(2000),
+                                              lastDate: DateTime(2100),
+                                            ).then((value){
+                                              if(value != null)
+                                              {
+                                                setState(() => dataFim.text = DateFormat("dd/MM/yyyy").format(value));
+                                              }
+                                            });
+                                          },
+                                          icon: const Icon(Icons.date_range_rounded, size: 20),
+                                        ),
+                                      )
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                            ],
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -171,6 +252,24 @@ class _GerenciarEntradaState extends State<GerenciarEntrada> {
                                   return true;
                                 }
                                 if(entarda.fornecedor!.id == fornecedorSelecionado!.id)
+                                {
+                                  return true;
+                                }
+                                return false;
+                              }).toList();
+                              entradasGrid = entradasGrid.where((inventario){
+                                if(dataInicio.text.isEmpty || dataFim.text.isEmpty)
+                                {
+                                  return true;
+                                }
+                                DateTime dataInicioParse = DateTime.parse("${dataInicio.text.split('/')[2]}-${dataInicio.text.split('/')[1]}-${dataInicio.text.split('/')[0]} 00:00:00");
+                                DateTime dataFimParse = DateTime.parse("${dataFim.text.split('/')[2]}-${dataFim.text.split('/')[1]}-${dataFim.text.split('/')[0]} 23:59:59");
+
+                                if(inventario.dataHora!.isAfter(dataInicioParse) && inventario.dataHora!.isBefore(dataFimParse))
+                                {
+                                  return true;
+                                }
+                                if(inventario.dataHora!.isAtSameMomentAs(dataInicioParse) || inventario.dataHora!.isAtSameMomentAs(dataFimParse))
                                 {
                                   return true;
                                 }
