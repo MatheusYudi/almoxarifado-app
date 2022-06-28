@@ -19,6 +19,7 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
   bool passwordVisibility = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -133,11 +134,16 @@ class _LoginViewState extends State<LoginView> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          child: const Text('Entrar'),
+                          child: loading 
+                          ? const SizedBox(height: 25, width: 25,child: CircularProgressIndicator())
+                          : const Text('Entrar'),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.green[600])
                           ),
                           onPressed: () async {
+                            setState(() {
+                              loading = true;
+                            });
                             ApiClient  request = ApiClient();
                             request.post(
                               endPoint: 'auth/login',
@@ -146,6 +152,9 @@ class _LoginViewState extends State<LoginView> {
                                 'password': senhaController.text,
                               },
                             ).then((response) async {
+                              setState(() {
+                                loading = false;
+                              });
                               if(response.statusCode == 200)
                               {
                                 if(response.body['status'] == true)
