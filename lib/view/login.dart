@@ -135,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                           child: loading 
-                          ? const SizedBox(height: 25, width: 25,child: CircularProgressIndicator())
+                          ? const SizedBox(height: 15, width: 15,child: CircularProgressIndicator())
                           : const Text('Entrar'),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.green[600])

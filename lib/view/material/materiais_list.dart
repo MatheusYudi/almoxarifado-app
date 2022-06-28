@@ -154,7 +154,7 @@ class _MateriaisState extends State<Materiais> {
                           child: ElevatedButton.icon(
                             icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
                             label: loadingSolicitacaoCompra 
-                            ? const SizedBox(height: 25,width: 25,child: CircularProgressIndicator(),)
+                            ? const SizedBox(height: 15,width: 15,child: CircularProgressIndicator(),)
                             : const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(170, 50)),
