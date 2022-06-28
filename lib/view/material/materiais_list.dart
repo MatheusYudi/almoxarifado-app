@@ -33,6 +33,7 @@ class _MateriaisState extends State<Materiais> {
   GrupoMaterial? grupoMaterialSelecionado;
   bool materiaisLoading = false;
   bool gruposAcessoLoading = false;
+  bool loadingSolicitacaoCompra = false;
   GrupoAcesso? permissao;
 
   fetchMateriais() async {
@@ -152,16 +153,19 @@ class _MateriaisState extends State<Materiais> {
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton.icon(
                             icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
-                            label: const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
+                            label: loadingSolicitacaoCompra 
+                            ? const SizedBox(height: 25,width: 25,child: CircularProgressIndicator(),)
+                            : const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(170, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
                             onPressed: () async {
+                              loadingSolicitacaoCompra = true;
                               MateriaisController request = MateriaisController();
                               
                               await request.solicitarCompra(context);
-
+                              loadingSolicitacaoCompra = false;
                               if(request.error != '')
                               {
                                 showDialog(
