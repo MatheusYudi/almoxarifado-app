@@ -71,7 +71,7 @@ class Menu extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 8.0, bottom: 8.0, top: 8.0),
                   child: const Icon(
                     Icons.lightbulb_outline,
-                    size: 80,
+                    size: 60,
                     color: Colors.white,
                   ),
                 ),

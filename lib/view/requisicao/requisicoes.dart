@@ -339,7 +339,8 @@ class _RequisicoesState extends State<Requisicoes> {
                               icon: const Icon(Icons.delete),
                               tooltip: "Excluir",
                               onPressed: () async {
-                                RequisicoesController().deleteRequisicao(context, requisicao.id!).then((value){
+                                RequisicoesController requisicoesController = RequisicoesController();
+                                requisicoesController.deleteRequisicao(context, requisicao.id!).then((value){
                                   fetchRequisicoes();
                                   if(value == true)
                                   {
@@ -352,6 +353,25 @@ class _RequisicoesState extends State<Requisicoes> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Requisição Deletada')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(requisicoesController.error),
                                             ],
                                           ),
                                         );

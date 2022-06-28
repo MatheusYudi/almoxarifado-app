@@ -1,3 +1,4 @@
+import 'package:almoxarifado/util/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../controller/funcionario_atual_controller.dart';
@@ -142,7 +143,7 @@ class _AlterarSenhaState extends State<AlterarSenha> {
                           }
                           else
                           {
-                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, Routes.login);
                           }
                         },
                       ),

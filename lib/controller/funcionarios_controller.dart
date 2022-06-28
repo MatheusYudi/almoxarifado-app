@@ -54,7 +54,10 @@ class FuncionariosController
     
     if(response.statusCode != 200)
     {
-      throw Exception(response.body['error']);
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+      return false;
     }
     return true;
   }

@@ -249,18 +249,21 @@ class _InventariosState extends State<Inventarios> {
                     headers: [
                       DataGridHeader(
                         link: 'delete',
+                        sortable: false,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                         displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'edit',
+                        sortable: false,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                         displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'complete',
+                        sortable: false,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                         displayPercentage: 5,
@@ -301,7 +304,8 @@ class _InventariosState extends State<Inventarios> {
                               icon: const Icon(Icons.delete),
                               tooltip: "Excluir",
                               onPressed: () async {
-                                InventariosController().deleteInventario(context, inventario.id!).then((value){
+                                InventariosController inventariosController = InventariosController();
+                                inventariosController.deleteInventario(context, inventario.id!).then((value){
                                   fetchInventarios();
                                   if(value == true)
                                   {
@@ -314,6 +318,25 @@ class _InventariosState extends State<Inventarios> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Inventário Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(inventariosController.error),
                                             ],
                                           ),
                                         );

@@ -33,6 +33,7 @@ class _MateriaisState extends State<Materiais> {
   GrupoMaterial? grupoMaterialSelecionado;
   bool materiaisLoading = false;
   bool gruposAcessoLoading = false;
+  bool loadingSolicitacaoCompra = false;
   GrupoAcesso? permissao;
 
   fetchMateriais() async {
@@ -146,22 +147,25 @@ class _MateriaisState extends State<Materiais> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        permissao != null && permissao?.nome != "Supervisor"
+                        permissao != null && permissao?.nome != "Administrador" && permissao?.nome != "Supervisor"
                         ? const SizedBox.shrink()
                         : Container(
                           padding: const EdgeInsets.all(8),
                           child: ElevatedButton.icon(
                             icon: const Icon(Icons.forward_to_inbox_sharp, color: Colors.blue),
-                            label: const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
+                            label: loadingSolicitacaoCompra 
+                            ? const SizedBox(height: 15,width: 15,child: CircularProgressIndicator(),)
+                            : const Text('Solicitar compra', style: TextStyle(color: Colors.blue),),
                             style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(const Size(170, 50)),
                               backgroundColor: MaterialStateProperty.all(Theme.of(context).cardColor),
                             ),
                             onPressed: () async {
+                              loadingSolicitacaoCompra = true;
                               MateriaisController request = MateriaisController();
                               
                               await request.solicitarCompra(context);
-
+                              loadingSolicitacaoCompra = false;
                               if(request.error != '')
                               {
                                 showDialog(
@@ -267,7 +271,8 @@ class _MateriaisState extends State<Materiais> {
                               icon: const Icon(Icons.delete),
                               tooltip: "Excluir",
                               onPressed: () async {
-                                MateriaisController().deleteMaterial(context, material.id!).then((value){
+                                MateriaisController materiaisController = MateriaisController();
+                                materiaisController.deleteMaterial(context, material.id!).then((value){
                                   fetchMateriais();
                                   if(value == true)
                                   {
@@ -280,6 +285,25 @@ class _MateriaisState extends State<Materiais> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Material Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(materiaisController.error),
                                             ],
                                           ),
                                         );
