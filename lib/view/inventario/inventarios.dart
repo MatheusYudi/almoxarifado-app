@@ -301,7 +301,8 @@ class _InventariosState extends State<Inventarios> {
                               icon: const Icon(Icons.delete),
                               tooltip: "Excluir",
                               onPressed: () async {
-                                InventariosController().deleteInventario(context, inventario.id!).then((value){
+                                InventariosController inventariosController = InventariosController();
+                                inventariosController.deleteInventario(context, inventario.id!).then((value){
                                   fetchInventarios();
                                   if(value == true)
                                   {
@@ -314,6 +315,25 @@ class _InventariosState extends State<Inventarios> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Inventário Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(inventariosController.error),
                                             ],
                                           ),
                                         );

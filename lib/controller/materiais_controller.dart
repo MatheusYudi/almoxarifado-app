@@ -51,8 +51,12 @@ class MateriaisController {
       token: jsonDecode(prefs!.getString('funcionario')?? '')['token'],
     );
 
-    if (response.statusCode != 200) {
-      throw Exception(response.body['error']);
+    if(response.statusCode != 200)
+    {
+      response.body['error'].forEach((requestError){
+        error += requestError['msg'] + "\n";
+      });
+      return false;
     }
     return true;
   }

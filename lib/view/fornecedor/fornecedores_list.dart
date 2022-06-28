@@ -199,7 +199,8 @@ class _FornecedoresState extends State<Fornecedores> {
                               color: Colors.red,
                               icon: const Icon(Icons.delete),
                               onPressed: () async {
-                                FornecedoresController().deleteFornecedor(context, fornecedor.id!).then((value){
+                                FornecedoresController fornecedoresController = FornecedoresController();
+                                fornecedoresController.deleteFornecedor(context, fornecedor.id!).then((value){
                                   fetchFornecedores();
                                   if(value == true)
                                   {
@@ -212,6 +213,25 @@ class _FornecedoresState extends State<Fornecedores> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Fornecedor Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(fornecedoresController.error),
                                             ],
                                           ),
                                         );

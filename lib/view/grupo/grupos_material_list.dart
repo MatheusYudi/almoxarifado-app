@@ -163,7 +163,8 @@ class _GruposState extends State<Grupos> {
                               icon: const Icon(Icons.delete),
                               tooltip: "Excluir",
                               onPressed: () async {
-                                GruposMaterialController().deleteGrupoMaterial(context, grupoMaterial.id!).then((value){
+                                GruposMaterialController grupoMaterialController = GruposMaterialController();
+                                grupoMaterialController.deleteGrupoMaterial(context, grupoMaterial.id!).then((value){
                                   fetchGrupoMaterial();
                                   if(value == true)
                                   {
@@ -176,6 +177,25 @@ class _GruposState extends State<Grupos> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Grupo de material deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(grupoMaterialController.error),
                                             ],
                                           ),
                                         );

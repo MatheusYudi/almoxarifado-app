@@ -267,7 +267,8 @@ class _MateriaisState extends State<Materiais> {
                               icon: const Icon(Icons.delete),
                               tooltip: "Excluir",
                               onPressed: () async {
-                                MateriaisController().deleteMaterial(context, material.id!).then((value){
+                                MateriaisController materiaisController = MateriaisController();
+                                materiaisController.deleteMaterial(context, material.id!).then((value){
                                   fetchMateriais();
                                   if(value == true)
                                   {
@@ -280,6 +281,25 @@ class _MateriaisState extends State<Materiais> {
                                             children: const [
                                               Icon(Icons.cancel_outlined, color: Colors.red,),
                                               Text('Material Deletado')
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  else
+                                  {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context){
+                                        return AlertDialog(
+                                          content: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children:  [
+                                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                                              Text(materiaisController.error),
                                             ],
                                           ),
                                         );

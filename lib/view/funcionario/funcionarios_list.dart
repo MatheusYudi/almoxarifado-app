@@ -243,7 +243,8 @@ class _FuncionariosState extends State<Funcionarios> {
                                 icon: const Icon(Icons.delete),
                                 tooltip: "Excluir",
                                 onPressed: () async {
-                                  FuncionariosController().deleteFuncionario(context, funcionario.id!).then((value){
+                                  FuncionariosController funcionariosController = FuncionariosController();
+                                  funcionariosController.deleteFuncionario(context, funcionario.id!).then((value){
                                     fetchFuncionarios();
                                     if(value == true)
                                     {
@@ -256,6 +257,25 @@ class _FuncionariosState extends State<Funcionarios> {
                                               children: const [
                                                 Icon(Icons.cancel_outlined, color: Colors.red,),
                                                 Text('Funcionário Deletado')
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                    else
+                                    {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return AlertDialog(
+                                            content: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children:  [
+                                                const Icon(Icons.cancel_outlined, color: Colors.red),
+                                                Text(funcionariosController.error),
                                               ],
                                             ),
                                           );
