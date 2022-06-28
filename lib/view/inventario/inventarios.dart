@@ -249,18 +249,21 @@ class _InventariosState extends State<Inventarios> {
                     headers: [
                       DataGridHeader(
                         link: 'delete',
+                        sortable: false,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                         displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'edit',
+                        sortable: false,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                         displayPercentage: 5,
                       ),
                       DataGridHeader(
                         link: 'complete',
+                        sortable: false,
                         alignment: Alignment.centerLeft,
                         enableSearch: false,
                         displayPercentage: 5,
