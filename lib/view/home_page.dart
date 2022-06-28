@@ -89,9 +89,9 @@ class _HomePageViewState extends State<HomePageView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                        padding: const EdgeInsets.all(50),
-                        child: Column(
-                          children: [
+                      padding: const EdgeInsets.all(50),
+                      child: Column(
+                        children: [
                           Text(
                             DateFormat.yMMMd('pt_BR').format(clockTime),
                             style: Theme.of(context)
@@ -354,7 +354,7 @@ class _HomePageViewState extends State<HomePageView> {
                   shrinkWrap: true,
                   itemBuilder: (context, index){
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 50),
                       child: ListTile(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
