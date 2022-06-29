@@ -8,7 +8,7 @@ Flutter SDK: <https://docs.flutter.dev/get-started/install>
 
 Caso o desenvolvimento seja realizado pelo `VS Code`, utilizar a extensão:
 
-Flutter: <https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter>
+<https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter>
 
 ---
 
